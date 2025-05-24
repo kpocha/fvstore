@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CashRegister",
+            "request": "launch",
+            "mainClass": "com.facilvirtual.fvstoresdesk.ui.CashRegister",
+            "projectName": "fvstoresdesk"
+        },
+        {
+            "type": "java",
+            "name": "AdvancedSettings",
+            "request": "launch",
+            "mainClass": "com.facilvirtual.fvstoresdesk.ui.AdvancedSettings",
+            "projectName": "fvstoresdesk"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Login<fvstoresdesk>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.facilvirtual.fvstoresdesk.ui.Login",
+            "projectName": "fvstoresdesk",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
