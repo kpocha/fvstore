@@ -12,6 +12,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 
 public class CashCategoryPrompt extends AbstractFVDialog {
    private Text txtCategoryNumber;
@@ -36,8 +39,14 @@ public class CashCategoryPrompt extends AbstractFVDialog {
       lblIngreseElDescuento.setLayoutData(fd_lblIngreseElDescuento);
       lblIngreseElDescuento.setText("Ingresa el número de departamento");
       this.txtCategoryNumber = new Text(container, 133120);
-     // this.txtCategoryNumber.addKeyListener(new 1(this));
-     //TODO: arreglar 
+      this.txtCategoryNumber.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyPressed(KeyEvent e) {
+            if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR) {
+               processDialog();
+            }
+         }
+      });
       fd_lblIngreseElDescuento.bottom = new FormAttachment(100, -165);
       this.txtCategoryNumber.setFont(SWTResourceManager.getFont("Tahoma", 16, 0));
       FormData fd_txtCategoryNumber = new FormData();

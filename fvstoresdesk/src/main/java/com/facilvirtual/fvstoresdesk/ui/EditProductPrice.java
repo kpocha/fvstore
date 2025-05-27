@@ -1,17 +1,21 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import java.awt.event.FocusEvent;
-
-import com.facilvirtual.fvstoresdesk.model.ProductPrice;
-import com.facilvirtual.fvstoresdesk.model.Vat;
-import com.facilvirtual.fvstoresdesk.util.FVMathUtils;
-
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import com.facilvirtual.fvstoresdesk.model.ProductPrice;
+import com.facilvirtual.fvstoresdesk.model.Vat;
+import com.facilvirtual.fvstoresdesk.util.FVMathUtils;
+
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -45,13 +49,25 @@ public class EditProductPrice extends AbstractFVDialog {
       lblPrecioCosto.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
       lblPrecioCosto.setText("Precio Costo: $");
       this.txtCostPrice = new Text(container, 2048);
-      //this.txtCostPrice.addFocusListener(new 1(this));
+      this.txtCostPrice.addFocusListener(new FocusAdapter() {
+         @Override
+         public void focusLost(FocusEvent e) {
+            calculateSellingPrice();
+         }
+      });
       GridData gd_txtCostPrice = new GridData(16384, 16777216, true, false, 1, 1);
       gd_txtCostPrice.widthHint = 75;
       this.txtCostPrice.setLayoutData(gd_txtCostPrice);
       this.txtCostPrice.setTextLimit(15);
       this.txtCostPrice.setText(this.getProductPrice().getCostPriceToDisplay());
-      //this.txtCostPrice.addKeyListener(new 2(this));
+      this.txtCostPrice.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyPressed(KeyEvent e) {
+            if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR) {
+               calculateSellingPrice();
+            }
+         }
+      });
       Label lblIva = new Label(container, 0);
       lblIva.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
       lblIva.setText("IVA:");
@@ -59,7 +75,12 @@ public class EditProductPrice extends AbstractFVDialog {
       GridData gd_comboVat = new GridData(16384, 16777216, true, false, 1, 1);
       gd_comboVat.widthHint = 61;
       this.comboVat.setLayoutData(gd_comboVat);
-      //this.comboVat.addSelectionListener(new 3(this));
+      this.comboVat.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            calculateSellingPrice();
+         }
+      });
       List<Vat> vats = this.getOrderService().getAllVats();
       int selectedIdx = 0;
 //TODO: arreglar
@@ -86,8 +107,14 @@ public class EditProductPrice extends AbstractFVDialog {
       GridData gd_txtGrossMargin = new GridData(16384, 16777216, true, false, 1, 1);
       gd_txtGrossMargin.widthHint = 75;
       this.txtGrossMargin.setLayoutData(gd_txtGrossMargin);
-      //todo: esto 
-      //this.txtGrossMargin.addKeyListener(new 5(this));
+      this.txtGrossMargin.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyPressed(KeyEvent e) {
+            if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR) {
+               calculateSellingPrice();
+            }
+         }
+      });
       Label lblPrecioVenta = new Label(container, 0);
       lblPrecioVenta.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
       lblPrecioVenta.setText("Precio Venta: $");
@@ -103,8 +130,15 @@ public class EditProductPrice extends AbstractFVDialog {
       this.txtSellingPrice.setLayoutData(gd_txtSellingPrice);
       this.txtSellingPrice.setTextLimit(15);
       this.txtSellingPrice.setText(this.getProductPrice().getSellingPriceToDisplay());
-      //TODO: arreglar esto
-      //this.txtSellingPrice.addKeyListener(new 7(this));
+      this.txtSellingPrice.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyPressed(KeyEvent e) {
+            if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR) {
+               calculateGrossMargin();
+               updateLabelPreview();
+            }
+         }
+      });
       return container;
    }
 

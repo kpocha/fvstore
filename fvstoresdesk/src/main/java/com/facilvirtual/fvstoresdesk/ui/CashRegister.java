@@ -354,7 +354,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
    }
    @Override
    protected Point getInitialSize() {
-      return new Point(1000, 720);
+      org.eclipse.swt.graphics.Rectangle bounds = getShell().getDisplay().getPrimaryMonitor().getBounds();
+      int width = (int)(bounds.width * 0.8);
+      int height = (int)(bounds.height * 0.8);
+      return new Point(width, height);
    }
    @Override
    protected boolean canHandleShellCloseEvent() {
@@ -843,7 +846,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
    }
 
    private void about() {
-      Aboutfacilvirtual dialog = new Aboutfacilvirtual(this.getShell());
+      AboutFacilVirtual dialog = new AboutFacilVirtual(this.getShell());
       dialog.setBlockOnOpen(true);
       dialog.setParentWindow(this);
       dialog.open();
@@ -1090,8 +1093,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.lblTipoComprobante.setFont(SWTResourceManager.getFont("Arial", 10, 1));
       this.lblTipoComprobante.setText("Tipo");
       this.comboReceiptTypes = new Combo(this.composite_1, 8);
-     // this.comboReceiptTypes.addSelectionListener(new 38(this));
-     this.comboReceiptTypes.addSelectionListener(new SelectionAdapter() {
+      this.comboReceiptTypes.addSelectionListener(new SelectionAdapter() {
          public void widgetSelected(SelectionEvent e) {
             updatedReceiptType();
          }
@@ -1218,7 +1220,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnChangeCustomer.setLayoutData(gd_btnChangeCustomer);
       btnChangeCustomer.setFont(SWTResourceManager.getFont("Arial", 10, 0));
       btnChangeCustomer.setText("Cambiar cliente");
-      //btnChangeCustomer.addSelectionListener(new 39(this));
       btnChangeCustomer.addSelectionListener(new SelectionAdapter(){
          @Override
          public void widgetSelected(SelectionEvent e) {
@@ -1308,8 +1309,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       Label lblFullscreen = new Label(this.bottomContainer, 0);
       lblFullscreen.setLocation(0, 100);
       lblFullscreen.setSize(32, 24);
-     // lblFullscreen.addMouseListener(new 40(this));
-     //TODO: arreglar boton fullscreen
+      lblFullscreen.addMouseListener(new MouseAdapter() {
+         @Override
+         public void mouseUp(MouseEvent e) {
+            fullscreen();
+         }
+      });
       lblFullscreen.setImage(imageF1);
       Image imageF2;
       if (!this.isFullScreenMode()) {
@@ -1331,12 +1336,11 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.txtA.setBounds(-1, 0, 24, 24);
       this.txtBarCode = new Text(leftContentTop, 2048);
       this.txtBarCode.setFont(SWTResourceManager.getFont("Arial", 10, 0));
-      //this.txtBarCode.addTraverseListener(new 41(this));
       this.txtBarCode.addTraverseListener(new TraverseListener() {
          @Override
          public void keyTraversed(TraverseEvent e) {
             if (e.detail == SWT.TRAVERSE_RETURN) {
-               CashRegister.this.addProductToOrder(txtBarCode.getText().trim()); // ejemplo de nombre real
+               CashRegister.this.addProductToOrder(txtBarCode.getText().trim());
             }
          }
       });
@@ -1348,14 +1352,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       lblCdigoDeBarras.setBounds(0, 0, 175, 19);
       lblCdigoDeBarras.setText(" Código de barras");
       this.txtQty = new Text(leftContentTop, 133120);
-      // this.txtQty.addFocusListener(new 42(this));7
       this.txtQty.addFocusListener(new FocusAdapter() {
          @Override
          public void focusGained(FocusEvent arg0) {
-            txtQty.selectAll(); // acceso directo si txtQty es el campo
+            txtQty.selectAll();
          }
       });
-      // this.txtQty.addMouseListener(new 43(this));
       this.txtQty.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseDown(MouseEvent e) {
@@ -1369,12 +1371,11 @@ public class CashRegister extends AbstractFVApplicationWindow {
       });
       this.txtQty.setFont(SWTResourceManager.getFont("Arial", 10, 0));
       this.txtQty.setText("1");
-     // this.txtQty.addTraverseListener(new 44(this));
-     this.txtQty.addTraverseListener(new TraverseListener() {
+      this.txtQty.addTraverseListener(new TraverseListener() {
          @Override
          public void keyTraversed(TraverseEvent arg0) {
             if (arg0.detail == SWT.TRAVERSE_RETURN) {
-               txtBarCode.setFocus(); // Asumiendo que access$32 era txtBarCode
+               txtBarCode.setFocus();
             }
          }
       });
@@ -1387,8 +1388,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       lblCantidad.setText(" Cantidad");
       Button btnBuscar = new Button(leftContentTop, 0);
       btnBuscar.setBackground(this.themeBack);
-     // btnBuscar.addSelectionListener(new 45(this));
-     btnBuscar.addSelectionListener(new SelectionAdapter() {
+      btnBuscar.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
             //todo:buscar metodo para que haga lo que tenga q hacer
@@ -1428,11 +1428,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnQuitar.setLayoutData(gd_btnQuitar);
       btnQuitar.setSize(47, 26);
       btnQuitar.setBackground(this.themeBack);
-     // btnQuitar.addSelectionListener(new 46(this));
-     btnQuitar.addSelectionListener(new SelectionAdapter() {
+      btnQuitar.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            //quitarArticulo(); // Asumiendo que access$36(this) es quitarArticulo()
+            //quitarArticulo();
          }
       });
       btnQuitar.setFont(SWTResourceManager.getFont("Arial", 10, 0));
@@ -1444,13 +1443,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDescuento.setLayoutData(gd_btnDescuento);
       btnDescuento.setSize(74, 26);
       btnDescuento.setBackground(this.themeBack);
-     // btnDescuento.addSelectionListener(new 47(this));
-     btnDescuento.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-         CashRegister.this.applyDiscount(); // access$37(this)
-      }
-   });
+      btnDescuento.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            CashRegister.this.applyDiscount();
+         }
+      });
       btnDescuento.setFont(SWTResourceManager.getFont("Arial", 10, 0));
       btnDescuento.setText("Descuento");
       Button btnSurcharge = new Button(composite, 0);
@@ -1459,11 +1457,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
       gd_btnSurcharge.heightHint = 35;
       btnSurcharge.setLayoutData(gd_btnSurcharge);
       btnSurcharge.setSize(60, 26);
-    //  btnSurcharge.addSelectionListener(new 48(this));
       btnSurcharge.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            CashRegister.this.applySurcharge(); // access$38(this)
+            CashRegister.this.applySurcharge();
          }
       });
       btnSurcharge.setFont(SWTResourceManager.getFont("Arial", 10, 0));
@@ -1478,11 +1475,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnCambiarQty.setSize(113, 26);
       btnCambiarQty.setBackground(this.themeBack);
       btnCambiarQty.setFont(SWTResourceManager.getFont("Arial", 10, 0));
-     // btnCambiarQty.addSelectionListener(new 49(this));
-     btnCambiarQty.addSelectionListener(new SelectionAdapter() {
+      btnCambiarQty.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            CashRegister.this.changeQty(); // access$39(this)
+            CashRegister.this.changeQty();
          }
       });
       btnCambiarQty.setText("Cambiar cantidad");
@@ -1493,11 +1489,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnCambiarPrecio.setLayoutData(gd_btnCambiarPrecio);
       btnCambiarPrecio.setSize(99, 26);
       btnCambiarPrecio.setBackground(this.themeBack);
-    //  btnCambiarPrecio.addSelectionListener(new 50(this));
       btnCambiarPrecio.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            changePrice(); // access$40(this)
+            changePrice();
          }
       });
       btnCambiarPrecio.setFont(SWTResourceManager.getFont("Arial", 10, 0));
@@ -1573,7 +1568,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.canvasTotalDisplay.setBounds(0, 0, 322, 114);
       this.btnCobrar = new Label(rightContentTop, 0);
       this.btnCobrar.setBackground(this.themeBack);
-      // this.btnCobrar.addMouseListener(new 51(this));
       this.btnCobrar.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseDown(MouseEvent e) {
@@ -1584,12 +1578,9 @@ public class CashRegister extends AbstractFVApplicationWindow {
          public void mouseUp(MouseEvent e) {
              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_over.gif");
              btnCobrar.setImage(image);
-             CashRegister.this.newSale(); // Equivalente a access$42(this)
-             //TODO: Encontrar el metodo correcto
+             CashRegister.this.newSale();
          }
      });
-      // this.btnCobrar.addMouseListener(new 52(this));
-      // this.btnCobrar.addMouseTrackListener(new 53(this));
       this.btnCobrar.addMouseTrackListener(new MouseTrackAdapter() {
          @Override
          public void mouseEnter(MouseEvent e) {
@@ -1608,7 +1599,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.btnCobrar.setBounds(0, 113, 322, 55);
       this.btnNuevaVenta = new Label(rightContentTop, 0);
       this.btnNuevaVenta.setBackground(this.themeBack);
-      // this.btnNuevaVenta.addMouseListener(new 54(this));
       this.btnNuevaVenta.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseDown(MouseEvent e) {
@@ -1619,11 +1609,9 @@ public class CashRegister extends AbstractFVApplicationWindow {
          public void mouseUp(MouseEvent e) {
              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale_over.gif");
              btnNuevaVenta.setImage(image);
-             newSale(); // Equivalente a access$44(this)
+             newSale();
          }
      });
-      // this.btnNuevaVenta.addMouseListener(new 55(this));
-      // this.btnNuevaVenta.addMouseTrackListener(new 56(this));
       this.btnNuevaVenta.addMouseTrackListener(new MouseTrackAdapter() {
          @Override
          public void mouseEnter(MouseEvent e) {
@@ -1642,9 +1630,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.btnNuevaVenta.setBounds(0, 174, 153, 45);
       this.btnCheckPrice = new Label(rightContentTop, 0);
       this.btnCheckPrice.setBackground(this.themeBack);
-      // this.btnCheckPrice.addMouseListener(new 57(this));
-      // this.btnCheckPrice.addMouseListener(new 58(this));
-      // this.btnCheckPrice.addMouseTrackListener(new 59(this));
       Image image3 = new Image(Display.getCurrent(), this.getImagesDir() + "btn_check_price.gif");
       this.btnCheckPrice.setImage(image3);
       this.btnCheckPrice.setFont(SWTResourceManager.getFont("Arial", 11, 0));
@@ -1656,7 +1641,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept1.setText(" Departamento 01");
       if (this.getWorkstationConfig().getCashDept1() != null) {
          btnDept1.setText(" 01-" + this.getWorkstationConfig().getCashDept1().getName());
-         //btnDept1.addSelectionListener(new 60(this));
       }
 
       Button btnDept2 = new Button(rightContentTop, 0);
@@ -1666,7 +1650,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept2.setText(" Departamento 02");
       if (this.getWorkstationConfig().getCashDept2() != null) {
          btnDept2.setText(" 02-" + this.getWorkstationConfig().getCashDept2().getName());
-         //btnDept2.addSelectionListener(new 61(this));
       }
 
       Button btnDept3 = new Button(rightContentTop, 0);
@@ -1676,7 +1659,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept3.setText(" Departamento 03");
       if (this.getWorkstationConfig().getCashDept3() != null) {
          btnDept3.setText(" 03-" + this.getWorkstationConfig().getCashDept3().getName());
-         //btnDept3.addSelectionListener(new 62(this));
       }
 
       Button btnDept4 = new Button(rightContentTop, 0);
@@ -1686,7 +1668,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept4.setText(" Departamento 04");
       if (this.getWorkstationConfig().getCashDept4() != null) {
          btnDept4.setText(" 04-" + this.getWorkstationConfig().getCashDept4().getName());
-         //btnDept4.addSelectionListener(new 63(this));
       }
 
       Button btnDept5 = new Button(rightContentTop, 0);
@@ -1696,7 +1677,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept5.setText(" Departamento 05");
       if (this.getWorkstationConfig().getCashDept5() != null) {
          btnDept5.setText(" 05-" + this.getWorkstationConfig().getCashDept5().getName());
-        // btnDept5.addSelectionListener(new 64(this));
       }
 
       Button btnDept6 = new Button(rightContentTop, 0);
@@ -1706,7 +1686,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept6.setText(" Departamento 06");
       if (this.getWorkstationConfig().getCashDept6() != null) {
          btnDept6.setText(" 06-" + this.getWorkstationConfig().getCashDept6().getName());
-         //btnDept6.addSelectionListener(new 65(this));
       }
 
       Button btnDept7 = new Button(rightContentTop, 0);
@@ -1716,7 +1695,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept7.setText(" Departamento 07");
       if (this.getWorkstationConfig().getCashDept7() != null) {
          btnDept7.setText(" 07-" + this.getWorkstationConfig().getCashDept7().getName());
-         //btnDept7.addSelectionListener(new 66(this));
       }
 
       Button btnDept8 = new Button(rightContentTop, 0);
@@ -1731,7 +1709,6 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.lblFSeleccionar.setText("F8 - SELECCIONAR DEPARTAMENTO");
       if (this.getWorkstationConfig().getCashDept8() != null) {
          btnDept8.setText(" 08-" + this.getWorkstationConfig().getCashDept8().getName());
-        // btnDept8.addSelectionListener(new 67(this));
       }
 
       Composite rightContentBottom = new Composite(this.rightContainer, 0);
@@ -2343,61 +2320,57 @@ public class CashRegister extends AbstractFVApplicationWindow {
    protected void configureShell(Shell shell) {
       super.configureShell(shell);
       this.initWindowTitle(shell, this.getWorkstationConfig());
-      // shell.addListener(21, new 68(this));
       shell.addListener(SWT.Activate, new Listener() {
          @Override
          public void handleEvent(Event event) {
-            // CashRegister.this. // o el método real que reemplaza a access$48
+            if (isOpenSession()) {
+                txtBarCode.setFocus();
+            }
          }
      });
       shell.setMaximized(true);
-      // shell.addListener(11, new 69(this));
       shell.addListener(SWT.Close, new Listener() {
          @Override
          public void handleEvent(Event e) {
              try {
-               CashRegister.this.setFullScreenMode(true);
-                // access$50(); // o el método real que reemplaza a access$50
+                CashRegister.this.setFullScreenMode(true);
+                if (isOpenSession()) {
+                    saveCurrentOrderInfo();
+                }
              } catch (Exception ex) {
-                 // Podés loguear el error si es necesario
+                 logger.error("Error al cerrar la ventana", ex);
              }
          }
      });
    }
 
-    private void configureHotkeys(Composite parent) {
-   //    // this.getShell().getDisplay().addFilter(1, new 70(this));
-   //    // this.getShell().getDisplay().addFilter(1, new 71(this));
-   //    // this.getShell().getDisplay().addFilter(1, new 72(this));
-   //    // this.getShell().getDisplay().addFilter(1, new 73(this));
-   // }
-   // private void configureHotkeys(Composite parent) {
-   //    this.getShell().getDisplay().addFilter(1, new Listener() {
-   //        @Override
-   //        public void handleEvent(Event e) {
-   //            if (e.keyCode == 16777229 && CashRegister.this.access$51() && CashRegister.this.isHotkeysEnabled()) {
-   //                CashRegister.this.access$44();
-   //            }
-   //        }
-   //    });
-  
-   //    this.getShell().getDisplay().addFilter(1, new Listener() {
-   //        @Override
-   //        public void handleEvent(Event e) {
-   //            if (e.keyCode == 16777230 && CashRegister.this.access$51() && CashRegister.this.isHotkeysEnabled()) {
-   //                CashRegister.this.access$46();
-   //            }
-   //        }
-   //    });
-  
-   //    this.getShell().getDisplay().addFilter(1, new Listener() {
-   //        @Override
-   //        public void handleEvent(Event e) {
-   //            if (e.keyCode == 16777233 && CashRegister.this.access$51() && CashRegister.this.isHotkeysEnabled()) {
-   //                CashRegister.this.access$52();
-   //            }
-   //        }
-   //    });
+   private void configureHotkeys(Composite parent) {
+      this.getShell().getDisplay().addFilter(SWT.KeyDown, new Listener() {
+          @Override
+          public void handleEvent(Event e) {
+              if (e.keyCode == SWT.F5 && isOpenSession() && isHotkeysEnabled()) {
+                  newSale();
+              }
+          }
+      });
+
+      this.getShell().getDisplay().addFilter(SWT.KeyDown, new Listener() {
+          @Override
+          public void handleEvent(Event e) {
+              if (e.keyCode == SWT.F6 && isOpenSession() && isHotkeysEnabled()) {
+                  checkout();
+              }
+          }
+      });
+
+      this.getShell().getDisplay().addFilter(SWT.KeyDown, new Listener() {
+          @Override
+          public void handleEvent(Event e) {
+              if (e.keyCode == SWT.F9 && isOpenSession() && isHotkeysEnabled()) {
+                  checkPrice();
+              }
+          }
+      });
   }
 
    private boolean isOpenSession() {
@@ -2452,7 +2425,9 @@ public class CashRegister extends AbstractFVApplicationWindow {
       Action adminProductsAction = new Action("&Administrador de artículos"){
          @Override
          public void run(){
-            CashRegister.this.productCategoriesManager();
+            ProductManager dialog = new ProductManager(CashRegister.this.getShell());
+            dialog.setBlockOnOpen(true);
+            dialog.open();
          }
       };
       this.menuManagerProducts = new MenuManager("Artículos");

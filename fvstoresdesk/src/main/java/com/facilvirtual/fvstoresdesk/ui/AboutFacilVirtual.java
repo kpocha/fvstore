@@ -1,7 +1,6 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -17,12 +16,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.facilvirtual.fvstoresdesk.model.AppConfig;
 import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
 
-public class Aboutfacilvirtual extends AbstractFVDialog {
-   protected static Logger logger = LoggerFactory.getLogger("Aboutfacilvirtual");
+public class AboutFacilVirtual extends AbstractFVDialog {
+   protected static Logger logger = LoggerFactory.getLogger("AboutFacilVirtual");
    private String action = "";
    private AbstractFVApplicationWindow parentWindow;
    private Text txtLicenseNumber;
@@ -31,7 +32,7 @@ public class Aboutfacilvirtual extends AbstractFVDialog {
    private Text txtVersion;
    private Text txtAppModel;
 
-   public Aboutfacilvirtual(Shell parentShell) {
+   public AboutFacilVirtual(Shell parentShell) {
       super(parentShell);
    }
    @Override 

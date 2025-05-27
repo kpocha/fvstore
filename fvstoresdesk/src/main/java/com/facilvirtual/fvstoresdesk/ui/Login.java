@@ -310,9 +310,8 @@ public class Login extends AbstractFVApplicationWindow {
       dialog.setBlockOnOpen(true);
       dialog.open();
    }
-
    private void about() {
-      Aboutfacilvirtual dialog = new Aboutfacilvirtual(this.getShell());
+      AboutFacilVirtual dialog = new AboutFacilVirtual(this.getShell());
       dialog.setBlockOnOpen(true);
       dialog.setParentWindow(this);
       dialog.open();

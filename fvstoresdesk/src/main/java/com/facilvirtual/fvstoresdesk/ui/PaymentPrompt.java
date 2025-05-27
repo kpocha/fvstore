@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
@@ -162,13 +164,22 @@ public class PaymentPrompt extends AbstractFVDialog {
       Label label = new Label(container, 258);
       label.setBounds(0, 461, 625, 2);
       Button btnAceptar = new Button(container, 0);
-      //TODO: arreglar
-      //btnAceptar.addSelectionListener(new 25(this));
+      btnAceptar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            processPayment();
+         }
+      });
       btnAceptar.setText("Confirmar");
       btnAceptar.setFont(SWTResourceManager.getFont("Arial", 14, 0));
       btnAceptar.setBounds(197, 475, 121, 40);
       Button btnCancelar = new Button(container, 0);
-      //btnCancelar.addSelectionListener(new 26(this));
+      btnCancelar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            close();
+         }
+      });
       btnCancelar.setText("Cancelar");
       btnCancelar.setFont(SWTResourceManager.getFont("Arial", 12, 0));
       btnCancelar.setBounds(324, 475, 121, 40);
@@ -237,27 +248,52 @@ public class PaymentPrompt extends AbstractFVDialog {
       this.txtToPay.setBackground(SWTResourceManager.getColor(2));
       this.txtToPay.setBounds(10, 32, 221, 35);
       Button button = new Button(container, 0);
-      //button.addSelectionListener(new 27(this));
+      button.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            amountKeyPressed("50,00");
+         }
+      });
       button.setText("50");
       button.setFont(SWTResourceManager.getFont("Arial", 12, 0));
       button.setBounds(10, 410, 120, 35);
       Button button_1 = new Button(container, 0);
-      //button_1.addSelectionListener(new 28(this));
+      button_1.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            amountKeyPressed("100,00");
+         }
+      });
       button_1.setText("100");
       button_1.setFont(SWTResourceManager.getFont("Arial", 12, 0));
       button_1.setBounds(136, 410, 120, 35);
       Button button_2 = new Button(container, 0);
-      //button_2.addSelectionListener(new 29(this));
+      button_2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            amountKeyPressed("200,00");
+         }
+      });
       button_2.setText("200");
       button_2.setFont(SWTResourceManager.getFont("Arial", 12, 0));
       button_2.setBounds(262, 410, 120, 35);
       Button button_3 = new Button(container, 0);
-      //button_3.addSelectionListener(new 30(this));
+      button_3.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            amountKeyPressed("500,00");
+         }
+      });
       button_3.setText("500");
       button_3.setFont(SWTResourceManager.getFont("Arial", 12, 0));
       button_3.setBounds(388, 410, 120, 35);
       Button button_4 = new Button(container, 0);
-      //button_4.addSelectionListener(new 31(this));
+      button_4.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            amountKeyPressed("1000,00");
+         }
+      });
       button_4.setText("1000");
       button_4.setFont(SWTResourceManager.getFont("Arial", 12, 0));
       button_4.setBounds(514, 410, 120, 35);
