@@ -1,14 +1,14 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.Employee;
-import com.facilvirtual.fvstoresdesk.model.Order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -24,6 +24,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Employee;
+import com.facilvirtual.fvstoresdesk.model.Order;
 
 public class SalesManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("SalesManager");
@@ -166,23 +171,41 @@ public class SalesManager extends AbstractFVApplicationWindow {
       this.txtCheckTotal.setText("$ " + this.getOrderService().getNetCheckTotalToDisplayForOrders(this.getOrders()));
       this.txtTicketsTotal.setText("$ " + this.getOrderService().getNetTicketsTotalToDisplayForOrders(this.getOrders()));
    }
-//TODO: Arreglar
+
    private void createHeaderContent() {
       Button btnNewSale = new Button(this.headerContainer, 0);
-      //btnNewSale.addSelectionListener(new 1(this));
+      btnNewSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            close();
+         }
+      });
       btnNewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnNewSale.setText("Nueva venta");
       btnNewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_add.gif"));
+
       Button btnViewSale = new Button(this.headerContainer, 0);
-      //btnViewSale.addSelectionListener(new 2(this));
+      btnViewSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            viewOrderDetails();
+         }
+      });
       btnViewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnViewSale.setText("Ver detalle");
       btnViewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_view_detail.gif"));
+
       Button btnCancelSale = new Button(this.headerContainer, 0);
-      //btnCancelSale.addSelectionListener(new 3(this));
+      btnCancelSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            cancelOrder();
+         }
+      });
       btnCancelSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnCancelSale.setText("Anular");
       btnCancelSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_delete.gif"));
+
       Label lblNewLabel = new Label(this.headerContainer, 0);
       GridData gd_lblNewLabel = new GridData(16384, 16777216, false, false, 1, 1);
       gd_lblNewLabel.widthHint = 7;
@@ -199,7 +222,12 @@ public class SalesManager extends AbstractFVApplicationWindow {
       this.endDatepicker = new DateTime(this.headerContainer, 2048);
       this.endDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       Button btnSearch = new Button(this.headerContainer, 0);
-      //btnSearch.addSelectionListener(new 4(this));
+      btnSearch.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchOrders();
+         }
+      });
       btnSearch.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnSearch.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
       Label lblSep1 = new Label(this.headerContainer, 0);
@@ -209,7 +237,12 @@ public class SalesManager extends AbstractFVApplicationWindow {
       Button btnActualizar = new Button(this.headerContainer, 0);
       btnActualizar.setLayoutData(new GridData(16384, 4, false, false, 1, 1));
       btnActualizar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_update.gif"));
-      //btnActualizar.addSelectionListener(new 5(this));
+      btnActualizar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchOrders();
+         }
+      });
       Label lblSep2 = new Label(this.headerContainer, 0);
       GridData gd_lblSep2 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_lblSep2.widthHint = 7;
@@ -218,13 +251,24 @@ public class SalesManager extends AbstractFVApplicationWindow {
       btnImprimir.setLayoutData(new GridData(16384, 4, false, false, 1, 1));
       btnImprimir.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_print.gif"));
       btnImprimir.setText("Imprimir");
-      //btnImprimir.addSelectionListener(new 6(this));
+      btnImprimir.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            printOrder();
+         }
+      });
       Label lblSep3 = new Label(this.headerContainer, 0);
       GridData gd_lblSep3 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_lblSep3.widthHint = 7;
       lblSep3.setLayoutData(gd_lblSep3);
       Button btnFacturaElectrnica = new Button(this.headerContainer, 0);
-      //btnFacturaElectrnica.addSelectionListener(new 7(this));
+      btnFacturaElectrnica.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            openFacturaElectronicaDialog();
+            searchOrders();
+         }
+      });
       btnFacturaElectrnica.setLayoutData(new GridData(16384, 4, false, false, 1, 1));
       btnFacturaElectrnica.setText("Factura Electrónica");
       btnFacturaElectrnica.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_comprobante_e.gif"));
@@ -334,8 +378,6 @@ public class SalesManager extends AbstractFVApplicationWindow {
 
    private void initTable() {
       try {
-        // int colIdx = false;
-
          int colIdx;
          for(Iterator var3 = this.getOrders().iterator(); var3.hasNext(); ++colIdx) {
             Order order = (Order)var3.next();

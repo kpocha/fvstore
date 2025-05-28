@@ -1,3 +1,4 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
 package com.facilvirtual.fvstoresdesk.ui;
 
 import com.facilvirtual.fvstoresdesk.model.PriceList;
@@ -17,12 +18,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.jface.dialogs.IDialogConstants;
+import org.slf4j.LoggerFactory;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -45,9 +43,13 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.springframework.util.StringUtils;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 
 public class AddNewProduct extends AbstractFVDialog {
-   private static Logger logger = LoggerFactory.getLogger("AddNewProduct");
+   private static final Logger logger = LoggerFactory.getLogger(AddNewProduct.class);
    protected Text txtBarCode;
    protected Text txtDescription;
    protected Text txtCostPrice;
@@ -137,17 +139,23 @@ public class AddNewProduct extends AbstractFVDialog {
       super(parentShell);
    }
 
-   @Override protected void configureShell(Shell newShell) {
+   protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Nuevo artículo");
    }
-
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
+      
+      // Hacer el container principal expandible
+      GridData containerData = new GridData(GridData.FILL_BOTH);
+      container.setLayoutData(containerData);
+      
       this.initDescriptionDisplay(container);
       TabFolder tabFolderContainer = new TabFolder(container, 0);
-      GridData gd_tabFolderContainer = new GridData(16384, 16777216, false, false, 1, 1);
-      gd_tabFolderContainer.widthHint = 670;
+      
+      // Hacer que el TabFolder ocupe todo el espacio disponible
+      GridData gd_tabFolderContainer = new GridData(GridData.FILL_BOTH);
       gd_tabFolderContainer.verticalIndent = 5;
       tabFolderContainer.setLayoutData(gd_tabFolderContainer);
       TabItem tabItem = new TabItem(tabFolderContainer, 0);
@@ -172,9 +180,9 @@ public class AddNewProduct extends AbstractFVDialog {
       gl_composite_5.horizontalSpacing = 10;
       this.composite_5.setLayout(gl_composite_5);
       this.lblFoto = new CLabel(this.composite_5, 2048);
-      GridData gd_lblFoto = new GridData(16384, 16777216, false, false, 1, 1);
-      gd_lblFoto.heightHint = 221;
-      gd_lblFoto.widthHint = 221;
+      GridData gd_lblFoto = new GridData(GridData.FILL_BOTH);
+      gd_lblFoto.minimumHeight = 200;
+      gd_lblFoto.minimumWidth = 200;
       this.lblFoto.setLayoutData(gd_lblFoto);
       this.lblFoto.setBackground(SWTResourceManager.getColor(1));
       this.lblFoto.setText("");
@@ -214,7 +222,9 @@ public class AddNewProduct extends AbstractFVDialog {
       this.tablePrices = new Table(this.composite_1, 67584);
       this.tablePrices.setLinesVisible(true);
       this.tablePrices.setHeaderVisible(true);
-      this.tablePrices.setLayoutData(new GridData(4, 4, true, true, 1, 1));
+      GridData gd_tablePrices = new GridData(GridData.FILL_BOTH);
+      gd_tablePrices.minimumHeight = 150;
+      this.tablePrices.setLayoutData(gd_tablePrices);
       this.tblclmnLista = new TableColumn(this.tablePrices, 0);
       this.tblclmnLista.setWidth(178);
       this.tblclmnLista.setText("Lista");
@@ -236,15 +246,12 @@ public class AddNewProduct extends AbstractFVDialog {
       this.composite_2 = new Composite(this.composite_1, 0);
       this.composite_2.setLayout(new GridLayout(1, false));
       this.btnModificar = new Button(this.composite_2, 0);
-
       this.btnModificar.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            saveNewProduct();
+            editProductPrice();
          }
       });
-      
-
       GridData gd_btnModificar = new GridData(16384, 16777216, false, false, 1, 1);
       gd_btnModificar.widthHint = 90;
       this.btnModificar.setLayoutData(gd_btnModificar);
@@ -350,7 +357,7 @@ public class AddNewProduct extends AbstractFVDialog {
          Image origImage;
          Image scaledImage;
          if (this.getProduct() != null && this.getProduct().havePhoto()) {
-            baseOut = "C://facilvirtual//photos//";
+            baseOut = "C://FacilVirtual//photos//";
             filenameOut = this.getProduct().getPhoto();
             fileOut = baseOut + filenameOut;
             origImage = new Image(Display.getCurrent(), fileOut);
@@ -358,7 +365,7 @@ public class AddNewProduct extends AbstractFVDialog {
             this.lblFoto.setMargins(FVImageUtils.calculateLeftMargin(scaledImage, 221), FVImageUtils.calculateTopMargin(scaledImage, 221), 0, 0);
             this.lblFoto.setImage(scaledImage);
          } else {
-            baseOut = "C://facilvirtual//images//";
+            baseOut = "C://FacilVirtual//images//";
             filenameOut = "imageNotAvailable220x220.jpg";
             fileOut = baseOut + filenameOut;
             origImage = new Image(Display.getCurrent(), fileOut);
@@ -367,9 +374,7 @@ public class AddNewProduct extends AbstractFVDialog {
             this.lblFoto.setImage(scaledImage);
          }
       } catch (Exception var6) {
-         logger.error("Error inicializando foto");
-         logger.error(var6.getMessage());
-         //logger.error(var6);
+         logger.error("Error inicializando foto", var6);
       }
 
    }
@@ -396,6 +401,7 @@ public class AddNewProduct extends AbstractFVDialog {
                tableItem.setText(6, String.valueOf(""));
             }
          } catch (Exception var5) {
+            logger.error("Error", var5);
          }
       }
 
@@ -437,7 +443,7 @@ public class AddNewProduct extends AbstractFVDialog {
                }
             }
          } catch (Exception var15) {
-            logger.error("Error");
+            logger.error("Error", var15);
             logger.error(var15.getMessage());
             logger.error(var15.toString());
          }
@@ -476,34 +482,28 @@ public class AddNewProduct extends AbstractFVDialog {
       gd_txtSupplierPrice1.widthHint = 50;
       this.txtSupplierPrice1.setLayoutData(gd_txtSupplierPrice1);
       this.txtSupplierPrice1.setText(this.supplierForProduct1.getCostPriceToDisplay());
-
       this.txtSupplierPrice1.addKeyListener(new KeyAdapter() {
          @Override
          public void keyReleased(KeyEvent e) {
             try {
-               supplierForProduct1.setCostPrice(
-                  Double.valueOf(txtSupplierPrice1.getText().trim().replaceAll(",", "."))
-               );
+               supplierForProduct1.setCostPrice(Double.valueOf(txtSupplierPrice1.getText().trim().replaceAll(",", ".")));
             } catch (Exception ex) {
                supplierForProduct1.setCostPrice(0.0);
             }
          }
-      });      
+      });
       this.txtSupplierLastUpdated1 = new Text(this.tabSuppliersContainer, 2056);
-
       GridData gd_txtSupplierLastUpdated1 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_txtSupplierLastUpdated1.widthHint = 90;
       this.txtSupplierLastUpdated1.setLayoutData(gd_txtSupplierLastUpdated1);
       this.txtSupplierLastUpdated1.setText(this.supplierForProduct1.getLastUpdatedDateToDisplay());
       Button btnSetDefaultSupplier1 = new Button(this.tabSuppliersContainer, 0);
-
       btnSetDefaultSupplier1.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
             setSupplierAsDefault(1);
          }
       });
-
       btnSetDefaultSupplier1.setText("Establecer como predeterminado");
       if (this.supplierForProduct1.isDefaultSupplier()) {
          btnSetDefaultSupplier1.dispose();
@@ -512,14 +512,20 @@ public class AddNewProduct extends AbstractFVDialog {
       }
 
       Button btnChangeSupplier = new Button(this.tabSuppliersContainer, 0);
-
-     // btnChangeSupplier.addSelectionListener(new 6(this));
-
+      btnChangeSupplier.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            changeSupplierForProduct(1);
+         }
+      });
       btnChangeSupplier.setText("Cambiar");
       this.btnQuitar = new Button(this.tabSuppliersContainer, 0);
-
-     // this.btnQuitar.addSelectionListener(new 7(this));
-
+      this.btnQuitar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            removeSupplierForProduct(1);
+         }
+      });
       this.btnQuitar.setText("Quitar");
       this.txtSupplierNumber2 = new Text(this.tabSuppliersContainer, 2056);
       this.txtSupplierNumber2.setText("2");
@@ -539,14 +545,28 @@ public class AddNewProduct extends AbstractFVDialog {
       gd_txtSupplierPrice2.widthHint = 50;
       this.txtSupplierPrice2.setLayoutData(gd_txtSupplierPrice2);
       this.txtSupplierPrice2.setText(this.supplierForProduct2.getCostPriceToDisplay());
-    //  this.txtSupplierPrice2.addKeyListener(new 8(this));
+      this.txtSupplierPrice2.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            try {
+               supplierForProduct2.setCostPrice(Double.valueOf(txtSupplierPrice2.getText().trim().replaceAll(",", ".")));
+            } catch (Exception ex) {
+               supplierForProduct2.setCostPrice(0.0);
+            }
+         }
+      });
       this.txtSupplierLastUpdated2 = new Text(this.tabSuppliersContainer, 2056);
       GridData gd_txtSupplierLastUpdated2 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_txtSupplierLastUpdated2.widthHint = 90;
       this.txtSupplierLastUpdated2.setLayoutData(gd_txtSupplierLastUpdated2);
       this.txtSupplierLastUpdated2.setText(this.supplierForProduct2.getLastUpdatedDateToDisplay());
       Button btnSetDefaultSupplier2 = new Button(this.tabSuppliersContainer, 0);
-      //btnSetDefaultSupplier2.addSelectionListener(new 9(this));
+      btnSetDefaultSupplier2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            setSupplierAsDefault(2);
+         }
+      });
       btnSetDefaultSupplier2.setText("Establecer como predeterminado");
       if (this.supplierForProduct2.isDefaultSupplier()) {
          btnSetDefaultSupplier2.dispose();
@@ -555,10 +575,20 @@ public class AddNewProduct extends AbstractFVDialog {
       }
 
       Button btnChangeSupplier2 = new Button(this.tabSuppliersContainer, 0);
-      //btnChangeSupplier2.addSelectionListener(new 10(this));
+      btnChangeSupplier2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            changeSupplierForProduct(2);
+         }
+      });
       btnChangeSupplier2.setText("Cambiar");
       this.btnQuitar_1 = new Button(this.tabSuppliersContainer, 0);
-     // this.btnQuitar_1.addSelectionListener(new 11(this));
+      this.btnQuitar_1.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            removeSupplierForProduct(2);
+         }
+      });
       this.btnQuitar_1.setText("Quitar");
       this.txtSupplierNumber3 = new Text(this.tabSuppliersContainer, 2056);
       this.txtSupplierNumber3.setText("3");
@@ -578,14 +608,28 @@ public class AddNewProduct extends AbstractFVDialog {
       gd_txtSupplierPrice3.widthHint = 50;
       this.txtSupplierPrice3.setLayoutData(gd_txtSupplierPrice3);
       this.txtSupplierPrice3.setText(this.supplierForProduct3.getCostPriceToDisplay());
-     // this.txtSupplierPrice3.addKeyListener(new 12(this));
+      this.txtSupplierPrice3.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            try {
+               supplierForProduct3.setCostPrice(Double.valueOf(txtSupplierPrice3.getText().trim().replaceAll(",", ".")));
+            } catch (Exception ex) {
+               supplierForProduct3.setCostPrice(0.0);
+            }
+         }
+      });
       this.txtSupplierLastUpdated3 = new Text(this.tabSuppliersContainer, 2056);
       GridData gd_txtSupplierLastUpdated3 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_txtSupplierLastUpdated3.widthHint = 90;
       this.txtSupplierLastUpdated3.setLayoutData(gd_txtSupplierLastUpdated3);
       this.txtSupplierLastUpdated3.setText(this.supplierForProduct3.getLastUpdatedDateToDisplay());
       Button btnSetDefaultSupplier3 = new Button(this.tabSuppliersContainer, 0);
-      //btnSetDefaultSupplier3.addSelectionListener(new 13(this));
+      btnSetDefaultSupplier3.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            setSupplierAsDefault(3);
+         }
+      });
       btnSetDefaultSupplier3.setText("Establecer como predeterminado");
       if (this.supplierForProduct3.isDefaultSupplier()) {
          btnSetDefaultSupplier3.dispose();
@@ -594,10 +638,20 @@ public class AddNewProduct extends AbstractFVDialog {
       }
 
       Button btnChangeSupplier3 = new Button(this.tabSuppliersContainer, 0);
-      //btnChangeSupplier3.addSelectionListener(new 14(this));
+      btnChangeSupplier3.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            changeSupplierForProduct(3);
+         }
+      });
       btnChangeSupplier3.setText("Cambiar");
       this.btnQuitar_2 = new Button(this.tabSuppliersContainer, 0);
-      //this.btnQuitar_2.addSelectionListener(new 15(this));
+      this.btnQuitar_2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            removeSupplierForProduct(3);
+         }
+      });
       this.btnQuitar_2.setText("Quitar");
       this.txtSupplierNumber4 = new Text(this.tabSuppliersContainer, 2056);
       this.txtSupplierNumber4.setText("4");
@@ -617,14 +671,28 @@ public class AddNewProduct extends AbstractFVDialog {
       gd_txtSupplierPrice4.widthHint = 50;
       this.txtSupplierPrice4.setLayoutData(gd_txtSupplierPrice4);
       this.txtSupplierPrice4.setText(this.supplierForProduct4.getCostPriceToDisplay());
-      //this.txtSupplierPrice4.addKeyListener(new 16(this));
+      this.txtSupplierPrice4.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            try {
+               supplierForProduct4.setCostPrice(Double.valueOf(txtSupplierPrice4.getText().trim().replaceAll(",", ".")));
+            } catch (Exception ex) {
+               supplierForProduct4.setCostPrice(0.0);
+            }
+         }
+      });
       this.txtSupplierLastUpdated4 = new Text(this.tabSuppliersContainer, 2056);
       GridData gd_txtSupplierLastUpdated4 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_txtSupplierLastUpdated4.widthHint = 90;
       this.txtSupplierLastUpdated4.setLayoutData(gd_txtSupplierLastUpdated4);
       this.txtSupplierLastUpdated4.setText(this.supplierForProduct4.getLastUpdatedDateToDisplay());
       Button btnSetDefaultSupplier4 = new Button(this.tabSuppliersContainer, 0);
-      //btnSetDefaultSupplier4.addSelectionListener(new 17(this));
+      btnSetDefaultSupplier4.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            setSupplierAsDefault(4);
+         }
+      });
       btnSetDefaultSupplier4.setText("Establecer como predeterminado");
       if (this.supplierForProduct4.isDefaultSupplier()) {
          btnSetDefaultSupplier4.dispose();
@@ -633,10 +701,20 @@ public class AddNewProduct extends AbstractFVDialog {
       }
 
       Button btnChangeSupplier4 = new Button(this.tabSuppliersContainer, 0);
-      //btnChangeSupplier4.addSelectionListener(new 18(this));
+      btnChangeSupplier4.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            changeSupplierForProduct(4);
+         }
+      });
       btnChangeSupplier4.setText("Cambiar");
       this.btnQuitar_3 = new Button(this.tabSuppliersContainer, 0);
-      //this.btnQuitar_3.addSelectionListener(new 19(this));
+      this.btnQuitar_3.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            removeSupplierForProduct(4);
+         }
+      });
       this.btnQuitar_3.setText("Quitar");
       this.tabSuppliersContainer.layout();
    }
@@ -779,10 +857,20 @@ public class AddNewProduct extends AbstractFVDialog {
       GridData gd_txtDescription = new GridData(4, 16777216, true, false, 1, 1);
       gd_txtDescription.widthHint = 509;
       this.txtDescription.setLayoutData(gd_txtDescription);
-    //  this.txtDescription.addKeyListener(new 20(this));
+      this.txtDescription.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            updateLabelPreview();
+         }
+      });
       this.txtDescription.setTextLimit(150);
       this.txtDescription.setFont(SWTResourceManager.getFont("Tahoma", 8, 0));
-      //this.txtBarCode.addKeyListener(new 21(this));
+      this.txtBarCode.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            updateLabelPreview();
+         }
+      });
    }
 
    private void createTab1Contents(Composite container) {
@@ -804,10 +892,20 @@ public class AddNewProduct extends AbstractFVDialog {
       this.comboUnits.add("UN");
       this.comboUnits.add("KG");
       this.comboUnits.select(0);
-    //  this.comboUnits.addSelectionListener(new 22(this));
+      this.comboUnits.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            updateStockTab();
+         }
+      });
       new Label(container, 0);
       this.btnInOffer = new Button(container, 32);
-    //  this.btnInOffer.addSelectionListener(new 23(this));
+      this.btnInOffer.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            updateLabelPreview();
+         }
+      });
       this.btnInOffer.setFont(SWTResourceManager.getFont("Tahoma", 8, 0));
       this.btnInOffer.setText("En Oferta");
       Label lblRubro = new Label(container, 0);
@@ -869,7 +967,12 @@ public class AddNewProduct extends AbstractFVDialog {
       lblShortDescription.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
       lblShortDescription.setText("Descripción breve:");
       this.txtShortDescription = new Text(cTop, 2048);
-     // this.txtShortDescription.addKeyListener(new 24(this));
+      this.txtShortDescription.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            updateLabelPreview();
+         }
+      });
       this.txtShortDescription.setTextLimit(24);
       this.txtShortDescription.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       GridData gd_txtShortDescription = new GridData(16384, 16777216, true, false, 1, 1);
@@ -886,7 +989,12 @@ public class AddNewProduct extends AbstractFVDialog {
       lblCantidad.setLayoutData(gd_lblCantidad);
       lblCantidad.setText("Cantidad:");
       this.txtQuantity = new Text(cBottom, 2048);
-      //this.txtQuantity.addKeyListener(new 25(this));
+      this.txtQuantity.addKeyListener(new KeyAdapter() {
+         @Override
+         public void keyReleased(KeyEvent e) {
+            updateLabelPreview();
+         }
+      });
       this.txtQuantity.setTextLimit(15);
       GridData gd_txtQuantity = new GridData(4, 128, true, false, 1, 1);
       gd_txtQuantity.widthHint = 66;
@@ -898,7 +1006,12 @@ public class AddNewProduct extends AbstractFVDialog {
       this.comboQuantityUnit.add("UNI");
       this.comboQuantityUnit.add("KGS");
       this.comboQuantityUnit.add("LTS");
-     // this.comboQuantityUnit.addSelectionListener(new 26(this));
+      this.comboQuantityUnit.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            updateLabelPreview();
+         }
+      });
       this.comboQuantityUnit.setLayoutData(new GridData(4, 16777216, true, false, 1, 1));
       Composite composite = new Composite(container, 0);
       Group grpVistaPrevia = new Group(composite, 0);
@@ -1041,7 +1154,14 @@ public class AddNewProduct extends AbstractFVDialog {
    }
 
    protected Point getInitialSize() {
-      return new Point(707, 471);
+      // Obtener el tamaño de la pantalla
+      org.eclipse.swt.graphics.Rectangle bounds = getShell().getDisplay().getBounds();
+      
+      // Usar un porcentaje del tamaño de la pantalla (80%)
+      return new Point(
+         Math.min(bounds.width * 80 / 100, 1000),  // máximo 1000px de ancho
+         Math.min(bounds.height * 80 / 100, 800)   // máximo 800px de alto
+      );
    }
 
    protected void buttonPressed(int buttonId) {
@@ -1057,7 +1177,7 @@ public class AddNewProduct extends AbstractFVDialog {
    protected void deletePhotoTmpFile() {
       try {
          if (!"".equals(this.getTmpPhotoFilename())) {
-            String baseOut = "C://facilvirtual//tmp//";
+            String baseOut = "C://FacilVirtual//tmp//";
             String fileOut = baseOut + this.getTmpPhotoFilename();
             logger.info("Eliminando archivo temporal: " + this.getTmpPhotoFilename());
             FVFileUtils.deleteFile(fileOut);
@@ -1072,79 +1192,175 @@ public class AddNewProduct extends AbstractFVDialog {
    }
 
    private void saveNewProduct() {
+      logger.info("Iniciando guardado de nuevo producto...");
+      
       if (this.validateFields()) {
          try {
+            logger.info("Campos validados correctamente");
             this.setAction("OK");
-            Vat vat = this.getOrderService().getVat(new Long(1L));
-            ProductCategory productCategory = this.getProductService().getProductCategoryByName(this.comboProductCategories.getText());
-            Date creationDate = new Date();
-            Product product = new Product();
-            product.initCreationDate(creationDate);
-            product.setBarCode(this.txtBarCode.getText().trim());
-            product.setDescription(this.txtDescription.getText().trim());
-            product.setVat(vat);
-            product.setSellingUnit(this.comboUnits.getText());
-            product.setInOffer(this.btnInOffer.getSelection());
-            product.setCategory(productCategory);
-            product.setInWeb(this.btnInWeb.getSelection());
-            if (!"".equals(this.txtExpirationDate.getText().trim())) {
-               Date expirationDate = this.getDateFromText(this.txtExpirationDate);
-               product.setExpirationDate(expirationDate);
-            }
+            
+            // Obtener datos básicos
+            String barCode = this.txtBarCode.getText().trim();
+            String description = this.txtDescription.getText().trim();
+            logger.info("Guardando producto - Código: " + barCode + ", Descripción: " + description);
 
-            Integer expDays = this.getIntegerValueFromText(this.txtAlertExpDays);
-            if (expDays != null) {
-               product.setAlertExpDays(expDays);
-            } else {
-               product.setAlertExpDays(15);
-            }
-
-            product.setAlertExpActive(this.btnAlertExpActive.getSelection());
-
+            // Crear y configurar el producto
             try {
-               product.setStockControlEnabled(this.btnStockControlEnabled.getSelection());
-               product.setStock(Double.valueOf(this.txtStock.getText().trim().replaceAll(",", ".")));
-               product.setStockMin(Double.valueOf(this.txtStockMin.getText().trim().replaceAll(",", ".")));
-               product.setStockMax(Double.valueOf(this.txtStockMax.getText().trim().replaceAll(",", ".")));
-            } catch (Exception var7) {
+                // Verificar si ya existe el producto por código de barras
+                Product existingProduct = this.getProductService().getProductByBarCode(barCode);
+                if (existingProduct != null) {
+                    logger.error("Error: Ya existe un producto con el código: " + barCode);
+                    this.alert("Ya existe un artículo con ese código");
+                    return;
+                }
+
+                // Crear nuevo producto sin ID
+                Product product = new Product();
+                
+                // Configurar fecha de creación
+                Date creationDate = new Date();
+                product.initCreationDate(creationDate);
+                logger.info("Fecha de creación configurada: " + creationDate);
+
+                // Configurar datos básicos
+                product.setBarCode(barCode);
+                product.setDescription(description);
+                
+                // Configurar IVA y categoría
+                Vat vat = this.getOrderService().getVat(new Long(1L));
+                if (vat == null) {
+                    logger.error("Error: No se pudo obtener el IVA por defecto");
+                    this.alert("Error al obtener el IVA por defecto");
+                    return;
+                }
+                product.setVat(vat);
+                
+                ProductCategory productCategory = this.getProductService().getProductCategoryByName(this.comboProductCategories.getText());
+                if (productCategory == null && !"- Sin clasificar -".equals(this.comboProductCategories.getText())) {
+                    logger.error("Error: No se pudo obtener la categoría: " + this.comboProductCategories.getText());
+                    this.alert("Error al obtener la categoría del producto");
+                    return;
+                }
+                product.setCategory(productCategory);
+
+                // Configurar unidad de venta y opciones
+                product.setSellingUnit(this.comboUnits.getText());
+                product.setInOffer(this.btnInOffer.getSelection());
+                product.setInWeb(this.btnInWeb.getSelection());
+                product.setDiscontinued(false);
+
+                // Configurar stock
+                try {
+                    product.setStockControlEnabled(this.btnStockControlEnabled.getSelection());
+                    product.setStock(Double.valueOf(this.txtStock.getText().trim().replaceAll(",", ".").isEmpty() ? "0" : this.txtStock.getText().trim().replaceAll(",", ".")));
+                    product.setStockMin(Double.valueOf(this.txtStockMin.getText().trim().replaceAll(",", ".").isEmpty() ? "0" : this.txtStockMin.getText().trim().replaceAll(",", ".")));
+                    product.setStockMax(Double.valueOf(this.txtStockMax.getText().trim().replaceAll(",", ".").isEmpty() ? "0" : this.txtStockMax.getText().trim().replaceAll(",", ".")));
+                } catch (Exception e) {
+                    logger.warn("Error al configurar valores de stock, usando valores por defecto", e);
+                    product.setStock(0.0);
+                    product.setStockMin(0.0);
+                    product.setStockMax(0.0);
+                }
+
+                // Configurar descripción corta y cantidad
+                product.setShortDescription(this.txtShortDescription.getText().trim());
+                try {
+                    product.setQuantity(Double.valueOf(this.txtQuantity.getText().trim().replaceAll(",", ".").isEmpty() ? "0" : this.txtQuantity.getText().trim().replaceAll(",", ".")));
+                } catch (Exception e) {
+                    product.setQuantity(0.0);
+                }
+                product.setQuantityUnit(this.comboQuantityUnit.getText());
+
+                // Guardar producto
+                try {
+                    logger.info("Intentando guardar producto en base de datos...");
+                    logger.info("Datos del producto a guardar:");
+                    logger.info("- Código: " + product.getBarCode());
+                    logger.info("- Descripción: " + product.getDescription());
+                    logger.info("- Categoría: " + (product.getCategory() != null ? product.getCategory().getName() : "Sin categoría"));
+                    logger.info("- Unidad: " + product.getSellingUnit());
+                    logger.info("- IVA: " + product.getVat().getName());
+                    
+                    // Guardar el producto
+                    this.getProductService().saveProduct(product);
+                    
+                    if (product.getId() == null || product.getId() == 0) {
+                        logger.error("Error: El ID del producto no se generó correctamente");
+                        this.alert("Error al generar el ID del producto");
+                        return;
+                    }
+                    
+                    logger.info("Producto guardado exitosamente con ID: " + product.getId());
+                    this.setProduct(product);
+
+                    // Guardar precios
+                    try {
+                        logger.info("Guardando precios del producto...");
+                        this.savePrices();
+                        logger.info("Precios guardados correctamente");
+                    } catch (Exception e) {
+                        logger.error("Error al guardar precios", e);
+                        logger.error("Mensaje de error: " + e.getMessage());
+                        this.alert("Error al guardar los precios: " + e.getMessage());
+                        return;
+                    }
+
+                    // Guardar proveedores
+                    try {
+                        logger.info("Guardando información de proveedores...");
+                        this.saveSuppliersTab(creationDate);
+                        logger.info("Información de proveedores guardada correctamente");
+                    } catch (Exception e) {
+                        logger.error("Error al guardar proveedores", e);
+                        logger.error("Mensaje de error: " + e.getMessage());
+                        this.alert("Error al guardar los proveedores: " + e.getMessage());
+                        return;
+                    }
+
+                    // Manejar foto
+                    if (this.isDeletePhoto()) {
+                        logger.info("Eliminando foto del producto...");
+                        this.deleteProductPhoto();
+                    } else {
+                        logger.info("Guardando foto del producto...");
+                        this.saveProductPhoto();
+                    }
+
+                    logger.info("Producto guardado completamente con éxito");
+                    this.alert("Producto guardado correctamente");
+                    this.close();
+
+                } catch (Exception e) {
+                    logger.error("Error al guardar producto en base de datos", e);
+                    logger.error("Mensaje de error: " + e.getMessage());
+                    logger.error("Causa: " + (e.getCause() != null ? e.getCause().getMessage() : "No disponible"));
+                    this.alert("Error al guardar el producto: " + e.getMessage());
+                    return;
+                }
+
+            } catch (Exception e) {
+                logger.error("Error al preparar el producto para guardar", e);
+                logger.error("Mensaje de error: " + e.getMessage());
+                logger.error("Causa: " + (e.getCause() != null ? e.getCause().getMessage() : "No disponible"));
+                this.alert("Error al preparar el producto: " + e.getMessage());
+                return;
             }
 
-            product.setShortDescription(this.txtShortDescription.getText().trim());
-            if (!"".equals(this.txtQuantity.getText().trim())) {
-               product.setQuantity(Double.valueOf(this.txtQuantity.getText().trim().replaceAll(",", ".")));
-            } else {
-               product.setQuantity(0.0);
-            }
-
-            product.setQuantityUnit(this.comboQuantityUnit.getText());
-            if (!this.getWorkstationConfig().isTrialMode() || this.getWorkstationConfig().isTrialMode() && this.getWorkstationConfig().getTrialMaxProductsQty() > this.getProductService().getActiveProductsQty()) {
-               product.setDiscontinued(false);
-            }
-
-            this.getProductService().saveProduct(product);
-            this.setProduct(product);
-            this.savePrices();
-            this.saveSuppliersTab(creationDate);
-            if (this.isDeletePhoto()) {
-               this.deleteProductPhoto();
-            } else {
-               this.saveProductPhoto();
-            }
-         } catch (Exception var8) {
-            logger.error("Error al guardar Nuevo artículo");
-            logger.error(var8.getMessage());
-            //logger.error(var8);
+         } catch (Exception e) {
+            logger.error("Error general al guardar producto", e);
+            logger.error("Mensaje de error: " + e.getMessage());
+            logger.error("Causa: " + (e.getCause() != null ? e.getCause().getMessage() : "No disponible"));
+            this.alert("Error general al guardar el producto: " + e.getMessage());
          }
-
-         this.close();
+      } else {
+         logger.warn("Validación de campos fallida");
       }
-
    }
 
    protected void deleteProductPhoto() {
       try {
          if (this.getProduct() != null && this.getProduct().havePhoto()) {
-            String baseOut = "C://facilvirtual//photos//";
+            String baseOut = "C://FacilVirtual//photos//";
             String filenameOut = this.getProduct().getPhoto();
             String fileOut = baseOut + filenameOut;
             logger.info("Borrando foto de producto: " + filenameOut);
@@ -1155,7 +1371,7 @@ public class AddNewProduct extends AbstractFVDialog {
 
          this.deletePhotoTmpFile();
       } catch (Exception var4) {
-         logger.error("Se produjo un error eliminando foto de producto");
+         logger.error("Se produjo un error eliminando foto de producto", var4);
          logger.error(var4.getMessage());
          //logger.error(var4);
          var4.printStackTrace();
@@ -1166,9 +1382,9 @@ public class AddNewProduct extends AbstractFVDialog {
    protected void saveProductPhoto() {
       try {
          if (!"".equals(this.getTmpPhotoFilename()) && this.getProduct() != null) {
-            String baseIn = "C://facilvirtual//tmp//";
+            String baseIn = "C://FacilVirtual//tmp//";
             String fileIn = baseIn + this.getTmpPhotoFilename();
-            String baseOut = "C://facilvirtual//photos//";
+            String baseOut = "C://FacilVirtual//photos//";
             String filenameOut = "photo_" + this.getProduct().getId() + "." + FVFileUtils.getFileType(this.getTmpPhotoFilename());
             String fileOut = baseOut + filenameOut;
             logger.info("Copiando foto: " + this.getTmpPhotoFilename() + " -> " + filenameOut);
@@ -1178,7 +1394,7 @@ public class AddNewProduct extends AbstractFVDialog {
             this.deletePhotoTmpFile();
          }
       } catch (Exception var6) {
-         logger.error("Se produjo un error eliminando archivo temporal: " + this.getTmpPhotoFilename());
+         logger.error("Se produjo un error eliminando archivo temporal: " + this.getTmpPhotoFilename(), var6);
          logger.error(var6.getMessage());
          //logger.error(var6);
       }
@@ -1220,7 +1436,7 @@ public class AddNewProduct extends AbstractFVDialog {
             this.getProductService().saveProductPrice(productPrice);
          }
       } catch (Exception var15) {
-         logger.error("Error guardando precios en alta/modif. de artículo");
+         logger.error("Error guardando precios en alta/modif. de artículo", var15);
          logger.error(var15.getMessage());
          //logger.error(var15);
       }
@@ -1234,7 +1450,7 @@ public class AddNewProduct extends AbstractFVDialog {
          this.addNewSupplierForProduct3(creationDate);
          this.addNewSupplierForProduct4(creationDate);
       } catch (Exception var3) {
-         logger.error("Error guardando proveedores en alta de artículo");
+         logger.error("Error guardando proveedores en alta de artículo", var3);
          logger.error(var3.getMessage());
          //logger.error(var3);
          var3.printStackTrace();
@@ -1316,58 +1532,104 @@ public class AddNewProduct extends AbstractFVDialog {
 
    private boolean validateFields() {
       boolean valid = true;
+      logger.info("Iniciando validación de campos del producto...");
+
+      // Validar código de barras
       if ("".equals(this.txtBarCode.getText().trim())) {
          valid = false;
+         logger.warn("Validación fallida: Código de barras vacío");
          this.alert("Ingresa el código del artículo");
       }
 
       if (valid && StringUtils.containsWhitespace(this.txtBarCode.getText().trim())) {
          valid = false;
+         logger.warn("Validación fallida: Código de barras contiene espacios");
          this.alert("El código del artículo no puede contener espacios");
       }
 
+      // Verificar si ya existe el código
       if (valid) {
          try {
-            Product product = this.getProductService().getProductByBarCode(this.txtBarCode.getText().trim());
+            String barCode = this.txtBarCode.getText().trim();
+            logger.info("Verificando si existe producto con código: " + barCode);
+            Product product = this.getProductService().getProductByBarCode(barCode);
             if (product != null) {
                valid = false;
+               logger.warn("Validación fallida: Ya existe un producto con el código: " + barCode);
                this.alert("Ya existe un artículo con ese código");
             }
-         } catch (Exception var5) {
+         } catch (Exception e) {
             valid = false;
+            logger.error("Error al verificar existencia de producto", e);
+            this.alert("Error al verificar el código: " + e.getMessage());
          }
       }
 
+      // Validar descripción
       if (valid && "".equals(this.txtDescription.getText().trim())) {
          valid = false;
+         logger.warn("Validación fallida: Descripción vacía");
          this.alert("Ingresa la descripción");
       }
 
-      if (valid && !"".equals(this.txtExpirationDate.getText().trim())) {
-         Date expDate = this.getDateFromText(this.txtExpirationDate);
-         if (expDate == null) {
-            valid = false;
-            this.alert("La fecha de vencimiento no es válida");
-         }
+      // Validar categoría
+      if (valid && "".equals(this.comboProductCategories.getText().trim())) {
+         valid = false;
+         logger.warn("Validación fallida: Categoría no seleccionada");
+         this.alert("Selecciona una categoría");
       }
 
-      if (valid && !"".equals(this.txtAlertExpDays.getText().trim())) {
-         Integer alertExpDays = this.getIntegerValueFromText(this.txtAlertExpDays);
-         if (alertExpDays == null) {
-            valid = false;
-            this.alert("El valor ingresado en Alerta Vencimiento no es válido");
-         }
+      // Validar unidad de venta
+      if (valid && "".equals(this.comboUnits.getText().trim())) {
+         valid = false;
+         logger.warn("Validación fallida: Unidad de venta no seleccionada");
+         this.alert("Selecciona una unidad de venta");
       }
 
-      if (valid && !"".equals(this.txtQuantity.getText().trim())) {
+      // Validar stock si está habilitado el control
+      if (valid && this.btnStockControlEnabled.getSelection()) {
          try {
-            double var8 = Double.valueOf(this.txtQuantity.getText().trim().replaceAll(",", "."));
-         } catch (Exception var4) {
+            double stock = Double.parseDouble(this.txtStock.getText().trim().replaceAll(",", "."));
+            double stockMin = Double.parseDouble(this.txtStockMin.getText().trim().replaceAll(",", "."));
+            double stockMax = Double.parseDouble(this.txtStockMax.getText().trim().replaceAll(",", "."));
+
+            if (stockMin > stockMax) {
+               valid = false;
+               logger.warn("Validación fallida: Stock mínimo mayor que máximo");
+               this.alert("El stock mínimo no puede ser mayor que el máximo");
+            }
+
+            if (stock < 0 || stockMin < 0 || stockMax < 0) {
+               valid = false;
+               logger.warn("Validación fallida: Valores de stock negativos");
+               this.alert("Los valores de stock no pueden ser negativos");
+            }
+
+            logger.info("Valores de stock validados - Actual: " + stock + ", Min: " + stockMin + ", Max: " + stockMax);
+         } catch (NumberFormatException e) {
             valid = false;
-            this.alert("El valor ingresado en Cantidad (Etiqueta) no es válido");
+            logger.warn("Validación fallida: Formato inválido en valores de stock", e);
+            this.alert("Los valores de stock deben ser números válidos");
          }
       }
 
+      // Validar fecha de vencimiento si está presente
+      if (valid && !"".equals(this.txtExpirationDate.getText().trim())) {
+         try {
+            Date expirationDate = this.getDateFromText(this.txtExpirationDate);
+            if (expirationDate != null && expirationDate.before(new Date())) {
+               valid = false;
+               logger.warn("Validación fallida: Fecha de vencimiento en el pasado");
+               this.alert("La fecha de vencimiento no puede estar en el pasado");
+            }
+         } catch (Exception e) {
+            valid = false;
+            logger.warn("Validación fallida: Formato de fecha inválido", e);
+            this.alert("Formato de fecha inválido");
+         }
+      }
+
+      logger.info("Resultado final de validación: " + (valid ? "exitosa" : "fallida"));
       return valid;
    }
 
@@ -1425,7 +1687,7 @@ public class AddNewProduct extends AbstractFVDialog {
             this.lblPreviewBarCode.setText(this.txtBarCode.getText().trim());
          }
       } catch (Exception var6) {
-         logger.error("Error al actualizar la vista previa de la etiqueta");
+         logger.error("Error al actualizar la vista previa de la etiqueta", var6);
          logger.error(var6.getMessage());
          //logger.error(var6);
       }
@@ -1466,6 +1728,7 @@ public class AddNewProduct extends AbstractFVDialog {
 
          return productPrice;
       } catch (Exception var15) {
+         logger.error("Error", var15);
          return null;
       }
    }
@@ -1511,7 +1774,7 @@ public class AddNewProduct extends AbstractFVDialog {
          dialog.setFileName("");
          String localFilePath = dialog.open();
          if (localFilePath != null) {
-            String baseOut = "C://facilvirtual//tmp//";
+            String baseOut = "C://FacilVirtual//tmp//";
             String filenameOut = "photo_" + this.getTmpProductId() + "." + FVFileUtils.getFileType(localFilePath);
             this.setTmpPhotoFilename(filenameOut);
             String fileOut = baseOut + filenameOut;
@@ -1528,7 +1791,7 @@ public class AddNewProduct extends AbstractFVDialog {
    }
 
    protected void deletePhoto() {
-      String baseOut = "C://facilvirtual//images//";
+      String baseOut = "C://FacilVirtual//images//";
       String filenameOut = "imageNotAvailable220x220.jpg";
       String fileOut = baseOut + filenameOut;
       Image origImage = new Image(Display.getCurrent(), fileOut);

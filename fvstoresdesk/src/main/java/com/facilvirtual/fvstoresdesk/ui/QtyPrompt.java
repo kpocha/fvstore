@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class QtyPrompt extends AbstractFVDialog {
@@ -42,8 +44,14 @@ public class QtyPrompt extends AbstractFVDialog {
       fd_txtPrice.top = new FormAttachment(0, 73);
       fd_txtPrice.right = new FormAttachment(100, -171);
       this.txtQty.setLayoutData(fd_txtPrice);
-      //this.txtQty.addTraverseListener(new 1(this));
-      //TODO:Arreglar
+      this.txtQty.addTraverseListener(new TraverseListener() {
+         @Override
+         public void keyTraversed(TraverseEvent e) {
+            if (e.detail == 4) {
+               processQty();
+            }
+         }
+      });
       return container;
    }
 

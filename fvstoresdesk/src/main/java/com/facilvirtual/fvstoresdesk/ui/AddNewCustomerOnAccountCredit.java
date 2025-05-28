@@ -132,11 +132,12 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
       return valid;
    }
 
-   @Override protected void configureShell(Shell newShell) {
+   @Override 
+   protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Nuevo pago de cliente");
    }
-
+   @Override
    protected void buttonPressed(int buttonId) {
       if (buttonId == 0) {
          this.processDialog();
@@ -145,20 +146,20 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
       }
 
    }
-
+   @Override
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 0, "Guardar", false);
       this.createButton(parent, 1, "Cancelar", false);
    }
-
+   @Override
    protected Point getInitialSize() {
       return new Point(462, 332);
    }
-
+   @Override
    public String getAction() {
       return this.action;
    }
-
+   @Override
    public void setAction(String action) {
       this.action = action;
    }

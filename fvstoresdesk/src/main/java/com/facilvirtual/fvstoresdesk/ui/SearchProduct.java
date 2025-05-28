@@ -1,10 +1,8 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.PriceList;
-import com.facilvirtual.fvstoresdesk.model.Product;
-import com.facilvirtual.fvstoresdesk.model.ProductPrice;
 import java.util.Iterator;
 import java.util.List;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -19,6 +17,14 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+
+import com.facilvirtual.fvstoresdesk.model.PriceList;
+import com.facilvirtual.fvstoresdesk.model.Product;
+import com.facilvirtual.fvstoresdesk.model.ProductPrice;
 
 public class SearchProduct extends AbstractFVDialog {
    private String action = "";
@@ -55,7 +61,14 @@ public class SearchProduct extends AbstractFVDialog {
       fd_txtQuery.right = new FormAttachment(100, -10);
       this.txtQuery.setLayoutData(fd_txtQuery);
       this.txtQuery.setText("");
-      //this.txtQuery.addTraverseListener(new 1(this));
+      this.txtQuery.addTraverseListener(new TraverseListener() {
+         @Override
+         public void keyTraversed(TraverseEvent e) {
+            if (e.detail == 4) {
+               searchProducts();
+            }
+         }
+      });
       this.table = new Table(container, 67584);
       FormData fd_table = new FormData();
       fd_table.right = new FormAttachment(this.txtQuery, 0, 131072);
@@ -92,7 +105,12 @@ public class SearchProduct extends AbstractFVDialog {
       fd_btnHideDiscontinued.right = new FormAttachment(this.txtQuery, 0, 131072);
       this.btnHideDiscontinued.setLayoutData(fd_btnHideDiscontinued);
       this.btnHideDiscontinued.setText("Ocultar discontinuados");
-      //this.btnHideDiscontinued.addSelectionListener(new 2(this));
+      this.btnHideDiscontinued.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchProducts();
+         }
+      });
       return container;
    }//TODO:arreglar
 

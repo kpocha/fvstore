@@ -7,7 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+import org.slf4j.LoggerFactory;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -95,9 +98,31 @@ public class AddNewNotaDeCreditoAfip extends AbstractFVDialog {
       lblConceptosAIncluir.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
       lblConceptosAIncluir.setText("Conceptos a incluir");
       this.comboAfipConcepto = new Combo(this.container, 8);
-      //TODO:arreglar
-      //this.comboAfipConcepto.addSelectionListener(new 1(this));
-      this.comboAfipConcepto.setLayoutData(new GridData(16384, 16777216, true, false, 1, 1));
+      this.comboAfipConcepto.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            boolean hide = true;
+            if (comboAfipConcepto.getItem(comboAfipConcepto.getSelectionIndex()).contains("Servicios")) {
+               hide = true;
+            } else {
+               hide = false;
+            }
+
+            lblFechaServicioDesde.setVisible(hide);
+            lblFechaServicioHasta.setVisible(hide);
+            lblFechaServicioVto.setVisible(hide);
+            dateTimeFchServDesde.setVisible(hide);
+            dateTimeFchServHasta.setVisible(hide);
+            dateTimeFchVtoPago.setVisible(hide);
+            gd_lblFechaServicioDesde.exclude = !hide;
+            gd_lblFechaServicioHasta.exclude = !hide;
+            gd_lblFechaServicioVto.exclude = !hide;
+            gd_dateTimeFchServDesde.exclude = !hide;
+            gd_dateTimeFchServHasta.exclude = !hide;
+            gd_dateTimeFchVtoPago.exclude = !hide;
+            container.pack();
+         }
+      });
       this.comboAfipConcepto.add("Productos");
       this.comboAfipConcepto.add("Servicios");
       this.comboAfipConcepto.add("Productos y Servicios");

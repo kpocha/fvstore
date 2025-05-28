@@ -1,12 +1,11 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.Customer;
-import com.facilvirtual.fvstoresdesk.model.VatCondition;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.events.SelectionAdapter;
+
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
@@ -21,9 +20,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Customer;
+import com.facilvirtual.fvstoresdesk.model.VatCondition;
 
 public class AddNewCustomer extends AbstractFVDialog {
-   protected static Logger logger = LoggerFactory.getLogger("AddNewCustomer");
+   protected static final Logger logger = LoggerFactory.getLogger(AddNewCustomer.class);
    protected String action = "";
    protected Combo comboAccountType;
    protected Text txtCompanyName;
@@ -144,15 +148,12 @@ public class AddNewCustomer extends AbstractFVDialog {
       gd_comboAccountType.grabExcessHorizontalSpace = true;
       gd_comboAccountType.horizontalAlignment = 4;
       this.comboAccountType.setLayoutData(gd_comboAccountType);
-
-      //this.comboAccountType.addSelectionListener(new 1(this));
       this.comboAccountType.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
             changedAccountType();
          }
       });
-      
       this.comboAccountType.add("Individuo");
       this.comboAccountType.add("Empresa");
    }
@@ -446,14 +447,11 @@ public class AddNewCustomer extends AbstractFVDialog {
             customer.setOnAccountLimit(onAccountLimit);
             this.setCustomer(customer);
          } catch (Exception var8) {
-            logger.error("Error en alta de cliente");
-            logger.error(var8.getMessage());
-            //logger.error(var8);
+            logger.error("Error en alta de cliente", var8);
          }
 
          this.close();
       }
-
    }
 
    public boolean validateFields() {
@@ -476,15 +474,13 @@ public class AddNewCustomer extends AbstractFVDialog {
             }
          }
       } catch (Exception var3) {
-         logger.error("Error en validación de alta de cliente");
-         logger.error(var3.getMessage());
-         //logger.error(var3);
+         logger.error("Error en validación de alta de cliente", var3);
       }
 
       return valid;
    }
 
-   @Override protected void configureShell(Shell newShell) {
+   protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Nuevo cliente");
    }
@@ -495,7 +491,6 @@ public class AddNewCustomer extends AbstractFVDialog {
       } else {
          this.close();
       }
-
    }
 
    protected void createButtonsForButtonBar(Composite parent) {

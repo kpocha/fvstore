@@ -1,14 +1,14 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.Employee;
-import com.facilvirtual.fvstoresdesk.model.Purchase;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,6 +22,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Employee;
+import com.facilvirtual.fvstoresdesk.model.Purchase;
 
 public class PurchasesManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("PurchasesManager");
@@ -133,17 +138,32 @@ public class PurchasesManager extends AbstractFVApplicationWindow {
 
    private void createHeaderContents() {
       Button btnNewSale = new Button(this.headerContainer, 0);
-      //btnNewSale.addSelectionListener(new 1(this));
+      btnNewSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewPurchase();
+         }
+      });
       btnNewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnNewSale.setText("Nueva compra");
       btnNewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_add.gif"));
       Button btnViewSale = new Button(this.headerContainer, 0);
-      //btnViewSale.addSelectionListener(new 2(this));
+      btnViewSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            viewPurchaseDetails();
+         }
+      });
       btnViewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnViewSale.setText("Ver detalle");
       btnViewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_view_detail.gif"));
       Button btnCancelSale = new Button(this.headerContainer, 0);
-      //btnCancelSale.addSelectionListener(new 3(this));
+      btnCancelSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            cancelPurchase();
+         }
+      });
       btnCancelSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnCancelSale.setText("Anular");
       btnCancelSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_delete.gif"));
@@ -163,7 +183,12 @@ public class PurchasesManager extends AbstractFVApplicationWindow {
       this.endDatepicker = new DateTime(this.headerContainer, 2048);
       this.endDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       Button btnSearch = new Button(this.headerContainer, 0);
-      //btnSearch.addSelectionListener(new 4(this));
+      btnSearch.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchPurchases();
+         }
+      });
       btnSearch.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnSearch.setText("Buscar");
       btnSearch.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
@@ -175,7 +200,12 @@ public class PurchasesManager extends AbstractFVApplicationWindow {
       btnActualizar.setLayoutData(new GridData(16384, 4, false, false, 1, 1));
       btnActualizar.setText("Actualizar");
       btnActualizar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_update.gif"));
-      //btnActualizar.addSelectionListener(new 5(this));
+      btnActualizar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchPurchases();
+         }
+      });
    }
 //TODO:Arreglar
    private void createBodyContents() {

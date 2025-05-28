@@ -1,25 +1,12 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.AfipConfig;
-import com.facilvirtual.fvstoresdesk.model.AppConfig;
-import com.facilvirtual.fvstoresdesk.model.CreditCard;
-import com.facilvirtual.fvstoresdesk.model.DebitCard;
-import com.facilvirtual.fvstoresdesk.model.Employee;
-import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.model.PriceList;
-import com.facilvirtual.fvstoresdesk.model.ProductCategory;
-import com.facilvirtual.fvstoresdesk.model.ReceiptType;
-import com.facilvirtual.fvstoresdesk.model.VatCondition;
-import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
-import com.facilvirtual.fvstoresdesk.service.AfipService;
-import com.facilvirtual.fvstoresdesk.service.ApplicationContextProvider;
-import com.facilvirtual.fvstoresdesk.util.FVFileUtils;
-import com.facilvirtual.fvstoresdesk.util.FVImageUtils;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.custom.CLabel;
+
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -40,7 +27,25 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+
+import com.facilvirtual.fvstoresdesk.model.AfipConfig;
+import com.facilvirtual.fvstoresdesk.model.AppConfig;
+import com.facilvirtual.fvstoresdesk.model.CreditCard;
+import com.facilvirtual.fvstoresdesk.model.DebitCard;
+import com.facilvirtual.fvstoresdesk.model.Employee;
+import com.facilvirtual.fvstoresdesk.model.Order;
+import com.facilvirtual.fvstoresdesk.model.PriceList;
+import com.facilvirtual.fvstoresdesk.model.ProductCategory;
+import com.facilvirtual.fvstoresdesk.model.ReceiptType;
+import com.facilvirtual.fvstoresdesk.model.VatCondition;
+import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
+import com.facilvirtual.fvstoresdesk.service.AfipService;
+import com.facilvirtual.fvstoresdesk.service.ApplicationContextProvider;
+import com.facilvirtual.fvstoresdesk.util.FVFileUtils;
+import com.facilvirtual.fvstoresdesk.util.FVImageUtils;
 
 public class Settings extends AbstractFVDialog {
    protected static Logger logger = LoggerFactory.getLogger("Settings");
@@ -268,14 +273,23 @@ public class Settings extends AbstractFVDialog {
       gl_composite_9.marginBottom = 8;
       composite_9.setLayout(gl_composite_9);
       Button button_3 = new Button(composite_9, 0);
-      //TODO: arreglar
-      //button_3.addSelectionListener(new 1(this));
+      button_3.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            updateLogo();
+         }
+      });
       GridData gd_button_3 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_button_3.widthHint = 90;
       button_3.setLayoutData(gd_button_3);
       button_3.setText("Modificar");
       Button button_4 = new Button(composite_9, 0);
-      //button_4.addSelectionListener(new 2(this));
+      button_4.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deleteLogo();
+         }
+      });
       GridData gd_button_4 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_button_4.widthHint = 90;
       gd_button_4.horizontalIndent = 5;
@@ -380,15 +394,30 @@ public class Settings extends AbstractFVDialog {
       Composite composite_6 = new Composite(composite_2, 0);
       composite_6.setLayout(new GridLayout(1, false));
       Button button = new Button(composite_6, 0);
-      //button.addSelectionListener(new 3(this));
+      button.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            editPriceList();
+         }
+      });
       button.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       button.setText("Modificar");
       Button button_1 = new Button(composite_6, 0);
-     // button_1.addSelectionListener(new 4(this));
+      button_1.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            activatePriceList();
+         }
+      });
       button_1.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       button_1.setText("Activar");
       Button button_2 = new Button(composite_6, 0);
-      //button_2.addSelectionListener(new 5(this));
+      button_2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deactivatePriceList();
+         }
+      });
       button_2.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       button_2.setText("Desactivar");
       TabItem tbtmUsuarios = new TabItem(tabFolder, 0);
@@ -415,26 +444,46 @@ public class Settings extends AbstractFVDialog {
       //Composite composite_2 = new Composite(composite_1, 0);
       composite_2.setLayout(new GridLayout(4, false));
       Button btnNuevoUsuario = new Button(composite_2, 0);
-      //btnNuevoUsuario.addSelectionListener(new 6(this));
+      btnNuevoUsuario.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewEmployee();
+         }
+      });
       GridData gd_btnNuevoUsuario = new GridData(16384, 16777216, false, false, 1, 1);
       gd_btnNuevoUsuario.widthHint = 90;
       btnNuevoUsuario.setLayoutData(gd_btnNuevoUsuario);
       btnNuevoUsuario.setBounds(0, 0, 68, 23);
       btnNuevoUsuario.setText("Nuevo usuario");
       Button btnNewButton = new Button(composite_2, 0);
-      //btnNewButton.addSelectionListener(new 7(this));
+      btnNewButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            editEmployee();
+         }
+      });
       GridData gd_btnNewButton = new GridData(16384, 16777216, false, false, 1, 1);
       gd_btnNewButton.widthHint = 90;
       btnNewButton.setLayoutData(gd_btnNewButton);
       btnNewButton.setText("Modificar");
       Button btnNewButton_1 = new Button(composite_2, 0);
-      //btnNewButton_1.addSelectionListener(new 8(this));
+      btnNewButton_1.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deleteEmployee();
+         }
+      });
       GridData gd_btnNewButton_1 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_btnNewButton_1.widthHint = 90;
       btnNewButton_1.setLayoutData(gd_btnNewButton_1);
       btnNewButton_1.setText("Eliminar");
       Button btnCambiarContrasea = new Button(composite_2, 0);
-      //btnCambiarContrasea.addSelectionListener(new 9(this));
+      btnCambiarContrasea.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            changePassword();
+         }
+      });
       btnCambiarContrasea.setText("Cambiar contraseña");
       TabItem tbtmCaja = new TabItem(tabFolder, 0);
       tbtmCaja.setText("Caja");
@@ -659,7 +708,12 @@ public class Settings extends AbstractFVDialog {
       this.txtAfipStatus.setLayoutData(gd_txtAfipStatus);
       this.txtAfipStatus.setBounds(0, 0, 76, 21);
       this.btnAfipStatus = new Button(composite_10, 0);
-      //this.btnAfipStatus.addSelectionListener(new 10(this));
+      this.btnAfipStatus.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            updateAfipStatus();
+         }
+      });
       this.btnAfipStatus.setBounds(0, 0, 75, 25);
       this.btnAfipStatus.setText("Actualizar");
       TabItem tbtmPreferencias = new TabItem(tabFolder, 0);
@@ -1225,17 +1279,32 @@ public class Settings extends AbstractFVDialog {
       Composite composite_1 = new Composite(composite, 0);
       composite_1.setLayout(new GridLayout(1, false));
       Button btnAgregar = new Button(composite_1, 0);
-     // btnAgregar.addSelectionListener(new 11(this));
+      btnAgregar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewCreditCard();
+         }
+      });
       btnAgregar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnAgregar.setSize(51, 23);
       btnAgregar.setText("Nueva tarjeta");
       Button btnActivar = new Button(composite_1, 0);
-      //btnActivar.addSelectionListener(new 12(this));
+      btnActivar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            activateCreditCard();
+         }
+      });
       btnActivar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnActivar.setSize(46, 23);
       btnActivar.setText("Activar");
       Button btnDesactivar = new Button(composite_1, 0);
-      //btnDesactivar.addSelectionListener(new 13(this));
+      btnDesactivar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deactivateCreditCard();
+         }
+      });
       btnDesactivar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnDesactivar.setSize(63, 23);
       btnDesactivar.setText("Desactivar");
@@ -1258,17 +1327,32 @@ public class Settings extends AbstractFVDialog {
       Composite composite_1 = new Composite(composite, 0);
       composite_1.setLayout(new GridLayout(1, false));
       Button btnAgregar = new Button(composite_1, 0);
-      //btnAgregar.addSelectionListener(new 14(this));
+      btnAgregar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewDebitCard();
+         }
+      });
       btnAgregar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnAgregar.setSize(51, 23);
       btnAgregar.setText("Nueva tarjeta");
       Button btnActivar = new Button(composite_1, 0);
-      //btnActivar.addSelectionListener(new 15(this));
+      btnActivar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            activateDebitCard();
+         }
+      });
       btnActivar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnActivar.setSize(46, 23);
       btnActivar.setText("Activar");
       Button btnDesactivar = new Button(composite_1, 0);
-      //btnDesactivar.addSelectionListener(new 16(this));
+      btnDesactivar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deactivateDebitCard();
+         }
+      });
       btnDesactivar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnDesactivar.setSize(63, 23);
       btnDesactivar.setText("Desactivar");

@@ -1,13 +1,12 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.Employee;
-import com.facilvirtual.fvstoresdesk.model.Purchase;
-import com.facilvirtual.fvstoresdesk.model.PurchaseLine;
-import com.facilvirtual.fvstoresdesk.model.Supplier;
 import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -19,9 +18,16 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Employee;
+import com.facilvirtual.fvstoresdesk.model.Purchase;
+import com.facilvirtual.fvstoresdesk.model.PurchaseLine;
+import com.facilvirtual.fvstoresdesk.model.Supplier;
 
 public class PurchaseDetails extends AbstractFVDialog {
-   private static Logger logger = LoggerFactory.getLogger("PurchaseDetails");
+   private static final Logger logger = LoggerFactory.getLogger(PurchaseDetails.class);
    protected String action = "";
    protected Employee cashier;
    protected Table table;
@@ -51,7 +57,7 @@ public class PurchaseDetails extends AbstractFVDialog {
    public PurchaseDetails(Shell parentShell) {
       super(parentShell);
    }
-   @Override
+
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       container.setLayout((Layout)null);
@@ -110,7 +116,12 @@ public class PurchaseDetails extends AbstractFVDialog {
       lblCuentaCorriente.setText("Cta. Cte.");
       this.txtTicketsAmount = new Text(grpInformacinDelPago, 2056);
       this.txtTicketsAmount.setBounds(238, 34, 70, 19);
-     // this.txtTicketsAmount.addFocusListener(new 1(this));
+      this.txtTicketsAmount.addFocusListener(new FocusAdapter() {
+         @Override
+         public void focusLost(FocusEvent e) {
+            format2Decimals(txtTicketsAmount);
+         }
+      });
       Label lblTarjetas = new Label(grpInformacinDelPago, 0);
       lblTarjetas.setBounds(238, 18, 56, 13);
       lblTarjetas.setText("Tickets");
@@ -163,7 +174,12 @@ public class PurchaseDetails extends AbstractFVDialog {
       this.txtObservations = new Text(container, 2560);
       this.txtObservations.setBounds(92, 471, 532, 42);
       this.txtInnerTaxes = new Text(container, 2056);
-      //this.txtInnerTaxes.addFocusListener(new 2(this));
+      this.txtInnerTaxes.addFocusListener(new FocusAdapter() {
+         @Override
+         public void focusLost(FocusEvent e) {
+            format2Decimals(txtInnerTaxes);
+         }
+      });
       this.txtInnerTaxes.setBounds(548, 334, 76, 19);
       this.txtSubtotal1 = new Text(container, 2056);
       this.txtSubtotal1.setBounds(548, 310, 76, 19);
@@ -228,8 +244,6 @@ public class PurchaseDetails extends AbstractFVDialog {
 
    private void initTable() {
       this.table.removeAll();
-      //int colIdx = false;
-
       int colIdx;
       for(Iterator var3 = this.getPurchase().getPurchaseLines().iterator(); var3.hasNext(); ++colIdx) {
          PurchaseLine purchaseLine = (PurchaseLine)var3.next();
@@ -283,11 +297,11 @@ public class PurchaseDetails extends AbstractFVDialog {
       return valid;
    }
 
-   @Override protected void configureShell(Shell newShell) {
+   protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Detalle de la compra");
    }
-   @Override
+
    protected void buttonPressed(int buttonId) {
       if (buttonId == 0) {
          this.processDialog();
@@ -296,12 +310,12 @@ public class PurchaseDetails extends AbstractFVDialog {
       }
 
    }
-   @Override
+
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 0, "Guardar", false);
       this.createButton(parent, 1, "Cancelar", false);
    }
-   @Override
+
    protected Point getInitialSize() {
       return new Point(640, 650);
    }
