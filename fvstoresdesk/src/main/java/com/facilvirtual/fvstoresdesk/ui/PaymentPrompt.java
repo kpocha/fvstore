@@ -1,14 +1,15 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.CreditCard;
-import com.facilvirtual.fvstoresdesk.model.Customer;
-import com.facilvirtual.fvstoresdesk.model.DebitCard;
-import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.util.FVMathUtils;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -23,6 +24,12 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import com.facilvirtual.fvstoresdesk.model.CreditCard;
+import com.facilvirtual.fvstoresdesk.model.Customer;
+import com.facilvirtual.fvstoresdesk.model.DebitCard;
+import com.facilvirtual.fvstoresdesk.model.Order;
+import com.facilvirtual.fvstoresdesk.util.FVMathUtils;
 
 public class PaymentPrompt extends AbstractFVDialog {
    protected Color themeBack;
@@ -76,72 +83,240 @@ public class PaymentPrompt extends AbstractFVDialog {
       container.setBackground(this.themeBack);
       container.setLayout((Layout)null);
       Button btnCreditCard = new Button(container, 0);
-     // btnCreditCard.addSelectionListener(new 1(this));
       btnCreditCard.setBounds(10, 60, 163, 35);
       btnCreditCard.setText("Tarjeta de Crédito");
       btnCreditCard.setFont(SWTResourceManager.getFont("Arial", 12, 0));
+      btnCreditCard.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              completePaymentAmount(txtCreditCardAmount);
+          }
+      });
+
       this.btnOnAccount = new Button(container, 0);
-      //this.btnOnAccount.addSelectionListener(new 2(this));
       this.btnOnAccount.setBounds(10, 150, 163, 35);
       this.btnOnAccount.setText("Cuenta Corriente");
       this.btnOnAccount.setFont(SWTResourceManager.getFont("Arial", 12, 0));
+      this.btnOnAccount.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              completePaymentAmount(txtOnAccountAmount);
+          }
+      });
+
       Button btnDebitCard = new Button(container, 0);
-      //btnDebitCard.addSelectionListener(new 3(this));
       btnDebitCard.setBounds(10, 200, 163, 35);
       btnDebitCard.setText("Tarjeta de Débito");
       btnDebitCard.setFont(SWTResourceManager.getFont("Arial", 12, 0));
+      btnDebitCard.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              completePaymentAmount(txtDebitCardAmount);
+          }
+      });
+
       Button btnCheck = new Button(container, 0);
-      //btnCheck.addSelectionListener(new 4(this));
       btnCheck.setBounds(10, 290, 163, 35);
       btnCheck.setText("Cheque");
       btnCheck.setFont(SWTResourceManager.getFont("Arial", 12, 0));
+      btnCheck.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              completePaymentAmount(txtCheckAmount);
+          }
+      });
+
       Button btnTickets = new Button(container, 0);
-      //btnTickets.addSelectionListener(new 5(this));
       btnTickets.setBounds(10, 340, 163, 35);
       btnTickets.setText("Tickets");
       btnTickets.setFont(SWTResourceManager.getFont("Arial", 12, 0));
+      btnTickets.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              completePaymentAmount(txtTicketsAmount);
+          }
+      });
+
       Button btnCash = new Button(container, 0);
-      //btnCash.addSelectionListener(new 6(this));
       btnCash.setBounds(10, 10, 163, 35);
       btnCash.setText("Efectivo");
       btnCash.setFont(SWTResourceManager.getFont("Arial", 12, 0));
+      btnCash.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              completePaymentAmount(txtCashAmount);
+          }
+      });
+
       this.txtCashAmount = new Text(container, 133120);
-      //this.txtCashAmount.addFocusListener(new 7(this));
-     // this.txtCashAmount.addKeyListener(new 8(this));
       this.txtCashAmount.setText("");
       this.txtCashAmount.setFont(SWTResourceManager.getFont("Arial", 18, 0));
       this.txtCashAmount.setBounds(179, 10, 119, 35);
-      //this.txtCashAmount.addTraverseListener(new 9(this));
+      this.txtCashAmount.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusGained(FocusEvent e) {
+              lastFocusControl = txtCashAmount;
+          }
+          
+          @Override
+          public void focusLost(FocusEvent e) {
+              if (!"".equals(txtCashAmount.getText())) {
+                  format2Decimals(txtCashAmount);
+              }
+          }
+      });
+      this.txtCashAmount.addKeyListener(new KeyAdapter() {
+          @Override
+          public void keyReleased(KeyEvent e) {
+              updatedTender();
+          }
+      });
+      this.txtCashAmount.addTraverseListener(e -> {
+          if (e.detail == SWT.TRAVERSE_RETURN) {
+              processPayment();
+          }
+      });
+
       this.txtCreditCardAmount = new Text(container, 133120);
-      //this.txtCreditCardAmount.addFocusListener(new 10(this));
-      //this.txtCreditCardAmount.addKeyListener(new 11(this));
       this.txtCreditCardAmount.setFont(SWTResourceManager.getFont("Arial", 18, 0));
       this.txtCreditCardAmount.setBounds(179, 60, 119, 35);
-      //this.txtCreditCardAmount.addTraverseListener(new 12(this));
+      this.txtCreditCardAmount.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusGained(FocusEvent e) {
+              lastFocusControl = txtCreditCardAmount;
+          }
+          
+          @Override
+          public void focusLost(FocusEvent e) {
+              if (!"".equals(txtCreditCardAmount.getText())) {
+                  format2Decimals(txtCreditCardAmount);
+              }
+          }
+      });
+      this.txtCreditCardAmount.addKeyListener(new KeyAdapter() {
+          @Override
+          public void keyReleased(KeyEvent e) {
+              updatedTender();
+          }
+      });
+      this.txtCreditCardAmount.addTraverseListener(e -> {
+          if (e.detail == SWT.TRAVERSE_RETURN) {
+              processPayment();
+          }
+      });
+
       this.txtOnAccountAmount = new Text(container, 133120);
-      //this.txtOnAccountAmount.addKeyListener(new 13(this));
-      //t/his.txtOnAccountAmount.addFocusListener(new 14(this));
       this.txtOnAccountAmount.setFont(SWTResourceManager.getFont("Arial", 18, 0));
       this.txtOnAccountAmount.setBounds(179, 150, 119, 35);
-      //this.txtOnAccountAmount.addTraverseListener(new 15(this));
+      this.txtOnAccountAmount.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusGained(FocusEvent e) {
+              lastFocusControl = txtOnAccountAmount;
+          }
+          
+          @Override
+          public void focusLost(FocusEvent e) {
+              if (!"".equals(txtOnAccountAmount.getText())) {
+                  format2Decimals(txtOnAccountAmount);
+              }
+          }
+      });
+      this.txtOnAccountAmount.addKeyListener(new KeyAdapter() {
+          @Override
+          public void keyReleased(KeyEvent e) {
+              updatedTender();
+          }
+      });
+      this.txtOnAccountAmount.addTraverseListener(e -> {
+          if (e.detail == SWT.TRAVERSE_RETURN) {
+              processPayment();
+          }
+      });
+
       this.txtDebitCardAmount = new Text(container, 133120);
-     // this.txtDebitCardAmount.addKeyListener(new 16(this));
-      //this.txtDebitCardAmount.addFocusListener(new 17(this));
       this.txtDebitCardAmount.setFont(SWTResourceManager.getFont("Arial", 18, 0));
       this.txtDebitCardAmount.setBounds(179, 200, 119, 35);
-     // this.txtDebitCardAmount.addTraverseListener(new 18(this));
+      this.txtDebitCardAmount.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusGained(FocusEvent e) {
+              lastFocusControl = txtDebitCardAmount;
+          }
+          
+          @Override
+          public void focusLost(FocusEvent e) {
+              if (!"".equals(txtDebitCardAmount.getText())) {
+                  format2Decimals(txtDebitCardAmount);
+              }
+          }
+      });
+      this.txtDebitCardAmount.addKeyListener(new KeyAdapter() {
+          @Override
+          public void keyReleased(KeyEvent e) {
+              updatedTender();
+          }
+      });
+      this.txtDebitCardAmount.addTraverseListener(e -> {
+          if (e.detail == SWT.TRAVERSE_RETURN) {
+              processPayment();
+          }
+      });
+
       this.txtCheckAmount = new Text(container, 133120);
-      //this.txtCheckAmount.addKeyListener(new 19(this));
-      //this.txtCheckAmount.addFocusListener(new 20(this));
       this.txtCheckAmount.setFont(SWTResourceManager.getFont("Arial", 18, 0));
       this.txtCheckAmount.setBounds(179, 290, 119, 35);
-     //this.txtCheckAmount.addTraverseListener(new 21(this));
+      this.txtCheckAmount.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusGained(FocusEvent e) {
+              lastFocusControl = txtCheckAmount;
+          }
+          
+          @Override
+          public void focusLost(FocusEvent e) {
+              if (!"".equals(txtCheckAmount.getText())) {
+                  format2Decimals(txtCheckAmount);
+              }
+          }
+      });
+      this.txtCheckAmount.addKeyListener(new KeyAdapter() {
+          @Override
+          public void keyReleased(KeyEvent e) {
+              updatedTender();
+          }
+      });
+      this.txtCheckAmount.addTraverseListener(e -> {
+          if (e.detail == SWT.TRAVERSE_RETURN) {
+              processPayment();
+          }
+      });
+
       this.txtTicketsAmount = new Text(container, 133120);
-      //this.txtTicketsAmount.addKeyListener(new 22(this));
-      //this.txtTicketsAmount.addFocusListener(new 23(this));
       this.txtTicketsAmount.setFont(SWTResourceManager.getFont("Arial", 18, 0));
       this.txtTicketsAmount.setBounds(179, 340, 119, 35);
-      //this.txtTicketsAmount.addTraverseListener(new 24(this));
+      this.txtTicketsAmount.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusGained(FocusEvent e) {
+              lastFocusControl = txtTicketsAmount;
+          }
+          
+          @Override
+          public void focusLost(FocusEvent e) {
+              if (!"".equals(txtTicketsAmount.getText())) {
+                  format2Decimals(txtTicketsAmount);
+              }
+          }
+      });
+      this.txtTicketsAmount.addKeyListener(new KeyAdapter() {
+          @Override
+          public void keyReleased(KeyEvent e) {
+              updatedTender();
+          }
+      });
+      this.txtTicketsAmount.addTraverseListener(e -> {
+          if (e.detail == SWT.TRAVERSE_RETURN) {
+              processPayment();
+          }
+      });
+
       Canvas canvas = new Canvas(container, 0);
       canvas.setBackground(SWTResourceManager.getColor(2));
       canvas.setBounds(403, 10, 230, 70);

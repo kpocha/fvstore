@@ -4,7 +4,9 @@ import com.facilvirtual.fvstoresdesk.model.CashOperation;
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import java.util.Date;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.events.TraverseEvent;
+import org.slf4j.LoggerFactory;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
@@ -58,27 +60,24 @@ public class AddNewCashIncome extends AbstractFVDialog {
       FormData fd_lblImporte = new FormData();
       fd_lblImporte.left = new FormAttachment(0, 43);
       fd_lblImporte.top = new FormAttachment(lblConcepto, 27);
-      fd_lblImporte.right = new FormAttachment(lblConcepto, 0, 131072);
       lblImporte.setLayoutData(fd_lblImporte);
       lblImporte.setText("Importe: $");
+      
       this.txtAmount = new Text(container, 2048);
       this.txtAmount.setTextLimit(30);
-      fd_txtDescription.bottom = new FormAttachment(100, -134);
       FormData fd_txtAmount = new FormData();
-      fd_txtAmount.top = new FormAttachment(this.txtDescription, 21);
-      fd_txtAmount.right = new FormAttachment(lblImporte, 97, 131072);
+      fd_txtAmount.top = new FormAttachment(lblImporte, 0, SWT.CENTER);
       fd_txtAmount.left = new FormAttachment(lblImporte, 6);
+      fd_txtAmount.right = new FormAttachment(100, -43);
       this.txtAmount.setLayoutData(fd_txtAmount);
-
-       this.txtAmount.addTraverseListener(new TraverseListener() {
+      this.txtAmount.addTraverseListener(new TraverseListener() {
          @Override
-         public void keyTraversed(TraverseEvent arg0) {
-            if (arg0.detail == 4) { // 4 es el código para la tecla Enter
+         public void keyTraversed(TraverseEvent e) {
+            if (e.detail == SWT.TRAVERSE_RETURN) {
                processDialog();
             }
          }
       });
-      
       return container;
    }
 

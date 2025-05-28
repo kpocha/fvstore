@@ -194,12 +194,11 @@ public class Login extends AbstractFVApplicationWindow {
       lblIngreseSuContrasea.setBounds(346, 19, 146, 27);
       lblIngreseSuContrasea.setText("Iniciar sesión");
       this.txtPassword = new Text(this.canvasLoginBox, 4196352);
-      this.txtPassword = new Text(this.canvasLoginBox, 4196352);
       this.txtPassword.addTraverseListener(new TraverseListener() {
          @Override
          public void keyTraversed(TraverseEvent e) {
             if (e.detail == SWT.TRAVERSE_RETURN) {
-               initUsernames();
+               processLogin();
             }
          }
       });

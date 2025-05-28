@@ -30,11 +30,13 @@ import com.facilvirtual.fvstoresdesk.ui.tool.CreateLabelsGenerator;
 import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 import com.facilvirtual.fvstoresdesk.util.FVMathUtils;
 import com.facilvirtual.fvstoresdesk.util.FVMediaUtils;
+import com.facilvirtual.fvstoresdesk.ui.ProductsManager;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.text.DecimalFormat;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -954,12 +956,13 @@ public class CashRegister extends AbstractFVApplicationWindow {
 
       this.mainContainer = new Composite(parent, 0);
       this.mainContainer.setBackground(this.themeBack);
-      GridLayout gridLayout = new GridLayout();
+      GridLayout gridLayout = new GridLayout(2, false);
       gridLayout.marginHeight = 0;
       gridLayout.marginWidth = 0;
       gridLayout.horizontalSpacing = 15;
-      gridLayout.numColumns = 2;
       this.mainContainer.setLayout(gridLayout);
+
+      // Contenedor izquierdo - expandible
       this.leftContainer = new Composite(this.mainContainer, 0);
       this.leftContainer.setBackground(this.themeBack);
       GridLayout gl_leftContainer = new GridLayout(1, false);
@@ -969,23 +972,29 @@ public class CashRegister extends AbstractFVApplicationWindow {
       gl_leftContainer.marginHeight = 0;
       gl_leftContainer.marginWidth = 0;
       this.leftContainer.setLayout(gl_leftContainer);
-      this.leftContainer.setLayoutData(new GridData(4, 4, true, true));
+      GridData gd_leftContainer = new GridData(SWT.FILL, SWT.FILL, true, true);
+      gd_leftContainer.widthHint = SWT.DEFAULT;
+      this.leftContainer.setLayoutData(gd_leftContainer);
+
+      // Contenedor derecho - ancho fijo pero altura expandible
       this.rightContainer = new Composite(this.mainContainer, 0);
       this.rightContainer.setBackground(this.themeBack);
-      this.rightContainer.setLayoutData(new GridData(16384, 4, false, true, 1, 1));
-      GridData gd_rightContainer = new GridData(16384, 4, false, true, 1, 1);
+      GridLayout gl_rightContainer = new GridLayout(1, false);
+      gl_rightContainer.marginRight = 15;
+      gl_rightContainer.marginHeight = 0;
+      gl_rightContainer.marginWidth = 0;
+      this.rightContainer.setLayout(gl_rightContainer);
+      GridData gd_rightContainer = new GridData(SWT.END, SWT.FILL, false, true);
       gd_rightContainer.widthHint = 322;
-      GridLayout gd_rightContainerLayout = new GridLayout(1, false);
-      gd_rightContainerLayout.marginRight = 15;
-      gd_rightContainerLayout.marginHeight = 0;
-      gd_rightContainerLayout.marginWidth = 0;
-      this.rightContainer.setLayout(gd_rightContainerLayout);
+      this.rightContainer.setLayoutData(gd_rightContainer);
+
       this.createLeftContents();
       this.createRightContents();
       this.createBottomContents();
       this.initTotalDisplayForOtherInvoice();
       this.initTableForOtherInvoice();
       this.configureHotkeys(parent);
+      
       if (this.getCurrentOrder() == null) {
          this.initNewOrder();
       } else {
@@ -996,11 +1005,14 @@ public class CashRegister extends AbstractFVApplicationWindow {
    }
 
    private void createLeftContents() {
+      // Contenedor superior
       Composite leftContentTop = new Composite(this.leftContainer, 0);
       leftContentTop.setBackground(this.themeBack);
-      GridData gd_leftContentTop = new GridData(4, 16777216, false, false, 1, 1);
+      GridData gd_leftContentTop = new GridData(SWT.FILL, SWT.TOP, true, false);
       gd_leftContentTop.heightHint = 52;
       leftContentTop.setLayoutData(gd_leftContentTop);
+
+      // Contenedor del encabezado de la tabla
       this.tableHeaderContainer = new Composite(this.leftContainer, 0);
       GridLayout gl_tableHeaderContainer = new GridLayout(9, false);
       gl_tableHeaderContainer.horizontalSpacing = 0;
@@ -1008,27 +1020,29 @@ public class CashRegister extends AbstractFVApplicationWindow {
       gl_tableHeaderContainer.marginHeight = 0;
       gl_tableHeaderContainer.marginWidth = 0;
       this.tableHeaderContainer.setLayout(gl_tableHeaderContainer);
-      GridData gd_tableHeaderContainer = new GridData(4, 128, false, false, 1, 1);
+      GridData gd_tableHeaderContainer = new GridData(SWT.FILL, SWT.TOP, true, false);
       gd_tableHeaderContainer.heightHint = 19;
-      gd_tableHeaderContainer.widthHint = 250;
       this.tableHeaderContainer.setLayoutData(gd_tableHeaderContainer);
       this.tableHeaderContainer.setBackground(this.themeBack);
+
+      // Contenedor de la tabla - expandible
       this.tableContainer = new Composite(this.leftContainer, 0);
-      this.tableContainer.setLayout(new FillLayout(256));
-      GridData gd_tableContainer = new GridData(4, 4, false, true, 1, 1);
-      gd_tableContainer.heightHint = 250;
-      gd_tableContainer.widthHint = 250;
+      this.tableContainer.setLayout(new FillLayout(SWT.VERTICAL));
+      GridData gd_tableContainer = new GridData(SWT.FILL, SWT.FILL, true, true);
       this.tableContainer.setLayoutData(gd_tableContainer);
-      this.tableContainer.setBackground(SWTResourceManager.getColor(15));
+      this.tableContainer.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+
+      // Contenedor inferior
       Composite leftContentBottom = new Composite(this.leftContainer, 0);
       leftContentBottom.setBackground(this.themeBack);
       GridLayout gl_leftContentBottom = new GridLayout(1, false);
       gl_leftContentBottom.marginHeight = 0;
       gl_leftContentBottom.marginWidth = 0;
       leftContentBottom.setLayout(gl_leftContentBottom);
-      GridData gd_leftContentBottom = new GridData(4, 1, true, false);
+      GridData gd_leftContentBottom = new GridData(SWT.FILL, SWT.BOTTOM, true, false);
       gd_leftContentBottom.heightHint = 50;
       leftContentBottom.setLayoutData(gd_leftContentBottom);
+
       Label lblNewLabel_1 = new Label(this.leftContainer, 0);
       GridData gd_lblNewLabel_1 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_lblNewLabel_1.heightHint = 21;
@@ -1569,30 +1583,33 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.btnCobrar = new Label(rightContentTop, 0);
       this.btnCobrar.setBackground(this.themeBack);
       this.btnCobrar.addMouseListener(new MouseAdapter() {
-         @Override
-         public void mouseDown(MouseEvent e) {
-             Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_click.gif");
-             btnCobrar.setImage(image);
-         }
-         @Override
-         public void mouseUp(MouseEvent e) {
-             Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_over.gif");
-             btnCobrar.setImage(image);
-             CashRegister.this.newSale();
-         }
-     });
-      this.btnCobrar.addMouseTrackListener(new MouseTrackAdapter() {
-         @Override
-         public void mouseEnter(MouseEvent e) {
-               Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_over.gif");
-               btnCobrar.setImage(image);
-         }
-         @Override
-         public void mouseExit(MouseEvent e) {
-               Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay.gif");
-               btnCobrar.setImage(image);
-         }
-      });
+            @Override
+            public void mouseDown(MouseEvent e) {
+                Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_click.gif");
+                btnCobrar.setImage(image);
+            }
+        });
+        this.btnCobrar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseUp(MouseEvent e) {
+                Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_over.gif");
+                btnCobrar.setImage(image);
+                checkout();
+            }
+        });
+        this.btnCobrar.addMouseTrackListener(new MouseTrackAdapter() {
+            @Override
+            public void mouseEnter(MouseEvent e) {
+                Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay_over.gif");
+                btnCobrar.setImage(image);
+            }
+
+            @Override
+            public void mouseExit(MouseEvent e) {
+                Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_pay.gif");
+                btnCobrar.setImage(image);
+            }
+        });
       Image image = new Image(Display.getCurrent(), this.getImagesDir() + "btn_pay.gif");
       this.btnCobrar.setImage(image);
       this.btnCobrar.setFont(SWTResourceManager.getFont("Arial", 14, 1));
@@ -1600,29 +1617,26 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.btnNuevaVenta = new Label(rightContentTop, 0);
       this.btnNuevaVenta.setBackground(this.themeBack);
       this.btnNuevaVenta.addMouseListener(new MouseAdapter() {
-         @Override
-         public void mouseDown(MouseEvent e) {
-             Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale_click.gif");
-             btnNuevaVenta.setImage(image);
-         }
-         @Override
-         public void mouseUp(MouseEvent e) {
-             Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale_over.gif");
-             btnNuevaVenta.setImage(image);
-             newSale();
-         }
-     });
+          @Override
+          public void mouseDown(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale_click.gif");
+              btnNuevaVenta.setImage(image);
+              initNewOrder();
+          }
+      });
+      this.btnNuevaVenta.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseUp(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale.gif");
+              btnNuevaVenta.setImage(image);
+          }
+      });
       this.btnNuevaVenta.addMouseTrackListener(new MouseTrackAdapter() {
-         @Override
-         public void mouseEnter(MouseEvent e) {
-            Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale_over.gif");
-            btnNuevaVenta.setImage(image);
-         }
-         @Override
-         public void mouseExit(MouseEvent e) {
-            Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale.gif");
-            btnNuevaVenta.setImage(image);
-         }
+          @Override
+          public void mouseEnter(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_new_sale_over.gif");
+              btnNuevaVenta.setImage(image);
+          }
       });
       Image image2 = new Image(Display.getCurrent(), this.getImagesDir() + "btn_new_sale.gif");
       this.btnNuevaVenta.setImage(image2);
@@ -1630,6 +1644,34 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.btnNuevaVenta.setBounds(0, 174, 153, 45);
       this.btnCheckPrice = new Label(rightContentTop, 0);
       this.btnCheckPrice.setBackground(this.themeBack);
+      this.btnCheckPrice.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseDown(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_check_price_click.gif");
+              btnCheckPrice.setImage(image);
+          }
+      });
+      this.btnCheckPrice.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseUp(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_check_price_over.gif");
+              btnCheckPrice.setImage(image);
+              checkPrice();
+          }
+      });
+      this.btnCheckPrice.addMouseTrackListener(new MouseTrackAdapter() {
+          @Override
+          public void mouseEnter(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_check_price_over.gif");
+              btnCheckPrice.setImage(image);
+          }
+
+          @Override
+          public void mouseExit(MouseEvent e) {
+              Image image = new Image(Display.getCurrent(), getImagesDir() + "btn_check_price.gif");
+              btnCheckPrice.setImage(image);
+          }
+      });
       Image image3 = new Image(Display.getCurrent(), this.getImagesDir() + "btn_check_price.gif");
       this.btnCheckPrice.setImage(image3);
       this.btnCheckPrice.setFont(SWTResourceManager.getFont("Arial", 11, 0));
@@ -1641,6 +1683,19 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept1.setText(" Departamento 01");
       if (this.getWorkstationConfig().getCashDept1() != null) {
          btnDept1.setText(" 01-" + this.getWorkstationConfig().getCashDept1().getName());
+         class Dept1SelectionListener extends SelectionAdapter {
+            private final CashRegister cashRegister;
+            
+            Dept1SelectionListener(CashRegister cashRegister) {
+               this.cashRegister = cashRegister;
+            }
+            
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               cashRegister.addProductCategoryToOrder(cashRegister.getWorkstationConfig().getCashDept1().getName());
+            }
+         }
+         btnDept1.addSelectionListener(new Dept1SelectionListener(this));
       }
 
       Button btnDept2 = new Button(rightContentTop, 0);
@@ -1650,6 +1705,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept2.setText(" Departamento 02");
       if (this.getWorkstationConfig().getCashDept2() != null) {
          btnDept2.setText(" 02-" + this.getWorkstationConfig().getCashDept2().getName());
+         btnDept2.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept2().getName());
+            }
+         });
       }
 
       Button btnDept3 = new Button(rightContentTop, 0);
@@ -1659,6 +1720,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept3.setText(" Departamento 03");
       if (this.getWorkstationConfig().getCashDept3() != null) {
          btnDept3.setText(" 03-" + this.getWorkstationConfig().getCashDept3().getName());
+         btnDept3.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept3().getName());
+            }
+         });
       }
 
       Button btnDept4 = new Button(rightContentTop, 0);
@@ -1668,6 +1735,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept4.setText(" Departamento 04");
       if (this.getWorkstationConfig().getCashDept4() != null) {
          btnDept4.setText(" 04-" + this.getWorkstationConfig().getCashDept4().getName());
+         btnDept4.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept4().getName());
+            }
+         });
       }
 
       Button btnDept5 = new Button(rightContentTop, 0);
@@ -1677,6 +1750,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept5.setText(" Departamento 05");
       if (this.getWorkstationConfig().getCashDept5() != null) {
          btnDept5.setText(" 05-" + this.getWorkstationConfig().getCashDept5().getName());
+         btnDept5.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept5().getName());
+            }
+         });
       }
 
       Button btnDept6 = new Button(rightContentTop, 0);
@@ -1686,6 +1765,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept6.setText(" Departamento 06");
       if (this.getWorkstationConfig().getCashDept6() != null) {
          btnDept6.setText(" 06-" + this.getWorkstationConfig().getCashDept6().getName());
+         btnDept6.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept6().getName());
+            }
+         });
       }
 
       Button btnDept7 = new Button(rightContentTop, 0);
@@ -1695,6 +1780,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDept7.setText(" Departamento 07");
       if (this.getWorkstationConfig().getCashDept7() != null) {
          btnDept7.setText(" 07-" + this.getWorkstationConfig().getCashDept7().getName());
+         btnDept7.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept7().getName());
+            }
+         });
       }
 
       Button btnDept8 = new Button(rightContentTop, 0);
@@ -1709,6 +1800,12 @@ public class CashRegister extends AbstractFVApplicationWindow {
       this.lblFSeleccionar.setText("F8 - SELECCIONAR DEPARTAMENTO");
       if (this.getWorkstationConfig().getCashDept8() != null) {
          btnDept8.setText(" 08-" + this.getWorkstationConfig().getCashDept8().getName());
+         btnDept8.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+               addProductCategoryToOrder(getWorkstationConfig().getCashDept8().getName());
+            }
+         });
       }
 
       Composite rightContentBottom = new Composite(this.rightContainer, 0);
@@ -2425,7 +2522,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       Action adminProductsAction = new Action("&Administrador de artículos"){
          @Override
          public void run(){
-            ProductManager dialog = new ProductManager(CashRegister.this.getShell());
+            ProductsManager dialog = ProductsManager.getInstance();
             dialog.setBlockOnOpen(true);
             dialog.open();
          }

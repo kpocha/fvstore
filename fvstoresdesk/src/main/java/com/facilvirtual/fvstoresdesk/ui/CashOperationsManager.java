@@ -9,7 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+import org.slf4j.LoggerFactory;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -28,6 +30,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class CashOperationsManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("CashOperationsManager");
    private static CashOperationsManager INSTANCE = null;
+   private boolean fullScreenMode = false;
    private Composite headerContainer;
    private Composite bodyContainer;
    private Table table;
@@ -54,17 +57,54 @@ public class CashOperationsManager extends AbstractFVApplicationWindow {
    }
 
    protected Control createContents(Composite parent) {
-      Composite layoutContainer = new Composite(parent, 0);
-      layoutContainer.setLayout(new GridLayout(1, false));
-      this.headerContainer = new Composite(layoutContainer, 0);
-      this.headerContainer.setLayout(new GridLayout(9, false));
-      this.bodyContainer = new Composite(layoutContainer, 0);
-      this.bodyContainer.setLayout(new FillLayout(256));
-      this.bodyContainer.setLayoutData(new GridData(4, 4, true, true, 1, 1));
+      if (!getWorkstationConfig().isCashOpened()) {
+         return createContentsCashClosed(parent);
+      }
+
+      Composite layoutContainer = new Composite(parent, SWT.NONE);
+      GridLayout layout = new GridLayout(1, false);
+      layout.marginWidth = 10;
+      layout.marginHeight = 10;
+      layout.verticalSpacing = 10;
+      layoutContainer.setLayout(layout);
+      
+      // Header con filtros
+      this.headerContainer = new Composite(layoutContainer, SWT.NONE);
+      GridLayout headerLayout = new GridLayout(9, false);
+      headerLayout.marginHeight = 0;
+      headerLayout.marginWidth = 0;
+      headerLayout.horizontalSpacing = 5;
+      this.headerContainer.setLayout(headerLayout);
+      this.headerContainer.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+      
+      // Contenedor de la tabla
+      this.bodyContainer = new Composite(layoutContainer, SWT.NONE);
+      this.bodyContainer.setLayout(new FillLayout());
+      GridData bodyData = new GridData(SWT.FILL, SWT.FILL, true, true);
+      bodyData.heightHint = 400; // altura mínima
+      this.bodyContainer.setLayoutData(bodyData);
+      
       this.createHeaderContents();
       this.createBodyContents();
       this.searchCashOperations();
       return layoutContainer;
+   }
+
+   protected Control createContentsCashClosed(Composite parent) {
+      logger.info("Iniciando Caja cerrada");
+      if (this.isFullScreenMode()) {
+         this.getMenuBarManager().dispose();
+      }
+
+      Composite container = new Composite(parent, 0);
+      container.setBackground(SWTResourceManager.getColor(240, 240, 240));
+      container.setLayout(null);
+      Label lblLaCajaEst = new Label(container, 0);
+      lblLaCajaEst.setBounds(10, 10, 157, 13);
+      lblLaCajaEst.setText("La caja se encuentra cerrada.");
+      lblLaCajaEst.setBackground(container.getBackground());
+      
+      return container;
    }
 
    private void searchCashOperations() {
@@ -139,16 +179,66 @@ public class CashOperationsManager extends AbstractFVApplicationWindow {
    }
 
    private void createHeaderContents() {
-      Label lblCaja = new Label(this.headerContainer, 0);
-      lblCaja.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
+      // Caja
+      Label lblCaja = new Label(this.headerContainer, SWT.NONE);
       lblCaja.setText("Caja:");
-      this.comboCash = new Combo(this.headerContainer, 8);
-      GridData gd_comboCash = new GridData(4, 16777216, true, false, 1, 1);
-      gd_comboCash.widthHint = 12;
+      lblCaja.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      
+      this.comboCash = new Combo(this.headerContainer, SWT.READ_ONLY);
+      GridData gd_comboCash = new GridData(SWT.FILL, SWT.CENTER, false, false);
+      gd_comboCash.widthHint = 80;
       this.comboCash.setLayoutData(gd_comboCash);
+      this.comboCash.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      
+      // Desde
+      Label lblDesde = new Label(this.headerContainer, SWT.NONE);
+      lblDesde.setText("Desde:");
+      lblDesde.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      
+      this.startDatepicker = new DateTime(this.headerContainer, SWT.DATE | SWT.DROP_DOWN);
+      this.startDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      
+      // Hasta
+      Label lblHasta = new Label(this.headerContainer, SWT.NONE);
+      lblHasta.setText("Hasta:");
+      lblHasta.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      
+      this.endDatepicker = new DateTime(this.headerContainer, SWT.DATE | SWT.DROP_DOWN);
+      this.endDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      
+      // Botón Buscar
+      Button btnSearch = new Button(this.headerContainer, SWT.PUSH);
+      btnSearch.setText("Buscar");
+      btnSearch.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      btnSearch.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
+      btnSearch.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            searchCashOperations();
+         }
+      });
+      
+      // Separador
+      Label lblSep1 = new Label(this.headerContainer, SWT.NONE);
+      GridData gd_lblSep1 = new GridData(SWT.LEFT, SWT.CENTER, true, false);
+      gd_lblSep1.widthHint = 10;
+      lblSep1.setLayoutData(gd_lblSep1);
+      
+      // Botón Actualizar
+      Button btnActualizar = new Button(this.headerContainer, SWT.PUSH);
+      btnActualizar.setText("Actualizar");
+      btnActualizar.setFont(SWTResourceManager.getFont("Tahoma", 10, SWT.NORMAL));
+      btnActualizar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_update.gif"));
+      btnActualizar.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            searchCashOperations();
+         }
+      });
+
+      // Inicializar combo de cajas
       List<WorkstationConfig> workstationConfigs = this.getAppConfigService().getActiveWorkstationConfigs();
       int selectedIdx = 0;
-
       for(Iterator var6 = workstationConfigs.iterator(); var6.hasNext(); ++selectedIdx) {
          WorkstationConfig wsc = (WorkstationConfig)var6.next();
          this.comboCash.add(wsc.getCashNumberToDisplay());
@@ -156,56 +246,37 @@ public class CashOperationsManager extends AbstractFVApplicationWindow {
             this.comboCash.select(selectedIdx);
          }
       }
-
-      Label lblDesde = new Label(this.headerContainer, 0);
-      lblDesde.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
-      lblDesde.setText("Desde:");
-      this.startDatepicker = new DateTime(this.headerContainer, 2048);
-      this.startDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
-      Label lblHasta = new Label(this.headerContainer, 0);
-      lblHasta.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
-      lblHasta.setText("Hasta:");
-      this.endDatepicker = new DateTime(this.headerContainer, 2048);
-      this.endDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
-      Button btnSearch = new Button(this.headerContainer, 0);
-     // btnSearch.addSelectionListener(new 1(this));
-      btnSearch.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
-      btnSearch.setText("Buscar");
-      btnSearch.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
-      Label lblSep1 = new Label(this.headerContainer, 0);
-      GridData gd_lblSep1 = new GridData(16384, 16777216, false, false, 1, 1);
-      gd_lblSep1.widthHint = 10;
-      lblSep1.setLayoutData(gd_lblSep1);
-      Button btnActualizar = new Button(this.headerContainer, 0);
-      btnActualizar.setLayoutData(new GridData(16384, 4, false, false, 1, 1));
-      btnActualizar.setText("Actualizar");
-      btnActualizar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_update.gif"));
-     // btnActualizar.addSelectionListener(new 2(this));
-     //TODO:arrglar
    }
 
    private void createBodyContents() {
-      this.table = new Table(this.bodyContainer, 67584);
+      this.table = new Table(this.bodyContainer, SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
       this.table.setHeaderVisible(true);
       this.table.setLinesVisible(true);
-      TableColumn tblclmnNroProveedor = new TableColumn(this.table, 0);
-      tblclmnNroProveedor.setWidth(90);
-      tblclmnNroProveedor.setText("Fecha/Hora");
-      TableColumn tblclmnCreadoPor = new TableColumn(this.table, 0);
-      tblclmnCreadoPor.setWidth(100);
-      tblclmnCreadoPor.setText("Cajero");
-      TableColumn tblclmnTickets2 = new TableColumn(this.table, 0);
-      tblclmnTickets2.setWidth(265);
-      tblclmnTickets2.setText("Concepto");
-      TableColumn tblclmnTickets3 = new TableColumn(this.table, 0);
-      tblclmnTickets3.setWidth(100);
-      tblclmnTickets3.setText("Ingresos");
-      TableColumn tblclmnTickets4 = new TableColumn(this.table, 0);
-      tblclmnTickets4.setWidth(100);
-      tblclmnTickets4.setText("Egresos");
-      TableColumn tblclmnEstado = new TableColumn(this.table, 0);
-      tblclmnEstado.setWidth(100);
-      tblclmnEstado.setText("Saldo");
+      this.table.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
+
+      TableColumn tblclmnFecha = new TableColumn(this.table, SWT.CENTER);
+      tblclmnFecha.setWidth(130);
+      tblclmnFecha.setText("Fecha/Hora");
+
+      TableColumn tblclmnCajero = new TableColumn(this.table, SWT.LEFT);
+      tblclmnCajero.setWidth(100);
+      tblclmnCajero.setText("Cajero");
+
+      TableColumn tblclmnConcepto = new TableColumn(this.table, SWT.LEFT);
+      tblclmnConcepto.setWidth(300);
+      tblclmnConcepto.setText("Concepto");
+
+      TableColumn tblclmnIngresos = new TableColumn(this.table, SWT.RIGHT);
+      tblclmnIngresos.setWidth(100);
+      tblclmnIngresos.setText("Ingresos");
+
+      TableColumn tblclmnEgresos = new TableColumn(this.table, SWT.RIGHT);
+      tblclmnEgresos.setWidth(100);
+      tblclmnEgresos.setText("Egresos");
+
+      TableColumn tblclmnSaldo = new TableColumn(this.table, SWT.RIGHT);
+      tblclmnSaldo.setWidth(100);
+      tblclmnSaldo.setText("Saldo");
    }
 
    @Override protected void configureShell(Shell newShell) {
@@ -213,8 +284,12 @@ public class CashOperationsManager extends AbstractFVApplicationWindow {
       this.initTitle(newShell, "Movimientos de caja");
    }
 
+   @Override
    protected Point getInitialSize() {
-      return new Point(800, 600);
+      org.eclipse.swt.graphics.Rectangle bounds = getShell().getDisplay().getPrimaryMonitor().getBounds();
+      int width = (int)(bounds.width * 0.8);
+      int height = (int)(bounds.height * 0.8);
+      return new Point(width, height);
    }
 
    public List<CashOperation> getCashOperations() {
@@ -223,5 +298,35 @@ public class CashOperationsManager extends AbstractFVApplicationWindow {
 
    public void setCashOperations(List<CashOperation> cashOperations) {
       this.cashOperations = cashOperations;
+   }
+
+   protected Date buildDateFromInput(DateTime dateTime) {
+      return DateUtils.setMilliseconds(
+         DateUtils.setSeconds(
+            DateUtils.setMinutes(
+               DateUtils.setHours(
+                  DateUtils.setDays(
+                     DateUtils.setMonths(
+                        DateUtils.setYears(new Date(), dateTime.getYear()),
+                        dateTime.getMonth()
+                     ),
+                     dateTime.getDay()
+                  ),
+                  0
+               ),
+               0
+            ),
+            0
+         ),
+         0
+      );
+   }
+
+   protected boolean isFullScreenMode() {
+      return this.fullScreenMode;
+   }
+
+   protected void setFullScreenMode(boolean fullScreenMode) {
+      this.fullScreenMode = fullScreenMode;
    }
 }

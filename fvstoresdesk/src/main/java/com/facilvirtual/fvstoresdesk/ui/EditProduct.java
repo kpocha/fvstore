@@ -31,68 +31,132 @@ public class EditProduct extends AddNewProduct {
    }
 
    protected Control createDialogArea(Composite parent) {
-      Composite container = (Composite)super.createDialogArea(parent);
-      this.txtBarCode.setText(this.getProduct().getBarCode());
-      this.txtBarCode.setEditable(false);
-      this.txtDescription.setText(this.getProduct().getDescription());
+      try {
+         logger.info("Iniciando creación del diálogo de edición");
+         
+         if (this.getProduct() == null) {
+            logger.error("No se puede editar: producto es null");
+            throw new IllegalStateException("No se puede editar: producto no inicializado");
+         }
+         
+         Composite container = (Composite)super.createDialogArea(parent);
+         
+         // Inicializar campos básicos
+         this.txtBarCode.setText(this.getProduct().getBarCode());
+         this.txtBarCode.setEditable(false);
+         this.txtDescription.setText(this.getProduct().getDescription());
+         
+         // Inicializar unidad de venta
+         initSellingUnit();
+         
+         // Inicializar categoría
+         initCategory();
+         
+         // Inicializar fechas y alertas
+         initDatesAndAlerts();
+         
+         // Inicializar otros campos
+         this.btnInWeb.setSelection(this.getProduct().isInWeb());
+         this.btnDiscontinued.setVisible(true);
+         this.btnDiscontinued.setSelection(this.product.isDiscontinued());
+         
+         // Inicializar descripción corta
+         if (this.getProduct().getShortDescription() != null) {
+            this.txtShortDescription.setText(this.product.getShortDescription());
+         }
+         
+         // Inicializar cantidad
+         initQuantity();
+         
+         // Inicializar tabs
+         try {
+            this.initTabPrices();
+         } catch (Exception e) {
+            logger.error("Error al inicializar tab de precios", e);
+         }
+         
+         try {
+            this.initTabStock();
+         } catch (Exception e) {
+            logger.error("Error al inicializar tab de stock", e);
+         }
+         
+         try {
+            this.initTabSuppliers();
+         } catch (Exception e) {
+            logger.error("Error al inicializar tab de proveedores", e);
+         }
+         
+         this.updateLabelPreview();
+         
+         logger.info("Diálogo de edición creado exitosamente");
+         return container;
+         
+      } catch (Exception e) {
+         logger.error("Error al crear el diálogo de edición", e);
+         throw new RuntimeException("Error al crear el diálogo de edición: " + e.getMessage(), e);
+      }
+   }
+   
+   private void initSellingUnit() {
       if (this.getProduct().getSellingUnit().equalsIgnoreCase("UN")) {
          this.comboUnits.select(0);
       } else {
          this.comboUnits.select(1);
       }
-
+   }
+   
+   private void initCategory() {
       this.btnInOffer.setSelection(this.getProduct().isInOffer());
       List<ProductCategory> categories = this.getProductService().getActiveProductCategories();
       Collections.sort(categories);
+      
       if (this.getProduct().getCategory().getName().equalsIgnoreCase("Sin Clasificar")) {
          this.comboProductCategories.select(0);
       } else {
          int idx = 1;
-
-         for(Iterator var6 = categories.iterator(); var6.hasNext(); ++idx) {
-            ProductCategory c = (ProductCategory)var6.next();
+         for(ProductCategory c : categories) {
             if (this.getProduct().getCategory().getName().equalsIgnoreCase(c.getName())) {
                this.comboProductCategories.select(idx);
+               break;
             }
+            idx++;
          }
       }
-
-      if (this.getProduct() != null) {
-         this.txtExpirationDate.setText(this.getProduct().getExpirationDateToDisplay());
-         this.txtAlertExpDays.setText(String.valueOf(this.getProduct().getAlertExpDays()));
-         this.btnAlertExpActive.setSelection(this.getProduct().getAlertExpActive());
+   }
+   
+   private void initDatesAndAlerts() {
+      this.txtExpirationDate.setText(this.getProduct().getExpirationDateToDisplay());
+      this.txtAlertExpDays.setText(String.valueOf(this.getProduct().getAlertExpDays()));
+      this.btnAlertExpActive.setSelection(this.getProduct().getAlertExpActive());
+   }
+   
+   private void initQuantity() {
+      this.txtQuantity.setText(this.product.getQuantityToDisplay());
+      
+      String quantityUnit = this.getProduct().getQuantityUnit().toUpperCase();
+      switch(quantityUnit) {
+         case "":
+            this.comboQuantityUnit.select(0);
+            break;
+         case "CC":
+            this.comboQuantityUnit.select(1);
+            break;
+         case "GRS":
+            this.comboQuantityUnit.select(2);
+            break;
+         case "UNI":
+            this.comboQuantityUnit.select(3);
+            break;
+         case "KGS":
+            this.comboQuantityUnit.select(4);
+            break;
+         case "LTS":
+            this.comboQuantityUnit.select(5);
+            break;
+         default:
+            this.comboQuantityUnit.select(0);
       }
-
-      this.btnInWeb.setSelection(this.getProduct().isInWeb());
-      this.btnDiscontinued.setVisible(true);
-      this.btnDiscontinued.setSelection(this.product.isDiscontinued());
-      if (this.getProduct() != null && this.getProduct().getShortDescription() != null) {
-         this.txtShortDescription.setText(this.product.getShortDescription());
-      }
-
-      if (this.getProduct() != null) {
-         this.txtQuantity.setText(this.product.getQuantityToDisplay());
-      }
-
-      if ("".equalsIgnoreCase(this.getProduct().getQuantityUnit())) {
-         this.comboQuantityUnit.select(0);
-      } else if ("CC".equalsIgnoreCase(this.getProduct().getQuantityUnit())) {
-         this.comboQuantityUnit.select(1);
-      } else if ("GRS".equalsIgnoreCase(this.getProduct().getQuantityUnit())) {
-         this.comboQuantityUnit.select(2);
-      } else if ("UNI".equalsIgnoreCase(this.getProduct().getQuantityUnit())) {
-         this.comboQuantityUnit.select(3);
-      } else if ("KGS".equalsIgnoreCase(this.getProduct().getQuantityUnit())) {
-         this.comboQuantityUnit.select(4);
-      } else if ("LTS".equalsIgnoreCase(this.getProduct().getQuantityUnit())) {
-         this.comboQuantityUnit.select(5);
-      }
-
-      this.initTabPrices();
-      this.initTabStock();
-      this.initTabSuppliers();
-      this.updateLabelPreview();
-      return container;
    }
 
    private void initTabPrices() {

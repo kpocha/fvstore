@@ -81,42 +81,85 @@ public class ProductsManager extends AbstractFVApplicationWindow {
       Composite topMenuContainer = new Composite(headerContainer, 0);
       topMenuContainer.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       topMenuContainer.setLayout(new GridLayout(8, false));
+      
+      // Botón Nuevo artículo
       Button btnNewButton_2 = new Button(topMenuContainer, 0);
-      //TODO: arreglar
-      //btnNewButton_2.addSelectionListener(new 1(this));
+      btnNewButton_2.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            addNewProduct();
+         }
+      });
       btnNewButton_2.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_add.gif"));
       btnNewButton_2.setText("Nuevo artículo");
+      
+      // Botón Modificar
       Button btnNewButton_1 = new Button(topMenuContainer, 0);
-      //btnNewButton_1.addSelectionListener(new 2(this));
+      btnNewButton_1.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            editProduct();
+         }
+      });
       btnNewButton_1.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_edit.gif"));
       btnNewButton_1.setText("Modificar");
+      
+      // Botón Discontinuar
       Button btnNewButton = new Button(topMenuContainer, 0);
-      //btnNewButton.addSelectionListener(new 3(this));
+      btnNewButton.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            deleteProduct();
+         }
+      });
       btnNewButton.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_delete.gif"));
       btnNewButton.setText("Discontinuar");
+      
       Label lblNewLabel = new Label(topMenuContainer, 0);
       GridData gd_lblNewLabel = new GridData(131072, 16777216, false, false, 1, 1);
       gd_lblNewLabel.widthHint = 25;
       lblNewLabel.setLayoutData(gd_lblNewLabel);
       GridData gd1 = new GridData(16384, 16777216, false, false, 1, 1);
       gd1.widthHint = 175;
+      
       this.txtQuery = new Text(topMenuContainer, 2048);
       this.txtQuery.setLayoutData(gd1);
       this.txtQuery.setFont(SWTResourceManager.getFont("Tahoma", 12, 0));
       this.txtQuery.setText("");
-      //this.txtQuery.addTraverseListener(new 4(this));
+      this.txtQuery.addTraverseListener(new org.eclipse.swt.events.TraverseListener() {
+         @Override
+         public void keyTraversed(org.eclipse.swt.events.TraverseEvent e) {
+            if (e.detail == org.eclipse.swt.SWT.TRAVERSE_RETURN) {
+               searchProducts();
+            }
+         }
+      });
+      
       Button btnBuscar = new Button(topMenuContainer, 0);
-      //btnBuscar.addSelectionListener(new 5(this));
+      btnBuscar.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            searchProducts();
+         }
+      });
       btnBuscar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
       btnBuscar.setText("Buscar");
+      
       Label lblNewLabel_1 = new Label(topMenuContainer, 0);
       GridData gd_lblNewLabel_1 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_lblNewLabel_1.widthHint = 5;
       lblNewLabel_1.setLayoutData(gd_lblNewLabel_1);
+      
       this.btnHideDiscontinued = new Button(topMenuContainer, 32);
       this.btnHideDiscontinued.setSelection(true);
-      //this.btnHideDiscontinued.addSelectionListener(new 6(this));
+      this.btnHideDiscontinued.addSelectionListener(new org.eclipse.swt.events.SelectionAdapter() {
+         @Override
+         public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+            searchProducts();
+         }
+      });
       this.btnHideDiscontinued.setText("Ocultar artículos discontinuados");
+      
       Composite tableContainer = new Composite(container, 0);
       tableContainer.setLayout(fillLayout);
       fData = new FormData();
@@ -216,12 +259,43 @@ public class ProductsManager extends AbstractFVApplicationWindow {
 
    private void initToolTip() {
       table.setToolTipText("");
-     // Listener labelListener = new 7(this);
-      //Listener tableListener = new 8(this, labelListener);
-      // table.addListener(12, tableListener);
-      // table.addListener(1, tableListener);
-      // table.addListener(5, tableListener);
-      // table.addListener(32, tableListener);
+      final org.eclipse.swt.widgets.Label tip = new org.eclipse.swt.widgets.Label(table.getShell(), org.eclipse.swt.SWT.NONE);
+      tip.setForeground(Display.getCurrent().getSystemColor(org.eclipse.swt.SWT.COLOR_INFO_FOREGROUND));
+      tip.setBackground(Display.getCurrent().getSystemColor(org.eclipse.swt.SWT.COLOR_INFO_BACKGROUND));
+      tip.setVisible(false);
+      
+      Listener tableListener = new Listener() {
+         @Override
+         public void handleEvent(org.eclipse.swt.widgets.Event event) {
+            switch (event.type) {
+               case org.eclipse.swt.SWT.Dispose:
+               case org.eclipse.swt.SWT.KeyDown:
+               case org.eclipse.swt.SWT.MouseMove: {
+                  if (tip != null && !tip.isDisposed()) tip.setVisible(false);
+                  break;
+               }
+               case org.eclipse.swt.SWT.MouseHover: {
+                  TableItem item = table.getItem(new Point(event.x, event.y));
+                  if (item != null) {
+                     String text = item.getText(1);
+                     if (text != null && !text.isEmpty()) {
+                        Point coords = new Point(event.x, event.y);
+                        coords = table.toDisplay(coords);
+                        tip.setText(text);
+                        tip.setLocation(coords.x + 10, coords.y + 10);
+                        tip.setVisible(true);
+                     }
+                  }
+                  break;
+               }
+            }
+         }
+      };
+      
+      table.addListener(org.eclipse.swt.SWT.Dispose, tableListener);
+      table.addListener(org.eclipse.swt.SWT.KeyDown, tableListener);
+      table.addListener(org.eclipse.swt.SWT.MouseMove, tableListener);
+      table.addListener(org.eclipse.swt.SWT.MouseHover, tableListener);
    }
 
    private Image getRemotePhoto() {
@@ -381,32 +455,43 @@ public class ProductsManager extends AbstractFVApplicationWindow {
       int idx = table.getSelectionIndex();
       if (idx < 0) {
          this.alert("Selecciona un artículo");
-      } else {
-         try {
-            String barCode = table.getItem(idx).getText(0).trim();
-            Product product = this.getProductService().getProductByBarCode(barCode);
-            EditProduct dialog = new EditProduct(this.getShell());
-            dialog.setBlockOnOpen(true);
-            dialog.setProduct(product);
-            dialog.open();
-            if ("OK".equalsIgnoreCase(dialog.getAction())) {
-               Product editedProduct = dialog.getProduct();
-
-               try {
-                  this.getProductService().saveProduct(editedProduct);
-               } catch (Exception var7) {
-               }
-
+         return;
+      }
+      
+      try {
+         String barCode = table.getItem(idx).getText(0).trim();
+         logger.info("Editando artículo con código: " + barCode);
+         
+         Product product = this.getProductService().getProductByBarCode(barCode);
+         if (product == null) {
+            logger.error("No se encontró el artículo con código: " + barCode);
+            this.alert("No se encontró el artículo");
+            return;
+         }
+         
+         EditProduct dialog = new EditProduct(this.getShell());
+         dialog.setBlockOnOpen(true);
+         dialog.setProduct(product);
+         logger.info("Abriendo diálogo de edición para artículo: " + product.getDescription());
+         
+         dialog.open();
+         
+         if ("OK".equalsIgnoreCase(dialog.getAction())) {
+            Product editedProduct = dialog.getProduct();
+            try {
+               logger.info("Guardando cambios del artículo: " + editedProduct.getDescription());
+               this.getProductService().saveProduct(editedProduct);
                this.searchProducts();
                this.initStatusBar();
+            } catch (Exception e) {
+               logger.error("Error al guardar el artículo editado", e);
+               this.alert("Error al guardar los cambios: " + e.getMessage());
             }
-         } catch (Exception var8) {
-            logger.error("Error al editar artículo");
-            logger.error(var8.getMessage());
-           // //logger.error(var8);
          }
+      } catch (Exception e) {
+         logger.error("Error al abrir el diálogo de edición", e);
+         this.alert("Error al abrir el editor: " + e.getMessage());
       }
-
    }
 
    private void deleteProduct() {
@@ -430,7 +515,16 @@ public class ProductsManager extends AbstractFVApplicationWindow {
    protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Artículos");
-      //newShell.addListener(21, new 9(this));
+      
+      // Agregar listener para manejar el cierre de la ventana
+      newShell.addListener(org.eclipse.swt.SWT.Close, new Listener() {
+         @Override
+         public void handleEvent(org.eclipse.swt.widgets.Event e) {
+            if (!canHandleShellCloseEvent()) {
+               e.doit = false;
+            }
+         }
+      });
    }
    @Override
    protected Point getInitialSize() {

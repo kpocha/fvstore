@@ -285,4 +285,39 @@ public class CashOperation implements Serializable {
    public void setSupplierOnAccountOperation(SupplierOnAccountOperation supplierOnAccountOperation) {
       this.supplierOnAccountOperation = supplierOnAccountOperation;
    }
+
+   public enum Type {
+      OPEN,
+      CLOSE,
+      INCOME,
+      OUTFLOW
+   }
+
+   private Type operationType;
+   private String cashierName;
+   private Date date;
+
+   public Type getOperationType() {
+      return operationType;
+   }
+
+   public void setOperationType(Type operationType) {
+      this.operationType = operationType;
+   }
+
+   public String getCashierName() {
+      return cashierName;
+   }
+
+   public void setCashierName(String cashierName) {
+      this.cashierName = cashierName;
+   }
+
+   public Date getDate() {
+      return date;
+   }
+
+   public void setDate(Date date) {
+      this.date = date;
+   }
 }
