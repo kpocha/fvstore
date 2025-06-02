@@ -1,13 +1,11 @@
 package com.facilvirtual.fvstoresdesk.ui.report;
 
-import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
-import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -16,6 +14,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
+
+import com.facilvirtual.fvstoresdesk.model.Order;
+import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 
 public class ReportSalesByDateGenerator extends AbstractFVDialog {
    private String action = "";
@@ -30,7 +32,7 @@ public class ReportSalesByDateGenerator extends AbstractFVDialog {
    public ReportSalesByDateGenerator(Shell parentShell) {
       super(parentShell);
    }
-
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       container.setLayout((Layout)null);
@@ -76,11 +78,13 @@ public class ReportSalesByDateGenerator extends AbstractFVDialog {
 
    }
 
-   @Override protected void configureShell(Shell newShell) {
+   @Override 
+   protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Generar informe");
    }
 
+   @Override
    protected void buttonPressed(int buttonId) {
       if (buttonId != 0) {
          this.close();
@@ -88,6 +92,7 @@ public class ReportSalesByDateGenerator extends AbstractFVDialog {
 
    }
 
+   @Override
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 1, "Cancelar", false);
       this.runThread();
@@ -101,15 +106,15 @@ public class ReportSalesByDateGenerator extends AbstractFVDialog {
       }
 
    }
-
+   @Override
    protected Point getInitialSize() {
       return new Point(350, 200);
    }
-
+   @Override
    public String getAction() {
       return this.action;
    }
-
+   @Override
    public void setAction(String action) {
       this.action = action;
    }

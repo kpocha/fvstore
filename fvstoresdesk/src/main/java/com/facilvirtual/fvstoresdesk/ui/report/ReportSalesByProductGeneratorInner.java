@@ -1,11 +1,5 @@
 package com.facilvirtual.fvstoresdesk.ui.report;
 
-import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.model.OrderLine;
-import com.facilvirtual.fvstoresdesk.model.OrderLineByProductComparator;
-import com.facilvirtual.fvstoresdesk.service.OrderService;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
-
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,8 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -34,6 +27,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Order;
+import com.facilvirtual.fvstoresdesk.model.OrderLine;
+import com.facilvirtual.fvstoresdesk.model.OrderLineByProductComparator;
+import com.facilvirtual.fvstoresdesk.service.OrderService;
+import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
 
 class ReportSalesByProductGeneratorInner extends Thread {
    private Display display;
@@ -62,9 +63,11 @@ class ReportSalesByProductGeneratorInner extends Thread {
    public void run() {
       try {
          XSSFWorkbook workbook = new XSSFWorkbook();
-         XSSFSheet sheet = workbook.createSheet("Ventas por artículos");
+         XSSFSheet sheet = workbook.createSheet("Ventas por productos");
          XSSFCellStyle cellStyle = workbook.createCellStyle();
-         cellStyle.setFillForegroundColor(new XSSFColor((IndexedColorMap)new Color(50, 135, 54)));
+         Color color = new Color(50, 135, 54);
+         byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+         cellStyle.setFillForegroundColor(new XSSFColor(rgb, null));
          cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
          cellStyle.setBorderBottom(BorderStyle.MEDIUM);
          cellStyle.setBorderTop(BorderStyle.MEDIUM);
@@ -79,7 +82,9 @@ class ReportSalesByProductGeneratorInner extends Thread {
          fontTitle.setBold(true);
          cellStyleTitle.setFont(fontTitle);
          XSSFCellStyle cellStyleTotal = workbook.createCellStyle();
-         cellStyleTotal.setFillForegroundColor(new XSSFColor((IndexedColorMap)new Color(221, 221, 221)));
+         Color colorTotal = new Color(221, 221, 221);
+         byte[] rgbTotal = new byte[]{(byte)colorTotal.getRed(), (byte)colorTotal.getGreen(), (byte)colorTotal.getBlue()};
+         cellStyleTotal.setFillForegroundColor(new XSSFColor(rgbTotal, null));
          cellStyleTotal.setFillPattern(FillPatternType.SOLID_FOREGROUND);
          cellStyleTotal.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
          XSSFFont fontTotal = workbook.createFont();
@@ -90,7 +95,9 @@ class ReportSalesByProductGeneratorInner extends Thread {
          cellStyleTotal.setBorderRight(BorderStyle.MEDIUM);
          cellStyleTotal.setBorderLeft(BorderStyle.MEDIUM);
          XSSFCellStyle cellStyleEven = workbook.createCellStyle();
-         cellStyleEven.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(234, 234, 234)));
+         Color colorEven = new Color(234, 234, 234);
+         byte[] rgbEven = new byte[]{(byte)colorEven.getRed(), (byte)colorEven.getGreen(), (byte)colorEven.getBlue()};
+         cellStyleEven.setFillForegroundColor(new XSSFColor(rgbEven, null));
          cellStyleEven.setFillPattern(FillPatternType.SOLID_FOREGROUND);
          cellStyleEven.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
          cellStyleEven.setBorderBottom(BorderStyle.MEDIUM);
@@ -250,7 +257,12 @@ class ReportSalesByProductGeneratorInner extends Thread {
             }
 
             ++rownum;
-            //this.display.asyncExec(new 1(this));
+            // Actualizar la barra de progreso
+            this.display.asyncExec(() -> {
+                if (!progressBar.isDisposed()) {
+                    progressBar.setSelection(progressBar.getSelection() + 1);
+                }
+            });
          }
 
          row = sheet.createRow(rownum);
@@ -276,11 +288,23 @@ class ReportSalesByProductGeneratorInner extends Thread {
          FileOutputStream out = new FileOutputStream(this.getFileName());
          workbook.write(out);
          out.close();
-        // this.display.asyncExec(new 2(this));
-      } catch (IOException var39) {
-         //this.display.asyncExec(new 3(this));
+         
+         // Actualizar la UI cuando se complete la generación
+         this.display.asyncExec(() -> {
+             if (!progressBar.isDisposed()) {
+                 progressBar.setVisible(false);
+                 lblProgressBarTitle.setText("Se completó la generación del informe.");
+                 lblProgressBarTitle.setBounds(60, 39, 246, 20);
+                 cancelButton.setText("Aceptar");
+             }
+         });
+      } catch (IOException var30) {
+         // Mostrar mensaje de error
+         this.display.asyncExec(() -> {
+             dialog.alert("No se pudo guardar el archivo porque está siendo utilizado por otro programa.");
+             dialog.close();
+         });
       }
-
    }
 
    private Date buildDayEndForDate(Date currentDayStart) {

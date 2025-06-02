@@ -1,13 +1,10 @@
 package com.facilvirtual.fvstoresdesk.ui.report;
 
-import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
-import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -17,6 +14,12 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Order;
+import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 
 public class ReportSalesWithDetailByDate extends AbstractFVDialog {
    private String action = "";
@@ -31,6 +34,7 @@ public class ReportSalesWithDetailByDate extends AbstractFVDialog {
       super(parentShell);
    }
 
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       FormLayout fl_container = new FormLayout();
@@ -135,6 +139,7 @@ public class ReportSalesWithDetailByDate extends AbstractFVDialog {
       this.initTitle(newShell, "Informe de Ventas con detalle por fecha");
    }
 
+   @Override
    protected void buttonPressed(int buttonId) {
       if (buttonId == 0) {
          this.createLabels();
@@ -144,19 +149,23 @@ public class ReportSalesWithDetailByDate extends AbstractFVDialog {
 
    }
 
+   @Override
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 0, "Aceptar", false);
       this.createButton(parent, 1, "Cancelar", false);
    }
 
+   @Override
    protected Point getInitialSize() {
       return new Point(532, 306);
    }
 
+   @Override
    public String getAction() {
       return this.action;
    }
 
+   @Override
    public void setAction(String action) {
       this.action = action;
    }

@@ -1,10 +1,5 @@
 package com.facilvirtual.fvstoresdesk.ui.report;
 
-import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.model.OrderLine;
-import com.facilvirtual.fvstoresdesk.service.OrderService;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
-
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,14 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -33,6 +26,13 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Order;
+import com.facilvirtual.fvstoresdesk.model.OrderLine;
+import com.facilvirtual.fvstoresdesk.service.OrderService;
+import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
 
 class ReportSalesWithDetailByDateGeneratorInner extends Thread {
    private Display display;
@@ -66,17 +66,31 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
          FileOutputStream out = new FileOutputStream(this.getFileName());
          workbook.write(out);
          out.close();
-         //this.display.asyncExec(new 1(this));
+         
+         // Actualizar la UI cuando se complete la generación
+         this.display.asyncExec(() -> {
+             if (!progressBar.isDisposed()) {
+                 progressBar.setVisible(false);
+                 lblProgressBarTitle.setText("Se completó la generación del informe.");
+                 lblProgressBarTitle.setBounds(60, 39, 246, 20);
+                 cancelButton.setText("Aceptar");
+             }
+         });
       } catch (IOException var3) {
-         //this.display.asyncExec(new 2(this));
+         // Mostrar mensaje de error
+         this.display.asyncExec(() -> {
+             dialog.alert("No se pudo guardar el archivo porque está siendo utilizado por otro programa.");
+             dialog.close();
+         });
       }
-
    }
 
    private void createSheet1(XSSFWorkbook workbook) {
       XSSFSheet sheet = workbook.createSheet("Ventas con detalle por fecha");
       XSSFCellStyle cellStyle = workbook.createCellStyle();
-      cellStyle.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(50, 135, 54)));
+      Color color = new Color(50, 135, 54);
+      byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+      cellStyle.setFillForegroundColor(new XSSFColor(rgb, null));
       cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       cellStyle.setBorderBottom(BorderStyle.MEDIUM);
       cellStyle.setBorderTop(BorderStyle.MEDIUM);
@@ -91,7 +105,9 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
       fontTitle.setBold(true);
       cellStyleTitle.setFont(fontTitle);
       XSSFCellStyle cellStyleTotal = workbook.createCellStyle();
-      cellStyleTotal.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(221, 221, 221)));
+      Color colorTotal = new Color(221, 221, 221);
+      byte[] rgbTotal = new byte[]{(byte)colorTotal.getRed(), (byte)colorTotal.getGreen(), (byte)colorTotal.getBlue()};
+      cellStyleTotal.setFillForegroundColor(new XSSFColor(rgbTotal, null));
       cellStyleTotal.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       cellStyleTotal.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
       XSSFFont fontTotal = workbook.createFont();
@@ -102,7 +118,9 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
       cellStyleTotal.setBorderRight(BorderStyle.MEDIUM);
       cellStyleTotal.setBorderLeft(BorderStyle.MEDIUM);
       XSSFCellStyle cellStyleEven = workbook.createCellStyle();
-      cellStyleEven.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(234, 234, 234)));
+      Color colorEven = new Color(234, 234, 234);
+      byte[] rgbEven = new byte[]{(byte)colorEven.getRed(), (byte)colorEven.getGreen(), (byte)colorEven.getBlue()};
+      cellStyleEven.setFillForegroundColor(new XSSFColor(rgbEven, null));
       cellStyleEven.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       cellStyleEven.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
       cellStyleEven.setBorderBottom(BorderStyle.MEDIUM);
@@ -233,6 +251,13 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
                      total += orderLine.getSubtotal();
                      totalCost += orderLine.getCostSubtotal();
                      totalProfit += orderLine.getProfit();
+                     
+                     // Actualizar la barra de progreso
+                     this.display.asyncExec(() -> {
+                         if (!progressBar.isDisposed()) {
+                             progressBar.setSelection(progressBar.getSelection() + 1);
+                         }
+                     });
                      colIdx = 0;
                      row = sheet.createRow(rownum);
                      cell = row.createCell(colIdx);
@@ -327,7 +352,13 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
 
             currentDay = DateUtils.addDays(currentDay, 1);
             currentDayEnd = this.buildDayEndForDate(currentDay);
-            //this.display.asyncExec(new 3(this));
+            
+            // Actualizar la barra de progreso
+            this.display.asyncExec(() -> {
+                if (!progressBar.isDisposed()) {
+                    progressBar.setSelection(progressBar.getSelection() + 1);
+                }
+            });
          } catch (Exception var30) {
             LOGGER.error("Error de base de datos");
             LOGGER.error(var30.getMessage());
@@ -391,7 +422,9 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
    private void createSheet2(XSSFWorkbook workbook) {
       XSSFSheet sheet = workbook.createSheet("Departamentos de la Caja");
       XSSFCellStyle cellStyle = workbook.createCellStyle();
-      cellStyle.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(50, 135, 54)));
+      Color color = new Color(50, 135, 54);
+      byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+      cellStyle.setFillForegroundColor(new XSSFColor(rgb, null));
       cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       cellStyle.setBorderBottom(BorderStyle.MEDIUM);
       cellStyle.setBorderTop(BorderStyle.MEDIUM);
@@ -406,7 +439,9 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
       fontTitle.setBold(true);
       cellStyleTitle.setFont(fontTitle);
       XSSFCellStyle cellStyleTotal = workbook.createCellStyle();
-      cellStyleTotal.setFillForegroundColor(new XSSFColor((IndexedColorMap)new Color(221, 221, 221)));
+      Color colorTotal = new Color(221, 221, 221);
+      byte[] rgbTotal = new byte[]{(byte)colorTotal.getRed(), (byte)colorTotal.getGreen(), (byte)colorTotal.getBlue()};
+      cellStyleTotal.setFillForegroundColor(new XSSFColor(rgbTotal, null));
       cellStyleTotal.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       cellStyleTotal.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
       XSSFFont fontTotal = workbook.createFont();
@@ -417,7 +452,9 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
       cellStyleTotal.setBorderRight(BorderStyle.MEDIUM);
       cellStyleTotal.setBorderLeft(BorderStyle.MEDIUM);
       XSSFCellStyle cellStyleEven = workbook.createCellStyle();
-      cellStyleEven.setFillForegroundColor(new XSSFColor((IndexedColorMap)new Color(234, 234, 234)));
+      Color colorEven = new Color(234, 234, 234);
+      byte[] rgbEven = new byte[]{(byte)colorEven.getRed(), (byte)colorEven.getGreen(), (byte)colorEven.getBlue()};
+      cellStyleEven.setFillForegroundColor(new XSSFColor(rgbEven, null));
       cellStyleEven.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       cellStyleEven.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
       cellStyleEven.setBorderBottom(BorderStyle.MEDIUM);
@@ -548,7 +585,13 @@ class ReportSalesWithDetailByDateGeneratorInner extends Thread {
 
             currentDay = DateUtils.addDays(currentDay, 1);
             currentDayEnd = this.buildDayEndForDate(currentDay);
-           // this.display.asyncExec(new 4(this));
+            
+            // Actualizar la barra de progreso
+            this.display.asyncExec(() -> {
+                if (!progressBar.isDisposed()) {
+                    progressBar.setSelection(progressBar.getSelection() + 1);
+                }
+            });
          } catch (Exception var26) {
             LOGGER.error("Error de base de datos");
             LOGGER.error(var26.getMessage());

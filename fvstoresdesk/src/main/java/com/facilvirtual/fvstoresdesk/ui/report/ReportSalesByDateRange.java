@@ -1,24 +1,26 @@
 /*     */ package com.facilvirtual.fvstoresdesk.ui.report;
 /*     */ 
-/*     */ import com.facilvirtual.fvstoresdesk.model.Order;
-/*     */ import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
-/*     */ import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 /*     */ import java.util.Date;
 /*     */ import java.util.List;
+
 /*     */ import org.apache.commons.lang3.time.DateUtils;
-/*     */ import org.slf4j.Logger;
-            import org.slf4j.LoggerFactory;/*     */ 
-            import org.eclipse.swt.graphics.Point;
+/*     */ import org.eclipse.swt.graphics.Point;
 /*     */ import org.eclipse.swt.layout.FormAttachment;
 /*     */ import org.eclipse.swt.layout.FormData;
 /*     */ import org.eclipse.swt.layout.FormLayout;
-/*     */ import org.eclipse.swt.widgets.Composite;
-/*     */ import org.eclipse.swt.widgets.Control;
+            import org.eclipse.swt.widgets.Composite;/*     */
+            import org.eclipse.swt.widgets.Control;
 /*     */ import org.eclipse.swt.widgets.DateTime;
 /*     */ import org.eclipse.swt.widgets.Label;
 /*     */ import org.eclipse.swt.widgets.Layout;
 /*     */ import org.eclipse.swt.widgets.Shell;
 /*     */ import org.eclipse.wb.swt.SWTResourceManager;
+/*     */ import org.slf4j.Logger;
+/*     */ import org.slf4j.LoggerFactory;
+
+/*     */ import com.facilvirtual.fvstoresdesk.model.Order;
+/*     */ import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+/*     */ import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 /*     */ 
 /*     */ 
 /*     */ public class ReportSalesByDateRange
@@ -30,7 +32,7 @@
 /*     */   private DateTime endDatepicker;
 /*     */   private Date startDate;
 /*     */   private Date endDate;
-/*  32 */   private static Logger logger = LoggerFactory.getLogger("ReportSalesByDateRange");
+/*  32 */   private static final Logger logger = LoggerFactory.getLogger("ReportSalesByDateRange");
 /*     */ 
 /*     */ 
 /*     */ 
@@ -46,6 +48,7 @@
 /*     */ 
 /*     */ 
 /*     */   
+/*     */   @Override
 /*     */   protected Control createDialogArea(Composite parent) {
 /*  49 */     Composite container = (Composite)super.createDialogArea(parent);
 /*     */     
@@ -183,6 +186,7 @@
 /*     */ 
 /*     */ 
 /*     */   
+/*     */   @Override
 /*     */   protected void buttonPressed(int buttonId) {
 /* 187 */     if (buttonId == 0) {
 /* 188 */       createLabels();
@@ -195,7 +199,7 @@
 /*     */ 
 /*     */ 
 /*     */ 
-/*     */   
+/*     */   @Override
 /*     */   protected void createButtonsForButtonBar(Composite parent) {
 /* 200 */     createButton(parent, 0, "Aceptar", false);
 /* 201 */     createButton(parent, 1, "Cancelar", false);
@@ -204,16 +208,16 @@
 /*     */ 
 /*     */ 
 /*     */ 
-/*     */   
+/*     */   @Override
 /*     */   protected Point getInitialSize() {
 /* 209 */     return new Point(532, 306);
 /*     */   }
 /*     */ 
-/*     */   
+/*     */   @Override
 /*     */   public String getAction() {
 /* 214 */     return this.action;
 /*     */   }
-/*     */   
+/*     */   @Override
 /*     */   public void setAction(String action) {
 /* 218 */     this.action = action;
 /*     */   }
@@ -226,9 +230,3 @@
 /* 226 */     this.orders = orders;
 /*     */   }
 /*     */ }
-
-
-/* Location:              C:\facilvirtual\facilvirtual\!\com\facilvirtual\fvstoresdes\\ui\report\ReportSalesByDateRange.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       1.1.3
- */
