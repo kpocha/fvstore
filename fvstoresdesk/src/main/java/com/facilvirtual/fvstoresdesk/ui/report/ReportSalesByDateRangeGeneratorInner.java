@@ -39,7 +39,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.springframework.context.ApplicationContext;
 
-class ReportSalesByDateGeneratorInner extends Thread {
+class ReportSalesByDateRangeGeneratorInner extends Thread {
    private Display display;
    private ProgressBar progressBar;
    private String fileName = "";
@@ -52,7 +52,7 @@ class ReportSalesByDateGeneratorInner extends Thread {
    private boolean conCAE = true;
    private static Logger LOGGER = LoggerFactory.getLogger("Report2Generator");
 
-   public ReportSalesByDateGeneratorInner(Display display, ProgressBar progressBar, Date startDate, Date endDate, OrderService orderService, String fileName, Label lblProgressBarTitle, boolean conCAE, Button cancelButton, AbstractFVDialog dialog) {
+   public ReportSalesByDateRangeGeneratorInner(Display display, ProgressBar progressBar, Date startDate, Date endDate, OrderService orderService, String fileName, Label lblProgressBarTitle, boolean conCAE, Button cancelButton, AbstractFVDialog dialog) {
       this.display = display;
       this.progressBar = progressBar;
       this.fileName = fileName;

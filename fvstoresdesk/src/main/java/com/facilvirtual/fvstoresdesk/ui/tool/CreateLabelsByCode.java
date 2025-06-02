@@ -27,7 +27,7 @@ public class CreateLabelsByCode extends AbstractFVDialog {
    public CreateLabelsByCode(Shell parentShell) {
       super(parentShell);
    }
-
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       FormLayout fl_container = new FormLayout();
@@ -119,20 +119,20 @@ public class CreateLabelsByCode extends AbstractFVDialog {
       }
 
    }
-
+   @Override
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 0, "Aceptar", false);
       this.createButton(parent, 1, "Cancelar", false);
    }
-
+   @Override
    protected Point getInitialSize() {
       return new Point(532, 353);
    }
-
+   @Override
    public String getAction() {
       return this.action;
    }
-
+   @Override
    public void setAction(String action) {
       this.action = action;
    }

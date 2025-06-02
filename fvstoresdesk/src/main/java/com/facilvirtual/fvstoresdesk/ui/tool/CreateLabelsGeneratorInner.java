@@ -1,21 +1,20 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
 package com.facilvirtual.fvstoresdesk.ui.tool;
 
 import com.facilvirtual.fvstoresdesk.model.Product;
 import com.facilvirtual.fvstoresdesk.model.ProductPrice;
-
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -46,7 +45,7 @@ class CreateLabelsGeneratorInner extends Thread {
       this.cancelButton = cancelButton;
       this.dialog = dialog;
    }
-   @Override
+
    public void run() {
       try {
          XSSFWorkbook workbook = new XSSFWorkbook();
@@ -78,66 +77,82 @@ class CreateLabelsGeneratorInner extends Thread {
          int numprod = 0;
          int offsetCol = 0;
 
-         // for(Iterator<Product> it = this.products.iterator(); it.hasNext() && numprod <= this.maxProducts; this.display.asyncExec(new 1(this))) {
-         //    try {
-         //       Thread.sleep(1000L);
-         //       Product product = (Product)it.next();
-         //       ++numprod;
-         //       byte offsetCol;
-         //       if (product != null && numprod <= this.maxProducts) {
-         //          offsetCol = 0;
-         //          this.createLabelForProduct(workbook, sheet, product, offsetRow, offsetCol);
-         //          sheet.addMergedRegion(new CellRangeAddress(1 + offsetRow, 1 + offsetRow, 1, 3));
-         //          sheet.addMergedRegion(new CellRangeAddress(2 + offsetRow, 2 + offsetRow, 1, 3));
-         //          sheet.addMergedRegion(new CellRangeAddress(3 + offsetRow, 3 + offsetRow, 1, 3));
-         //       }
+         for(Iterator<Product> it = this.products.iterator(); it.hasNext() && numprod <= this.maxProducts;) {
+            try {
+               Thread.sleep(1000L);
+               Product product = it.next();
+               ++numprod;
+               
+               if (product != null && numprod <= this.maxProducts) {
+                  offsetCol = 0;
+                  this.createLabelForProduct(workbook, sheet, product, offsetRow, offsetCol);
+                  sheet.addMergedRegion(new CellRangeAddress(1 + offsetRow, 1 + offsetRow, 1, 3));
+                  sheet.addMergedRegion(new CellRangeAddress(2 + offsetRow, 2 + offsetRow, 1, 3));
+                  sheet.addMergedRegion(new CellRangeAddress(3 + offsetRow, 3 + offsetRow, 1, 3));
+               }
 
-         //       if (it.hasNext()) {
-         //          product = (Product)it.next();
-         //          ++numprod;
-         //       } else {
-         //          product = null;
-         //       }
+               if (it.hasNext()) {
+                  product = it.next();
+                  ++numprod;
+               } else {
+                  product = null;
+               }
 
-         //       if (product != null && numprod <= this.maxProducts) {
-         //          offsetCol = 4;
-         //          this.createLabelForProduct(workbook, sheet, product, offsetRow, offsetCol);
-         //          sheet.addMergedRegion(new CellRangeAddress(1 + offsetRow, 1 + offsetRow, 5, 7));
-         //          sheet.addMergedRegion(new CellRangeAddress(2 + offsetRow, 2 + offsetRow, 5, 7));
-         //          sheet.addMergedRegion(new CellRangeAddress(3 + offsetRow, 3 + offsetRow, 5, 7));
-         //       }
+               if (product != null && numprod <= this.maxProducts) {
+                  offsetCol = 4;
+                  this.createLabelForProduct(workbook, sheet, product, offsetRow, offsetCol);
+                  sheet.addMergedRegion(new CellRangeAddress(1 + offsetRow, 1 + offsetRow, 5, 7));
+                  sheet.addMergedRegion(new CellRangeAddress(2 + offsetRow, 2 + offsetRow, 5, 7));
+                  sheet.addMergedRegion(new CellRangeAddress(3 + offsetRow, 3 + offsetRow, 5, 7));
+               }
 
-         //       if (it.hasNext()) {
-         //          product = (Product)it.next();
-         //          ++numprod;
-         //       } else {
-         //          product = null;
-         //       }
+               if (it.hasNext()) {
+                  product = it.next();
+                  ++numprod;
+               } else {
+                  product = null;
+               }
 
-         //       if (product != null && numprod <= this.maxProducts) {
-         //          offsetCol = 8;
-         //          this.createLabelForProduct(workbook, sheet, product, offsetRow, offsetCol);
-         //          sheet.addMergedRegion(new CellRangeAddress(1 + offsetRow, 1 + offsetRow, 9, 11));
-         //          sheet.addMergedRegion(new CellRangeAddress(2 + offsetRow, 2 + offsetRow, 9, 11));
-         //          sheet.addMergedRegion(new CellRangeAddress(3 + offsetRow, 3 + offsetRow, 9, 11));
-         //       }
+               if (product != null && numprod <= this.maxProducts) {
+                  offsetCol = 8;
+                  this.createLabelForProduct(workbook, sheet, product, offsetRow, offsetCol);
+                  sheet.addMergedRegion(new CellRangeAddress(1 + offsetRow, 1 + offsetRow, 9, 11));
+                  sheet.addMergedRegion(new CellRangeAddress(2 + offsetRow, 2 + offsetRow, 9, 11));
+                  sheet.addMergedRegion(new CellRangeAddress(3 + offsetRow, 3 + offsetRow, 9, 11));
+               }
 
-         //       offsetRow += 5;
-         //       if (offsetRow % 35 == 0) {
-         //          sheet.setRowBreak(offsetRow - 1);
-         //       }
-         //    } catch (Exception var14) {
-         //    }
-         // }
+               offsetRow += 5;
+               if (offsetRow % 35 == 0) {
+                  sheet.setRowBreak(offsetRow - 1);
+               }
+
+               this.display.asyncExec(() -> {
+                   if (!progressBar.isDisposed()) {
+                       progressBar.setSelection(progressBar.getSelection() + 3);
+                   }
+               });
+            } catch (Exception var14) {
+            }
+         }
 
          FileOutputStream out = new FileOutputStream(this.getFileName());
          workbook.write(out);
          out.close();
-         //this.display.asyncExec(new 2(this));
+         
+         this.display.asyncExec(() -> {
+             if (!progressBar.isDisposed()) {
+                 progressBar.setVisible(false);
+                 lblProgressBarTitle.setText("Se completó la generación de etiquetas.");
+                 lblProgressBarTitle.setBounds(60, 39, 215, 19);
+                 cancelButton.setText("Aceptar");
+             }
+         });
       } catch (IOException var15) {
-         //this.display.asyncExec(new 3(this));
+         this.display.asyncExec(() -> {
+             dialog.alert("No se pudo guardar el archivo porque está siendo utilizado por otro programa.");
+             dialog.close();
+         });
       }
-
    }
 
    private void createLabelForProduct(XSSFWorkbook workbook, XSSFSheet sheet, Product product, int offsetRow, int offsetCol) {
@@ -205,9 +220,13 @@ class CreateLabelsGeneratorInner extends Thread {
          priceFont.setBold(true);
          priceFont.setFontHeightInPoints((short)38);
          if (product.isInOffer()) {
-            priceFont.setColor(new XSSFColor((IndexedColorMap) new Color(221, 0, 0)));
+            Color color = new Color(221, 0, 0);
+            byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+            priceFont.setColor(new XSSFColor(rgb, null));
          } else {
-            priceFont.setColor(new XSSFColor((IndexedColorMap) new Color(153, 0, 204)));
+            Color color = new Color(153, 0, 204);
+            byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+            priceFont.setColor(new XSSFColor(rgb, null));
          }
 
          ProductPrice productPrice = this.dialog.getProductService().getProductPriceForProduct(product, this.dialog.getPriceList());
@@ -219,7 +238,7 @@ class CreateLabelsGeneratorInner extends Thread {
          }
 
          XSSFCellStyle priceStyleCol1 = workbook.createCellStyle();
-         priceStyleCol1.setAlignment(HorizontalAlignment.JUSTIFY);
+         priceStyleCol1.setAlignment(HorizontalAlignment.RIGHT);
          priceStyleCol1.setFont(priceFont);
          priceStyleCol1.setBorderLeft(labelBorder);
          priceCellCol1.setCellStyle(priceStyleCol1);
@@ -242,8 +261,8 @@ class CreateLabelsGeneratorInner extends Thread {
          Cell barCodeCellCol1 = barCodeRow.createCell(1 + offsetCol);
          barCodeCellCol1.setCellValue(product.getBarCode());
          XSSFCellStyle barCodeStyleCol1 = workbook.createCellStyle();
-         barCodeStyleCol1.setAlignment(HorizontalAlignment.JUSTIFY);
-         barCodeStyleCol1.setVerticalAlignment(VerticalAlignment.CENTER);
+         barCodeStyleCol1.setAlignment(HorizontalAlignment.RIGHT);
+         barCodeStyleCol1.setVerticalAlignment(VerticalAlignment.TOP);
          barCodeStyleCol1.setFont(barCodeFont);
          barCodeStyleCol1.setBorderLeft(labelBorder);
          barCodeStyleCol1.setBorderBottom(labelBorder);
@@ -258,8 +277,8 @@ class CreateLabelsGeneratorInner extends Thread {
          }
 
          XSSFCellStyle pricePerUnitStyle = workbook.createCellStyle();
-         pricePerUnitStyle.setAlignment(HorizontalAlignment.JUSTIFY);
-         pricePerUnitStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+         pricePerUnitStyle.setAlignment(HorizontalAlignment.CENTER);
+         pricePerUnitStyle.setVerticalAlignment(VerticalAlignment.TOP);
          pricePerUnitStyle.setFont(barCodeFont);
          pricePerUnitStyle.setBorderBottom(labelBorder);
          pricePerUnitCell.setCellStyle(pricePerUnitStyle);
@@ -271,8 +290,8 @@ class CreateLabelsGeneratorInner extends Thread {
          }
 
          XSSFCellStyle lastUpdatedPriceStyle = workbook.createCellStyle();
-         lastUpdatedPriceStyle.setAlignment(HorizontalAlignment.JUSTIFY);
-         lastUpdatedPriceStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+         lastUpdatedPriceStyle.setAlignment(HorizontalAlignment.LEFT);
+         lastUpdatedPriceStyle.setVerticalAlignment(VerticalAlignment.TOP);
          lastUpdatedPriceStyle.setFont(barCodeFont);
          lastUpdatedPriceStyle.setBorderBottom(labelBorder);
          lastUpdatedPriceStyle.setBorderRight(labelBorder);
@@ -280,7 +299,6 @@ class CreateLabelsGeneratorInner extends Thread {
       } catch (Exception var38) {
          var38.printStackTrace();
       }
-
    }
 
    public String getFileName() {

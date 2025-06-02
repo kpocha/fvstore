@@ -100,7 +100,7 @@ public class ReportSalesByDateGenerator extends AbstractFVDialog {
 
    private void runThread() {
       if (!"".equals(this.getFileName())) {
-         (new ReportSalesByDateGeneratorInner(this.getShell().getDisplay(), this.progressBar, this.getStartDate(), this.getEndDate(), this.getOrderService(), this.getFileName(), this.lblProgressBarTitle, this.conCAE, this.getButton(1), this)).start();
+         (new ReportSalesByDateRangeGeneratorInner(this.getShell().getDisplay(), this.progressBar, this.getStartDate(), this.getEndDate(), this.getOrderService(), this.getFileName(), this.lblProgressBarTitle, this.conCAE, this.getButton(1), this)).start();
       } else {
          this.close();
       }

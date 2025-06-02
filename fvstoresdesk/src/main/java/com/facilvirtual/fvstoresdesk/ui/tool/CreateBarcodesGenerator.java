@@ -25,7 +25,7 @@ public class CreateBarcodesGenerator extends AbstractFVDialog {
    public CreateBarcodesGenerator(Shell parentShell) {
       super(parentShell);
    }
-
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       container.setLayout((Layout)null);
@@ -60,14 +60,14 @@ public class CreateBarcodesGenerator extends AbstractFVDialog {
       super.configureShell(newShell);
       this.initTitle(newShell, "Generar códigos de barra");
    }
-
+   @Override
    protected void buttonPressed(int buttonId) {
       if (buttonId != 0) {
          this.close();
       }
 
    }
-
+   @Override
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 1, "Cancelar", false);
       this.runThread();
@@ -81,15 +81,15 @@ public class CreateBarcodesGenerator extends AbstractFVDialog {
       }
 
    }
-
+   @Override
    protected Point getInitialSize() {
       return new Point(350, 200);
    }
-
+   @Override
    public String getAction() {
       return this.action;
    }
-
+   @Override
    public void setAction(String action) {
       this.action = action;
    }
