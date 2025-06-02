@@ -1,11 +1,11 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.Supplier;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.events.SelectionAdapter;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
@@ -21,6 +21,10 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Supplier;
 
 public class SuppliersManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("SalesManager");
@@ -49,6 +53,7 @@ public class SuppliersManager extends AbstractFVApplicationWindow {
       return INSTANCE;
    }
 
+   @Override
    protected Control createContents(Composite parent) {
       this.layoutContainer = new Composite(parent, 0);
       this.layoutContainer.setLayout(new GridLayout(1, false));
@@ -147,19 +152,29 @@ public class SuppliersManager extends AbstractFVApplicationWindow {
       btnNewSale.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            createMainContent();
+            addNewSupplier();
          }
       });
       btnNewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnNewSale.setText("Nuevo proveedor");
       btnNewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_add.gif"));
       Button btnViewSale = new Button(this.headerContainer, 0);
-      //btnViewSale.addSelectionListener(new 2(this));
+      btnViewSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            editSupplier();
+         }
+      });
       btnViewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnViewSale.setText("Modificar");
       btnViewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_edit.gif"));
       Button btnCancelSale = new Button(this.headerContainer, 0);
-      //btnCancelSale.addSelectionListener(new 3(this));
+      btnCancelSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deleteSupplier();
+         }
+      });
       btnCancelSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnCancelSale.setText("Eliminar");
       btnCancelSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_delete.gif"));
@@ -169,13 +184,22 @@ public class SuppliersManager extends AbstractFVApplicationWindow {
       lblNewLabel.setLayoutData(gd_lblNewLabel);
       lblNewLabel.setText("");
       this.txtQuery = new Text(this.headerContainer, 2048);
+      this.txtQuery.addTraverseListener(e -> {
+         if (e.detail == SWT.TRAVERSE_RETURN) {
+            searchSuppliers();
+         }
+      });
       this.txtQuery.setFont(SWTResourceManager.getFont("Tahoma", 12, 0));
       GridData gd_txtQuery = new GridData(4, 16777216, true, false, 1, 1);
       gd_txtQuery.widthHint = 125;
       this.txtQuery.setLayoutData(gd_txtQuery);
-      //this.txtQuery.addTraverseListener(new 4(this));
       Button btnBuscar = new Button(this.headerContainer, 0);
-     // btnBuscar.addSelectionListener(new 5(this));
+      btnBuscar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchSuppliers();
+         }
+      });
       btnBuscar.setLayoutData(new GridData(16384, 4, false, false, 1, 1));
       btnBuscar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
       btnBuscar.setText("Buscar");
@@ -184,7 +208,12 @@ public class SuppliersManager extends AbstractFVApplicationWindow {
       gd_lblNewLabel_1.widthHint = 5;
       lblNewLabel_1.setLayoutData(gd_lblNewLabel_1);
       this.btnHideDeletedSuppliers = new Button(this.headerContainer, 32);
-      //this.btnHideDeletedSuppliers.addSelectionListener(new 6(this));
+      this.btnHideDeletedSuppliers.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchSuppliers();
+         }
+      });
       this.btnHideDeletedSuppliers.setText("Ocultar proveedores eliminados");
    }
 

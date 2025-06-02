@@ -1,6 +1,5 @@
 package com.facilvirtual.fvstoresdesk.ui.list;
 
-import com.facilvirtual.fvstoresdesk.model.Product;
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -23,6 +22,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
+
+import com.facilvirtual.fvstoresdesk.model.Product;
 
 class ListOfRepositionGenerator extends Thread {
    private Display display;
@@ -48,7 +49,9 @@ class ListOfRepositionGenerator extends Thread {
          XSSFWorkbook workbook = new XSSFWorkbook();
          XSSFSheet sheet = workbook.createSheet("Lista de reposición");
          XSSFCellStyle cellStyle = workbook.createCellStyle();
-         cellStyle.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(50, 135, 54)));
+         Color color = new Color(50, 135, 54);
+         byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+         cellStyle.setFillForegroundColor(new XSSFColor(rgb, null));
          cellStyle.setFillPattern(FillPatternType.BRICKS);
          XSSFFont font = workbook.createFont();
          font.setBold(true);
@@ -135,17 +138,34 @@ class ListOfRepositionGenerator extends Thread {
 
             ++colIdx;
             ++rownum;
-            //this.display.asyncExec(new 1(this));
+            // Actualizar la barra de progreso
+            this.display.asyncExec(() -> {
+                if (!progressBar.isDisposed()) {
+                    progressBar.setSelection(progressBar.getSelection() + 1);
+                }
+            });
          }
 
          FileOutputStream out = new FileOutputStream(this.getFileName());
          workbook.write(out);
          out.close();
-       //  this.display.asyncExec(new 2(this));
+         
+         // Actualizar la UI cuando se complete la generación
+         this.display.asyncExec(() -> {
+             if (!progressBar.isDisposed()) {
+                 progressBar.setVisible(false);
+                 lblProgressBarTitle.setText("Se completó la generación de la lista de reposición.");
+                 lblProgressBarTitle.setBounds(45, 39, 246, 13);
+                 cancelButton.setText("Aceptar");
+             }
+         });
       } catch (IOException var13) {
-        // this.display.asyncExec(new 3(this));
+         // Mostrar mensaje de error
+         this.display.asyncExec(() -> {
+             dialog.alert("No se pudo guardar el archivo porque está siendo utilizado por otro programa.");
+             dialog.close();
+         });
       }
-
    }
 
    private String createDateForTitle() {

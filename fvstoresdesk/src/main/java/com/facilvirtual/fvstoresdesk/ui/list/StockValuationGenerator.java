@@ -1,11 +1,5 @@
 package com.facilvirtual.fvstoresdesk.ui.list;
 
-import com.facilvirtual.fvstoresdesk.model.PriceList;
-import com.facilvirtual.fvstoresdesk.model.Product;
-import com.facilvirtual.fvstoresdesk.model.ProductPrice;
-import com.facilvirtual.fvstoresdesk.service.AppConfigService;
-import com.facilvirtual.fvstoresdesk.service.ProductService;
-
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,12 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.ss.util.CellRangeAddress;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.IndexedColorMap;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -33,6 +25,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
+
+import com.facilvirtual.fvstoresdesk.model.PriceList;
+import com.facilvirtual.fvstoresdesk.model.Product;
+import com.facilvirtual.fvstoresdesk.model.ProductPrice;
+import com.facilvirtual.fvstoresdesk.service.AppConfigService;
+import com.facilvirtual.fvstoresdesk.service.ProductService;
 
 class StockValuationGenerator extends Thread {
    private Display display;
@@ -62,7 +60,9 @@ class StockValuationGenerator extends Thread {
          XSSFWorkbook workbook = new XSSFWorkbook();
          XSSFSheet sheet = workbook.createSheet("Stock valorizado");
          XSSFCellStyle cellStyle = workbook.createCellStyle();
-         cellStyle.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(50, 135, 54)));
+         Color color = new Color(50, 135, 54);
+         byte[] rgb = new byte[]{(byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+         cellStyle.setFillForegroundColor(new XSSFColor(rgb, null));
          cellStyle.setFillPattern(FillPatternType.BRICKS);
          XSSFFont font = workbook.createFont();
          font.setBold(true);
@@ -73,7 +73,9 @@ class StockValuationGenerator extends Thread {
          fontTitle.setBold(true);
          cellStyleTitle.setFont(fontTitle);
          XSSFCellStyle cellStyleTotal = workbook.createCellStyle();
-         cellStyleTotal.setFillForegroundColor(new XSSFColor((IndexedColorMap) new Color(221, 221, 221)));
+         Color colorTotal = new Color(221, 221, 221);
+         byte[] rgbTotal = new byte[]{(byte)colorTotal.getRed(), (byte)colorTotal.getGreen(), (byte)colorTotal.getBlue()};
+         cellStyleTotal.setFillForegroundColor(new XSSFColor(rgbTotal, null));
          cellStyleTotal.setFillPattern(FillPatternType.BRICKS);
          cellStyleTotal.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
          XSSFFont fontTotal = workbook.createFont();
@@ -162,7 +164,12 @@ class StockValuationGenerator extends Thread {
             cell.setCellValue(subtotalCostStr);
             ++colIdx;
             ++rownum;
-            //this.display.asyncExec(new 1(this));
+            // Actualizar la barra de progreso
+            this.display.asyncExec(() -> {
+                if (!progressBar.isDisposed()) {
+                    progressBar.setSelection(progressBar.getSelection() + 1);
+                }
+            });
          }
 
          row = sheet.createRow(rownum);
@@ -193,11 +200,23 @@ class StockValuationGenerator extends Thread {
          FileOutputStream out = new FileOutputStream(this.getFileName());
          workbook.write(out);
          out.close();
-        // this.display.asyncExec(new 2(this));
+         
+         // Actualizar la UI cuando se complete la generación
+         this.display.asyncExec(() -> {
+             if (!progressBar.isDisposed()) {
+                 progressBar.setVisible(false);
+                 lblProgressBarTitle.setText("Se completó la generación del stock valorizado.");
+                 lblProgressBarTitle.setBounds(60, 39, 246, 20);
+                 cancelButton.setText("Aceptar");
+             }
+         });
       } catch (IOException var23) {
-         //this.display.asyncExec(new 3(this));
+         // Mostrar mensaje de error
+         this.display.asyncExec(() -> {
+             dialog.alert("No se pudo guardar el archivo porque está siendo utilizado por otro programa.");
+             dialog.close();
+         });
       }
-
    }
 
    private String createDateForTitle() {

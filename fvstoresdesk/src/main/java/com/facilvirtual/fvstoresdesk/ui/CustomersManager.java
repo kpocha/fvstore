@@ -75,15 +75,30 @@ public class CustomersManager extends AbstractFVApplicationWindow {
       menuContainer.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       menuContainer.setLayout(new GridLayout(8, false));
       Button btnNewButton_2 = new Button(menuContainer, 0);
-      //btnNewButton_2.addSelectionListener(new 1(this));
+      btnNewButton_2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewCustomer();
+         }
+      });
       btnNewButton_2.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_add.gif"));
       btnNewButton_2.setText("Nuevo cliente");
       Button btnNewButton_1 = new Button(menuContainer, 0);
-      //btnNewButton_1.addSelectionListener(new 2(this));
+      btnNewButton_1.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            editCustomer();
+         }
+      });
       btnNewButton_1.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_edit.gif"));
       btnNewButton_1.setText("Modificar");
       Button btnNewButton = new Button(menuContainer, 0);
-      //btnNewButton.addSelectionListener(new 3(this));
+      btnNewButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deleteCustomer();
+         }
+      });
       btnNewButton.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_delete.gif"));
       btnNewButton.setText("Eliminar");
       Label lblNewLabel = new Label(menuContainer, 0);
@@ -93,11 +108,16 @@ public class CustomersManager extends AbstractFVApplicationWindow {
       GridData gd1 = new GridData(16384, 16777216, false, false, 1, 1);
       gd1.widthHint = 125;
       this.txtQuery = new Text(menuContainer, 2048);
-      //this.txtQuery.addSelectionListener(new 4(this));
+      this.txtQuery.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            deleteCustomer();
+         }
+      });
       this.txtQuery.setLayoutData(gd1);
       this.txtQuery.setFont(SWTResourceManager.getFont("Tahoma", 12, 0));
       this.txtQuery.setText("");
-      //this.txtQuery.addTraverseListener(new 5(this));
+      this.txtQuery.addTraverseListener(e -> searchCustomers());
       this.txtQuery.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -105,7 +125,12 @@ public class CustomersManager extends AbstractFVApplicationWindow {
       }
      });
       Button btnBuscar = new Button(menuContainer, 0);
-      //btnBuscar.addSelectionListener(new 6(this));
+      btnBuscar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchCustomers();
+         }
+      });
       btnBuscar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
       btnBuscar.setText("Buscar");
       Label lblNewLabel_1 = new Label(menuContainer, 0);
@@ -113,13 +138,12 @@ public class CustomersManager extends AbstractFVApplicationWindow {
       gd_lblNewLabel_1.widthHint = 5;
       lblNewLabel_1.setLayoutData(gd_lblNewLabel_1);
       this.btnCheckButton = new Button(menuContainer, 32);
-      //this.btnCheckButton.addSelectionListener(new 7(this));
       this.btnCheckButton.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-         
-      }
-     });
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchCustomers();
+         }
+      });
       this.btnCheckButton.setBounds(664, 41, 118, 16);
       this.btnCheckButton.setText("Ocultar clientes eliminados");
    }

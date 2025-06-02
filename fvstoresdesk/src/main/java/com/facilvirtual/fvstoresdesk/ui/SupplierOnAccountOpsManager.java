@@ -1,14 +1,13 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.Employee;
-import com.facilvirtual.fvstoresdesk.model.Supplier;
-import com.facilvirtual.fvstoresdesk.model.SupplierOnAccountOperation;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,6 +21,12 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.Employee;
+import com.facilvirtual.fvstoresdesk.model.Supplier;
+import com.facilvirtual.fvstoresdesk.model.SupplierOnAccountOperation;
 
 public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("SupplierOnAccountOpsManager");
@@ -52,6 +57,7 @@ public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
       return INSTANCE;
    }
 
+   @Override
    protected Control createContents(Composite parent) {
       Composite layoutContainer = new Composite(parent, 0);
       layoutContainer.setLayout(new GridLayout(1, false));
@@ -128,6 +134,12 @@ public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
    private void createHeaderContents() {
       Button btnNuevoPago = new Button(this.headerContainer, 0);
       //btnNuevoPago.addSelectionListener(new 1(this));
+      btnNuevoPago.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewDebit();
+         }
+      });
       btnNuevoPago.setText("Nuevo pago");
       btnNuevoPago.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_add.gif"));
       new Label(this.headerContainer, 0);
@@ -141,6 +153,12 @@ public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
       this.txtSupplier.setLayoutData(gd_txtSupplier);
       Button btnNewButton = new Button(this.headerContainer, 0);
       //btnNewButton.addSelectionListener(new 2(this));
+      btnNewButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            changeSupplier();
+         }
+      });
       btnNewButton.setText("Cambiar proveedor");
       btnNewButton.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
       Label lblSep1 = new Label(this.headerContainer, 0);
@@ -152,6 +170,12 @@ public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
       btnActualizar.setText("Actualizar");
       btnActualizar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_update.gif"));
       //btnActualizar.addSelectionListener(new 3(this));
+      btnActualizar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchOnAccountOperations();
+         }
+      });
    }
 
    private void addNewDebit() {
@@ -217,11 +241,13 @@ public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
       tblclmnEstado.setText("Saldo");
    }
 
-   @Override protected void configureShell(Shell newShell) {
+   @Override 
+   protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
       this.initTitle(newShell, "Cuentas corrientes de proveedores");
    }
 
+   @Override
    protected Point getInitialSize() {
       return new Point(800, 600);
    }
