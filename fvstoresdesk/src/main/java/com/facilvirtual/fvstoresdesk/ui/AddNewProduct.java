@@ -50,6 +50,7 @@ import org.eclipse.swt.events.KeyEvent;
 
 public class AddNewProduct extends AbstractFVDialog {
    private static final Logger logger = LoggerFactory.getLogger(AddNewProduct.class);
+   
    protected Text txtBarCode;
    protected Text txtDescription;
    protected Text txtCostPrice;
@@ -138,6 +139,7 @@ public class AddNewProduct extends AbstractFVDialog {
    public AddNewProduct(Shell parentShell) {
       super(parentShell);
    }
+   
 
    protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
@@ -1213,11 +1215,7 @@ public class AddNewProduct extends AbstractFVDialog {
                 return;
             }
 
-            // Crear nuevo producto
-            Product product = new Product();
-            product.setBarCode(barCode);
-            product.setDescription(description);
-            product.initCreationDate(new Date());
+           
             
             // Configurar IVA y categoría
             Vat vat = this.getOrderService().getVat(new Long(1L));
@@ -1226,15 +1224,17 @@ public class AddNewProduct extends AbstractFVDialog {
                 this.alert("Error al obtener el IVA por defecto");
                 return;
             }
-            product.setVat(vat);
-            
+            // Obtener la categoría del producto
             ProductCategory productCategory = this.getProductService().getProductCategoryByName(this.comboProductCategories.getText());
             Date creationDate = new Date();
-            //Product product = new Product();
-            // product.initCreationDate(creationDate);
-            // product.setBarCode(this.txtBarCode.getText().trim());
-            // product.setDescription(this.txtDescription.getText().trim());
-            // product.setVat(vat);
+            // Crear nuevo producto
+            Product product = new Product();
+            product.initCreationDate(creationDate);
+            product.setBarCode(barCode);
+            product.setDescription(description);
+            product.initCreationDate(new Date());
+            product.setVat(vat);
+
             product.setSellingUnit(this.comboUnits.getText());
             product.setInOffer(this.btnInOffer.getSelection());
             product.setCategory(productCategory);

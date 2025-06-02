@@ -11,7 +11,10 @@ import com.facilvirtual.fvstoresdesk.model.ProductCategory;
 import com.facilvirtual.fvstoresdesk.model.ProductPrice;
 import com.facilvirtual.fvstoresdesk.model.ReceiptType;
 import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
+import com.facilvirtual.fvstoresdesk.ui.list.CustomerOnAccountSummaryExcelGenerator;
 import com.facilvirtual.fvstoresdesk.ui.list.ListOfPricesExcelGenerator;
+import com.facilvirtual.fvstoresdesk.ui.list.ListOfRepositionExcelGenerator;
+import com.facilvirtual.fvstoresdesk.ui.list.StockValuationExcelGenerator;
 import com.facilvirtual.fvstoresdesk.ui.report.ReportSalesByCategory;
 import com.facilvirtual.fvstoresdesk.ui.report.ReportSalesByCategoryGenerator;
 import com.facilvirtual.fvstoresdesk.ui.report.ReportSalesByDate;
@@ -78,6 +81,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 
 public class CashRegister extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("CashRegister");
@@ -221,138 +225,78 @@ public class CashRegister extends AbstractFVApplicationWindow {
    private Action actionReportSalesByDate;
 
    @Override
+   protected Control createContents(Composite parent) {
+      try {
+         logger.info("Iniciando CashRegister...");
+         
+         // Inicializar el tema
+         this.initTheme();
+         parent.setBackground(this.themeBack);
+         
+         Control control;
+         if (this.getWorkstationConfig().isCashOpened()) {
+            logger.info("Caja abierta, creando interfaz de caja...");
+            control = this.createContentsCashOpened(parent);
+         } else {
+            logger.info("Caja cerrada, creando interfaz de caja cerrada...");
+            control = this.createContentsCashClosed(parent);
+            
+            // Abrir caja automáticamente si corresponde
+            if (this.isFromLogin() && 
+                this.getWorkstationConfig().isOpenCashOnLogin() && 
+                (this.getCashier() != null && 
+                 (this.getCashier().isAdmin() || this.getCashier().isAllowOpenCash()))) {
+                logger.info("Abriendo caja automáticamente...");
+                this.openCash();
+            }
+         }
+
+         // Configurar menús según permisos
+         if (!this.isManagerMode()) {
+            this.initDisabledMenus();
+         }
+
+         return control;
+         
+      } catch (Exception e) {
+         logger.error("Error al crear la interfaz de CashRegister", e);
+         MessageDialog.openError(getShell(), "Error", "Error al iniciar la caja registradora: " + e.getMessage());
+         return null;
+      }
+   }
+//aplicamos los colores del tema
+   @Override
    protected void initTheme() {
-      this.themeBack = SWTResourceManager.getColor(233, 237, 234);
-      this.themeBack02 = SWTResourceManager.getColor(246, 248, 247);
-      this.themeText = SWTResourceManager.getColor(62, 133, 37);
-      this.themeHeaderBack = SWTResourceManager.getColor(62, 133, 37);
-      this.themeTableBack = SWTResourceManager.getColor(255, 255, 255);
-      this.themeTableText = SWTResourceManager.getColor(21, 25, 36);
-      this.themeRowOdd = SWTResourceManager.getColor(255, 255, 255);
-      this.themeRowEven = SWTResourceManager.getColor(246, 248, 247);
-      this.themeInputReadOnlyBack = SWTResourceManager.getColor(233, 237, 234);
-      this.themeInputReadOnlyText = SWTResourceManager.getColor(21, 25, 36);
+      try {
+         logger.info("Inicializando tema...");
+         
+         // Colores del tema
+         this.themeBack = SWTResourceManager.getColor(233, 237, 234);  //Verde grisáceo muy claro
+         this.themeBack02 = SWTResourceManager.getColor(246, 248, 247); //Blanco verdoso muy claro	
+         this.themeText = SWTResourceManager.getColor(62, 133, 37); //Verde medio
+         this.themeHeaderBack = SWTResourceManager.getColor(62, 133, 37); //Verde medio
+         this.themeTableBack = SWTResourceManager.getColor(255, 255, 255); //Blanco
+         this.themeTableText = SWTResourceManager.getColor(21, 25, 36); //Azul oscuro casi negro
+         this.themeRowOdd = SWTResourceManager.getColor(255, 255, 255); //Blanco
+         this.themeRowEven = SWTResourceManager.getColor(246, 248, 247); //Blanco verdoso muy claro
+         this.themeInputReadOnlyBack = SWTResourceManager.getColor(233, 237, 234); //Verde grisáceo muy claro
+         this.themeInputReadOnlyText = SWTResourceManager.getColor(21, 25, 36); //Azul oscuro casi negro
+         
+      } catch (Exception e) {
+         logger.error("Error al inicializar el tema", e);
+         throw new RuntimeException("Error al inicializar el tema: " + e.getMessage());
+      }
    }
 
    public CashRegister(boolean fullScreenMode) {
       super((Shell)null);
+      
       this.setAppConfig(super.getAppConfig());
       this.setWorkstationConfig(super.getWorkstationConfig());
       this.createActions();
       this.setBlockOnOpen(true);
       this.setFullScreenMode(fullScreenMode);
       this.addMenuBar();
-   }
-   @Override
-   protected Control createContents(Composite parent) {
-      this.initTheme();
-      parent.setBackground(this.themeBack);
-      Control control;
-      if (this.getWorkstationConfig().isCashOpened()) {
-         control = this.createContentsCashOpened(parent);
-      } else {
-         control = this.createContentsCashClosed(parent);
-         if (this.isFromLogin() && this.getWorkstationConfig().isOpenCashOnLogin() && (this.getCashier() != null && this.getCashier().isAdmin() || this.getCashier() != null && this.getCashier().isAllowOpenCash())) {
-            this.openCash();
-         }
-      }
-
-      if (!this.isManagerMode()) {
-         this.initDisabledMenus();
-      }
-
-      return control;
-   }
-
-   private void initDisabledMenus() {
-      if (!this.getCashier().isAdmin()) {
-         this.actionSettings.setEnabled(false);
-      }
-
-      if (!this.getCashier().isAdmin()) {
-         this.actionPrintSettings.setEnabled(false);
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleProducts()) {
-         this.menuManagerProducts.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleOrders()) {
-         this.menuManagerOrders.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModulePurchases()) {
-         this.menuManagerPurchases.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleCustomers()) {
-         this.menuManagerCustomers.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleSuppliers()) {
-         this.menuManagerSuppliers.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleLists()) {
-         this.menuManagerLists.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleReports()) {
-         this.menuManagerReports.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleTools()) {
-         this.menuManagerTools.dispose();
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowCreateIncome()) {
-         this.actionAddNewCashIncome.setEnabled(false);
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowCreateOutflow()) {
-         this.actionAddNewCashOutflow.setEnabled(false);
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleCash()) {
-         this.actionCashOperations.setEnabled(false);
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowOpenCash()) {
-         this.actionOpenCash.setEnabled(false);
-      }
-
-      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowCloseCash()) {
-         this.actionCloseCash.setEnabled(false);
-      }
-
-      if (!this.getWorkstationConfig().isCashOpened()) {
-         this.actionAddNewCashIncome.setEnabled(false);
-         this.actionAddNewCashOutflow.setEnabled(false);
-         this.actionCloseCash.setEnabled(false);
-      } else {
-         this.actionOpenCash.setEnabled(false);
-      }
-
-      if (this.getWorkstationConfig().isTrialMode()) {
-         this.actionCreateBackup.setEnabled(false);
-      }
-
-   }
-
-   protected boolean isHotkeysEnabled() {
-      return this.hotkeysEnabled;
-   }
-
-   protected void setHotkeysEnabled(boolean hotkeysEnabled) {
-      this.hotkeysEnabled = hotkeysEnabled;
-   }
-
-   protected boolean isFullScreenMode() {
-      return this.fullScreenMode;
-   }
-
-   protected void setFullScreenMode(boolean fullScreenMode) {
-      this.fullScreenMode = fullScreenMode;
    }
    @Override
    protected Point getInitialSize() {
@@ -394,372 +338,289 @@ public class CashRegister extends AbstractFVApplicationWindow {
       }
 
    }
-
+//Aca se crea el menu de la caja
    private void createActions() {
-      this.actionListOfPrices = new Action("Lista de precios") {
-         public void run() {
-             CashRegister.this.listOfPricesExcel();
-         }
-     };
-
-     this.actionReportSalesByPM = new Action("Ventas por medios de pago") {
-         public void run() {
-             CashRegister.this.createReportSalesByPaymentMethods();
-         }
-     };
-
-     this.actionSalesManager = new Action("Administrador de ventas") {
-         public void run() {
-             CashRegister.this.openSalesManager();
-         }
-     };
-
-     this.action_7 = new Action("Administrador de clientes") {
-         public void run() {
-             CashRegister.this.customersManager();
-         }
-     };
-
-     this.actionCreateLabelsByDate = new Action("Generar etiquetas por fecha") {
-         public void run() {
-             CashRegister.this.createLabelsByDate();
-         }
-     };
-
-     this.actionCreateBackup = new Action("Crear copia de seguridad") {
-         public void run() {
-             CashRegister.this.createReportSalesByProduct();
-             //TODO: esto esta mal revisar ocmo hacer una copi de seguridad
-         }
-     };
-
-     this.actionSettings = new Action("Configuración") {
-         public void run() {
-             CashRegister.this.settings();
-         }
-     };
-
-     this.actionImportProducts = new Action("Importar artículos desde Excel") {
-         public void run() {
-             CashRegister.this.importProductsFromExcel();
-         }
-     };
-
-     this.actionAbout = new Action("Acerca de FácilVirtual") {
-         public void run() {
-             CashRegister.this.about();
-         }
-     };
-
-     this.actionReactivateLicense = new Action("Reactivar") {
-         public void run() {
-             CashRegister.this.reactivateLicense();
-         }
-     };
-
-     this.actionCloseSession = new Action("Cerrar sesión") {
-         public void run() {
-             CashRegister.this.closeSession();
-         }
-     };
-
-     this.actionProductCategoriesManager = new Action("Administrador de rubros") {
-         public void run() {
-             CashRegister.this.productCategoriesManager();
-         }
-     };
-
-     this.actionSuppliersManager = new Action("Administrador de proveedores") {
-         public void run() {
-            CashRegister.this.openSupplierOnAccountManager();
-            //TODO: revisar que sea el metodo correcto
-         }
-     };
-
-     this.actionOpenCash = new Action("Abrir caja") {
-         public void run() {
-             CashRegister.this.openCash();
-         }
-     };
-
-     this.actionCloseCash = new Action("Cerrar caja") {
-         public void run() {
-             CashRegister.this.closeCash();
-         }
-     };
-
-     this.actionCashOperations = new Action("Movimientos de caja") {
-         public void run() {
-            CashRegister.this.getCashier();
-         }
-     };
-
-     this.actionAddNewCashIncome = new Action("Nuevo ingreso") {
-         public void run() {
-             CashRegister.this.addNewCashIncome();
-         }
-     };
-
-     this.actionAddNewCashOutflow = new Action("Nuevo egreso") {
-         public void run() {
-             CashRegister.this.addNewCashOutflow();
-         }
-     };
      this.actionNotasDeDebito = new Action ("Notas de débito"){
       @Override
       public void run() {
           CashRegister.this.openNotasDeCreditoManager();
-      }
-  };
-  this.actionPurchasesManager = new Action("Administrador de compras"){
-   @Override
-   public void run(){
-      CashRegister.this.openBudgetsManager();
-   }
-  };
-   this.actionCustomerOnAccount = new Action("Cuentas corrientes de clientes"){
-      @Override
-      public void run(){
-         CashRegister.this.openCustomerOnAccountManager();
-      }
-   };
-   this.actionSupplierOnAccount = new Action("Cuentas corrientes de proveedores"){
-      @Override
-      public void run(){
-         CashRegister.this.openSupplierOnAccountManager();
-      }
-   };
-   this.actionListOfReposition = new Action("Listado de reposición"){
-      @Override
-      public void run(){
-         CashRegister.this.openSalesManager();
-      }
-   };
-   this.actionBudgets = new Action("Presupuestos"){
-      @Override
-      public void run(){
-         CashRegister.this.openPurchasesManager();
-      }
-   };
-   this.actionPrintSettings = new Action("Configuración de impresión"){
-      @Override
-      public void run(){
-         CashRegister.this.printSettings();
-      }
-   };
-   this.actionReportSalesWithDetailByDate = new Action("Ventas con detalle por fecha"){
-      @Override
-      public void run(){
-         CashRegister.this.createReportSalesWithDetailByDate();
-      }
-   };
-   this.actionStockValuation = new Action("Stock valorizado"){
-      @Override
-      public void run(){
-         CashRegister.this.createRightContents();
-      }
-   };
-   this.actionReportSalesByCategory = new Action("Ventas por rubros"){
-      @Override
-      public void run(){
-         CashRegister.this.createReportSalesByCategory();
-      }
-   };
-   this.actionReportSalesByProduct = new Action("Ventas por artículos"){
-      @Override
-      public void run(){
-         CashRegister.this.createReportSalesByProduct();
-      }
-   };
-   this.actionCreateLabelsByCode = new Action("Generar etiquetas por códigos"){
-      @Override
-      public void run(){
-         CashRegister.this.createLabelsByCode();
-      }
-   };
-   this.actionCreateBarcodes = new Action("Generar códigos de barra"){
-      @Override
-      public void run(){
-         CashRegister.this.createBarcodes();
-      }
-   };
-   this.actionCustomerOnAccountSummary = new Action("Resumen de cuentas corrientes"){
-      @Override
-      public void run(){
-         CashRegister.this.openCustomerOnAccountManager();
-      }
-   };
-   this.actionUpdatePrices = new Action("Actualización masiva de precios"){
-      @Override
-      public void run(){
-         CashRegister.this.updatePrices();
-      }
-   };
-   this.actionQuickReposition = new Action("Reposición rápida de stock"){
-      @Override
-      public void run(){
-         CashRegister.this.quickReposition();
-      }
-   };
-   this.actionNetworkSettings = new Action("Configuración de red"){
-      @Override
-      public void run(){
-         CashRegister.this.editNetworkSettings();
-      }
-   };
-   this.actionNotasDeCredito = new Action("Notas de crédito"){
-      @Override
-      public void run(){
-         CashRegister.this.openNotasDeCreditoManager();
-      }
-   };
-   this.actionNotasDeDebito = new Action("Notas de débito"){
-      @Override
-      public void run(){
-         CashRegister.this.openNotasDeCreditoManager();
-      }
-   };
-   this.actionReportSalesByDate = new Action("Ventas por fecha"){
-      @Override
-      public void run(){
-         CashRegister.this.openSalesManager();
          }
-   };
-     // this.actionListOfPrices = new (this, "Lista de precios");
-   //   this.actionListOfPrices = new Action("Lista de precios") {
-   //    @Override
-   //    public void run() {
-   //       try {
-   //          listOfPricesExcel();
-   //       } catch (Exception e) {
-   //          e.printStackTrace();
-   //          CashRegister.logger.error("Error al crear lista de precios");
-   //          CashRegister.logger.error(e.getMessage());
-   //       }
-   //    }
-   // };
-   //    // this.actionReportSalesByPM = new 2(this, "Ventas por medios de pago");
-   //    this.actionReportSalesByPM = new Action("Ventas por medios de pago") {
-   //       @Override
-   //       public void run() {
-   //          try {
-   //             openBudgetsManager();
-   //          } catch (Exception e) {
-   //             e.printStackTrace();
-   //             CashRegister.logger.error("Error al crear lista de precios");
-   //             CashRegister.logger.error(e.getMessage());
-   //          }
-   //       }
-   //    };
-   //    // this.actionSalesManager = new 3(this, "Administrador de ventas");
-   //    this.actionSalesManager = new Action("Administrador de ventas") {
-   //       @Override
-   //       public void run() {
-   //          try {
-   //             openSalesManager();
-   //          } catch (Exception e) {
-   //             e.printStackTrace();
-   //             CashRegister.logger.error("Error al crear Admin VEntas");
-   //             CashRegister.logger.error(e.getMessage());
-   //          }
-   //       }
-   //    };
-   //    // this.action_7 = new 4(this, "Administrador de clientes");
-   //    this.actionReportSalesByPM = new Action("Administrador de clientes") {
-   //       @Override
-   //       public void run() {
-   //          try {
-   //             customersManager();
-   //          } catch (Exception e) {
-   //             e.printStackTrace();
-   //             CashRegister.logger.error("Error al crear Administrador de clientes");
-   //             CashRegister.logger.error(e.getMessage());
-   //          }
-   //       }
-   //    };
-   //    // this.actionCreateLabelsByDate = new 5(this, "Generar etiquetas por fecha");
-   //     this.actionCreateLabelsByDate = new Action("Generar etiquetas por fecha") {
-   //       @Override
-   //       public void run() {
-   //          try {
-   //             createLabelsByDate();
-   //          } catch (Exception e) {
-   //             e.printStackTrace();
-   //             CashRegister.logger.error("Generar etiquetas por fecha");
-   //             CashRegister.logger.error(e.getMessage());
-   //          }
-   //       }
-   //    };
-      // this.actionCreateBackup = new 6(this, "Crear copia de seguridad");
-      // this.actionSettings = new 7(this, "Configuración");
-      // this.actionImportProducts = new 8(this, "Importar artículos desde Excel");
-      // this.actionAbout = new 9(this, "Acerca de FácilVirtual");
-      // this.actionReactivateLicense = new 10(this, "Reactivar");
-      // this.actionCloseSession = new 11(this, "Cerrar sesión");
-      // this.actionProductCategoriesManager = new 12(this, "Administrador de rubros");
-      // this.actionSuppliersManager = new 13(this, "Administrador de proveedores");
-      // this.actionOpenCash = new 14(this, "Abrir caja");
-      // this.actionCloseCash = new 15(this, "Cerrar caja");
-      // this.actionCashOperations = new 16(this, "Movimientos de caja");
-      // this.actionAddNewCashIncome = new 17(this, "Nuevo ingreso");
+      };
+//ARCHIVO
+      this.actionCreateBackup = new Action("Crear copia de seguridad") {
+         @Override
+         public void run() {
+            CashRegister.this.createReportSalesByProduct();
+            //TODO: esto esta mal revisar ocmo hacer una copi de seguridad
+         }
+      };
+
+      this.actionSettings = new Action("Configuración") {
+         @Override
+         public void run() {
+            CashRegister.this.settings();
+         }
+      };
+      this.actionPrintSettings = new Action("Configuración de impresión"){
+               @Override
+               public void run(){
+                  CashRegister.this.printSettings();
+               }
+            };
+            this.actionNetworkSettings = new Action("Configuración de red"){
+               @Override
+               public void run(){
+                  CashRegister.this.editNetworkSettings();
+               }
+            };
+            this.actionCloseSession = new Action("Cerrar sesión") {
+               @Override
+               public void run() {
+                  CashRegister.this.closeSession();
+               }
+         };
+//FIN ARCHIVO
+//ARTICULOS
+      this.actionUpdatePrices = new Action("Actualización masiva de precios"){
+         @Override
+         public void run(){
+            CashRegister.this.updatePrices();
+         }
+      };
+      this.actionQuickReposition = new Action("Reposición rápida de stock"){
+         @Override
+         public void run(){
+            CashRegister.this.quickReposition();
+         }
+      };
+      this.actionProductCategoriesManager = new Action("Administrador de rubros") {
+         @Override
+         public void run() {
+             CashRegister.this.productCategoriesManager();
+         }
+     };
+      this.actionImportProducts = new Action("Importar artículos desde Excel") {
+         @Override
+         public void run() {
+            CashRegister.this.importProductsFromExcel();
+         }
+      };
+//FIN ARTICULOS
+//VENTAS
+     this.actionSalesManager = new Action("Administrador de ventas") {
+         @Override
+         public void run() {
+          CashRegister.this.openSalesManager();
+         }
+      };
+      this.actionNotasDeCredito = new Action("Notas de crédito"){
+         @Override
+         public void run(){
+            CashRegister.this.openNotasDeCreditoManager();
+         }
+      };
+      this.actionNotasDeDebito = new Action("Notas de débito"){
+         @Override
+         public void run(){
+            CashRegister.this.openNotasDeCreditoManager();
+         }
+      };
+      this.actionBudgets = new Action("Presupuestos"){
+         @Override
+         public void run(){
+            CashRegister.this.openBudgetsManager();
+         }
+      };
+//FIN VENTAS
+//COMPRAS
+      this.actionPurchasesManager = new Action("Administrador de compras"){
+         @Override
+         public void run(){
+            CashRegister.this.openPurchasesManager();
+         }
+      };
+//FIN COMPRAS
+//CLIENTES
+      this.action_7 = new Action("Administrador de clientes") {
+         @Override
+         public void run() {
+            CashRegister.this.customersManager();
+         }
+      };
+      this.actionCustomerOnAccount = new Action("Cuentas corrientes de clientes"){
+         @Override
+         public void run(){
+            CashRegister.this.openCustomerOnAccountManager();
+         }
+      };
+      this.actionCustomerOnAccountSummary = new Action("Resumen de cuentas corrientes"){
+         @Override
+         public void run(){
+            try {
+               CustomerOnAccountSummaryExcelGenerator dialog = new CustomerOnAccountSummaryExcelGenerator(getShell());
+               dialog.open();
+            } catch (Exception e) {
+               logger.error("Error al crear Resumen de ctas. ctes. de clientes");
+               logger.error(e.getMessage(), e);
+            }
+         }
+      };
+//FIN CLIENTES
+//PROVEEDORES
+      this.actionSuppliersManager = new Action("Administrador de proveedores") {
+         @Override
+         public void run() {
+            SuppliersManager suppliersManager = SuppliersManager.getInstance();
+            suppliersManager.open();
+         }
+     };
+      this.actionSupplierOnAccount = new Action("Cuentas corrientes de proveedores"){
+         @Override
+         public void run(){
+            CashRegister.this.openSupplierOnAccountManager();
+         }
+      };
+//FIN PROVEEDORES
+//LISTADOS Y REPORTES
+      this.actionListOfPrices = new Action("Lista de precios") {
+         @Override
+         public void run() {
+            CashRegister.this.listOfPricesExcel();
+         }
+      };
+      this.actionListOfReposition = new Action("Listado de reposición"){
+         @Override
+         public void run(){
+            try {
+               ListOfRepositionExcelGenerator dialog = new ListOfRepositionExcelGenerator(getShell());
+               dialog.open();
+            } catch (Exception error) {
+               CashRegister.logger.error("Error al crear lista de reposición");
+               CashRegister.logger.error(error.getMessage());
+            }
+         }
+      };
+      this.actionStockValuation = new Action("Stock valorizado"){
+         @Override
+         public void run(){
+            try {
+               StockValuationExcelGenerator dialog = new StockValuationExcelGenerator(getShell());
+               dialog.open();
+            } catch (Exception var2) {
+               CashRegister.logger.error("Error al crear stock valorizado");
+               CashRegister.logger.error(var2.getMessage());
+            }
+         }
+      };
+//FIN LISTADOS Y REPORTES
+//INFORMES
+      this.actionReportSalesByDate = new Action("Ventas por fecha"){
+         @Override
+         public void run(){
+            CashRegister.this.createReportSalesByDate();
+            }
+      };
+      this.actionReportSalesWithDetailByDate = new Action("Ventas con detalle por fecha"){
+         @Override
+         public void run(){
+            CashRegister.this.createReportSalesWithDetailByDate();
+         }
+      };
+      this.actionReportSalesByCategory = new Action("Ventas por rubros"){
+         @Override
+         public void run(){
+            CashRegister.this.createReportSalesByCategory();
+         }
+      };
+      this.actionReportSalesByProduct = new Action("Ventas por artículos"){
+         @Override
+         public void run(){
+            CashRegister.this.createReportSalesByProduct();
+         }
+      };
+      this.actionReportSalesByPM = new Action("Ventas por medios de pago") {
+         @Override
+         public void run() {
+             CashRegister.this.createReportSalesByPaymentMethods();
+         }
+     };
+//FIN INFORMES
+//HERRAMIENTAS
+      this.actionCreateLabelsByCode = new Action("Generar etiquetas por códigos"){
+         @Override
+         public void run(){
+            CashRegister.this.createLabelsByCode();
+         }
+      };
+      this.actionCreateBarcodes = new Action("Generar códigos de barra"){
+         @Override
+         public void run(){
+            CashRegister.this.createBarcodes();
+         }
+      };
+      this.actionCreateLabelsByDate = new Action("Generar etiquetas por fecha") {
+         @Override
+         public void run() {
+             CashRegister.this.createLabelsByDate();
+         }
+     };
+//FIN HERRAMIENTAS
+//CAJA
+      this.actionOpenCash = new Action("Abrir caja") {
+         @Override
+         public void run() {
+            CashRegister.this.openCash();
+         }
+      };
+
+      this.actionCloseCash = new Action("Cerrar caja") {
+         @Override
+         public void run() {
+            CashRegister.this.closeCash();
+         }
+      };
+
+      this.actionCashOperations = new Action("Movimientos de caja") {
+         @Override
+         public void run() {
+            CashOperationsManager manager = CashOperationsManager.getInstance();
+            manager.open();
+         }
+      };
+
+      this.actionAddNewCashIncome = new Action("Nuevo ingreso") {
+      @Override   
+      public void run() {
+            CashRegister.this.addNewCashIncome();
+         }
+      };
+
+      this.actionAddNewCashOutflow = new Action("Nuevo egreso") {
+      @Override
+      public void run() {
+            CashRegister.this.addNewCashOutflow();
+         }
+      };
+//FIN CAJA
+//AYUDA
+      this.actionAbout = new Action("Acerca de FácilVirtual") {
+         @Override
+         public void run() {
+            CashRegister.this.about();
+         }
+      };
+
+      this.actionReactivateLicense = new Action("Reactivar") {
+         @Override
+         public void run() {
+            CashRegister.this.reactivateLicense();
+         }
+      };
+//FIN AYUDA
       
-      // this.actionAddNewCashOutflow = new 18(this, "Nuevo egreso");
-      // this.actionPurchasesManager = new 19(this, "Administrador de compras"); openPurchasesManager()
-      // this.actionPurchasesManager = new Action("Administrador de compras") {
-      //    @Override
-      //    public void run() {
-      //       try {
-      //          openPurchasesManager();
-      //       } catch (Exception e) {
-      //          e.printStackTrace();
-      //          CashRegister.logger.error("Administrador de compras");
-      //          CashRegister.logger.error(e.getMessage());
-      //       }
-      //    }
-      // };
-      // // this.actionCustomerOnAccount = new 20(this, "Cuentas corrientes de clientes"); openSupplierOnAccountManager();
-      // this.actionCustomerOnAccount = new Action("Cuentas corrientes de clientes") {
-      //    @Override
-      //    public void run() {
-      //       try {
-      //          openSupplierOnAccountManager();
-      //       } catch (Exception e) {
-      //          e.printStackTrace();
-      //          CashRegister.logger.error("Cuentas corrientes de clientes");
-      //          CashRegister.logger.error(e.getMessage());
-      //       }
-      //    }
-      // };      
-      // // this.actionSupplierOnAccount = new 21(this, "Cuentas corrientes de proveedores");openSupplierOnAccountManager()
-      // this.actionCustomerOnAccount = new Action("Cuentas corrientes de proveedores") {
-      //    @Override
-      //    public void run() {
-      //       try {
-      //          openSupplierOnAccountManager();
-      //       } catch (Exception e) {
-      //          e.printStackTrace();
-      //          CashRegister.logger.error("Cuentas corrientes de proveedores");
-      //          CashRegister.logger.error(e.getMessage());
-      //       }
-      //    }
-      // };     
-      // this.actionListOfReposition = new 22(this, "Listado de reposición");
-      // this.actionBudgets = new 23(this, "Presupuestos");
-      // this.actionPrintSettings = new 24(this, "Configuración de impresión");
-      // this.actionReportSalesWithDetailByDate = new 25(this, "Ventas con detalle por fecha");
-      // this.actionStockValuation = new 26(this, "Stock valorizado");
-      // this.actionReportSalesByCategory = new 27(this, "Ventas por rubros");
-      // this.actionReportSalesByProduct = new 28(this, "Ventas por artículos");
-      // this.actionCreateLabelsByCode = new 29(this, "Generar etiquetas por códigos");
-      // this.actionCreateBarcodes = new 30(this, "Generar códigos de barra");
-      // this.actionCustomerOnAccountSummary = new 31(this, "Resumen de cuentas corrientes");
-      // this.actionUpdatePrices = new 32(this, "Actualización masiva de precios");
-      // this.actionQuickReposition = new 33(this, "Reposición rápida de stock");
-      // this.actionNetworkSettings = new 34(this, "Configuración de red");
-      // this.actionNotasDeCredito = new 35(this, "Notas de crédito"); openNotasDeCreditoManager();
-       //this.actionNotasDeDebito = new 36(this, "Notas de débito");
-      // this.actionReportSalesByDate = new 37(this, "Ventas por fecha");
-      //TODO:arreglar
+      
+     
+      
    }
 
    private void openBudgetsManager() {
@@ -2471,7 +2332,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
   }
 
    private boolean isOpenSession() {
-      return !this.txtBarCode.isDisposed();
+      if (txtBarCode == null || txtBarCode.isDisposed()) {
+         return false;
+      }
+      return !txtBarCode.isEnabled();
    }
 
    private void exit() {
@@ -3289,7 +3153,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       }
 
    }
-
+// INFORMES METODOS
    private void createReportSalesByPaymentMethods() {
       ReportSalesByPaymentMethods dialog = new ReportSalesByPaymentMethods(this.getShell());
       dialog.open();
@@ -3375,6 +3239,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       }
 
    }
+//FIN INFORMES METODOS
 
    private void changeCustomer() {
       ChangeCustomer dialog = new ChangeCustomer(this.getShell());
@@ -3528,5 +3393,92 @@ public class CashRegister extends AbstractFVApplicationWindow {
       EditNetworkSettingsAlert dialog = new EditNetworkSettingsAlert(this.getShell());
       dialog.setBlockOnOpen(true);
       dialog.open();
+   }
+
+   protected boolean isFullScreenMode() {
+      return this.fullScreenMode;
+   }
+
+   protected void setFullScreenMode(boolean fullScreenMode) {
+      this.fullScreenMode = fullScreenMode;
+   }
+
+   protected boolean isHotkeysEnabled() {
+      return this.hotkeysEnabled;
+   }
+
+   protected void setHotkeysEnabled(boolean hotkeysEnabled) {
+      this.hotkeysEnabled = hotkeysEnabled;
+   }
+
+   private void initDisabledMenus() {
+      if (!this.getCashier().isAdmin()) {
+         this.actionSettings.setEnabled(false);
+         this.actionPrintSettings.setEnabled(false);
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleProducts()) {
+         this.menuManagerProducts.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleOrders()) {
+         this.menuManagerOrders.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModulePurchases()) {
+         this.menuManagerPurchases.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleCustomers()) {
+         this.menuManagerCustomers.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleSuppliers()) {
+         this.menuManagerSuppliers.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleLists()) {
+         this.menuManagerLists.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleReports()) {
+         this.menuManagerReports.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleTools()) {
+         this.menuManagerTools.dispose();
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowCreateIncome()) {
+         this.actionAddNewCashIncome.setEnabled(false);
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowCreateOutflow()) {
+         this.actionAddNewCashOutflow.setEnabled(false);
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowModuleCash()) {
+         this.actionCashOperations.setEnabled(false);
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowOpenCash()) {
+         this.actionOpenCash.setEnabled(false);
+      }
+
+      if (!this.getCashier().isAdmin() && !this.getCashier().isAllowCloseCash()) {
+         this.actionCloseCash.setEnabled(false);
+      }
+
+      if (!this.getWorkstationConfig().isCashOpened()) {
+         this.actionAddNewCashIncome.setEnabled(false);
+         this.actionAddNewCashOutflow.setEnabled(false);
+         this.actionCloseCash.setEnabled(false);
+      } else {
+         this.actionOpenCash.setEnabled(false);
+      }
+
+      if (this.getWorkstationConfig().isTrialMode()) {
+         this.actionCreateBackup.setEnabled(false);
+      }
    }
 }

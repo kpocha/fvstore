@@ -26,7 +26,7 @@
 		</property>
 		<property name="arguments">
 			<list>
-				 <value>config/fvpos-log4j.xml</value>
+				 <value>"classpath:config/fvpos-log4j.xml"</value>
 				<value>C://facilvirtual//config//fvpos-log4j.xml</value> 
 			</list>
 		</property>

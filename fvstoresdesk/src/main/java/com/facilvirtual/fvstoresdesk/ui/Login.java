@@ -355,8 +355,7 @@ public class Login extends AbstractFVApplicationWindow {
 
    
    public static void main(String[] args) {
-      try {
-         new ClassPathXmlApplicationContext("applicationContext.xml");
+      try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
          Login window = new Login();
          window.open();
       } catch (BeansException var4) {
@@ -444,7 +443,7 @@ public class Login extends AbstractFVApplicationWindow {
          } else {
             FVMediaUtils.playSound("login.wav");
             this.getShell().dispose();
-            cashR = new CashRegister(true);
+            cashR = new CashRegister(false);
             cashR.setCashier(employee);
             cashR.setManagerMode(false);
             cashR.setFromLogin(true);

@@ -1,15 +1,12 @@
 package com.facilvirtual.fvstoresdesk.ui;
 
-import com.facilvirtual.fvstoresdesk.model.CashOperation;
-import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.commons.lang3.time.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
@@ -26,6 +23,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.facilvirtual.fvstoresdesk.model.CashOperation;
+import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
 
 public class CashOperationsManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("CashOperationsManager");
@@ -55,7 +57,7 @@ public class CashOperationsManager extends AbstractFVApplicationWindow {
       createInstance();
       return INSTANCE;
    }
-
+   @Override
    protected Control createContents(Composite parent) {
       if (!getWorkstationConfig().isCashOpened()) {
          return createContentsCashClosed(parent);

@@ -19,6 +19,9 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <logback.version>1.4.14</logback.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -40,20 +43,15 @@
         </dependency>
 
         <!-- SWT para UI de escritorio -->
-        <!-- <dependency>
-          <groupId>org.eclipse.core</groupId>
-          <artifactId>org.eclipse.core.runtime</artifactId>
-          <version>3.6.0.v20100505</version>
-      </dependency> -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.core.commands</artifactId>
-            <version>3.9.0</version>
-        </dependency> -->
+            <version>3.10.200</version>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.core.runtime</artifactId>
-            <version>3.13.0</version> <!-- o una que sea compatible -->
+            <version>3.26.100</version>
         </dependency>
         <dependency>
           <groupId>org.eclipse.swt</groupId>
@@ -92,18 +90,19 @@
        
       <!-- Log -->
       <dependency>
-        <groupId>org.eclipse.platform</groupId>
-        <artifactId>org.eclipse.core.commands</artifactId>
-        <version>3.9.0</version> <!-- o una versión compatible -->
-    </dependency>
-      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
     </dependency>
     <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.4.14</version>
+        <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
     </dependency>
     <!-- TODO PARA LA FACTURA ELECTRONICA -->
         <!-- SOAP APIs -->
@@ -161,7 +160,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -183,5 +182,11 @@
             </plugin>
             
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>
