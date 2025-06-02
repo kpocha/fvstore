@@ -521,7 +521,7 @@ public class ProductsManager extends AbstractFVApplicationWindow {
          @Override
          public void handleEvent(org.eclipse.swt.widgets.Event e) {
             if (!canHandleShellCloseEvent()) {
-               e.doit = false;
+               e.doit = true;
             }
          }
       });

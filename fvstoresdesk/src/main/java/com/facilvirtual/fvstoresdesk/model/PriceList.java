@@ -17,7 +17,7 @@ public class PriceList implements Serializable {
    @Column(
       name = "list_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "list_name",

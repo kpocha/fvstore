@@ -30,7 +30,7 @@ public class WorkstationConfig implements Serializable {
    @Column(
       name = "workstation_config_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "cash_number"

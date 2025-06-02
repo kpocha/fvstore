@@ -27,7 +27,7 @@ public class ProductPrice implements Serializable {
    @Column(
       name = "price_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @ManyToOne
    @JoinColumn(

@@ -24,7 +24,7 @@ public class SupplierForProduct implements Serializable {
    @Column(
       name = "supplier_for_product_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "supplier_number",

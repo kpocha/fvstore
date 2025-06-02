@@ -20,7 +20,7 @@ public class DebitCard implements Serializable {
    @Column(
       name = "card_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "card_name",

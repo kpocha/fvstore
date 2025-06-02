@@ -19,7 +19,7 @@ public class ProductPhoto implements Serializable {
    @Column(
       name = "photo_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "filename",

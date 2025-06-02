@@ -23,7 +23,7 @@ public class ProductCategory implements Serializable, Comparable<ProductCategory
    @Column(
       name = "category_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "category_name",

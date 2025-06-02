@@ -32,7 +32,7 @@ public class Budget implements Serializable {
    @Column(
       name = "budget_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Temporal(TemporalType.TIMESTAMP)
    @Column(

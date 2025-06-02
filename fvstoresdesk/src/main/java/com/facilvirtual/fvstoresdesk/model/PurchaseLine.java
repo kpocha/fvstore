@@ -20,7 +20,7 @@ public class PurchaseLine implements Serializable {
    @Column(
       name = "purchase_line_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "line_number",

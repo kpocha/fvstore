@@ -39,7 +39,7 @@ public class Order implements Serializable {
    @Column(
       name = "order_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Temporal(TemporalType.TIMESTAMP)
    @Column(
@@ -841,7 +841,7 @@ public class Order implements Serializable {
 
    public String getNetSubtotal2ToDisplay() {
       DecimalFormat formatter = new DecimalFormat("0.00");
-      String str = String.valueOf(formatter.format(this.getNetSubtotal2()));
+      String str = String.valueOf(this.getNetSubtotal2());
       str = str.replaceAll("\\.", ",");
       return this.getNetSubtotal2() != 0.0 ? str : "0,00";
    }

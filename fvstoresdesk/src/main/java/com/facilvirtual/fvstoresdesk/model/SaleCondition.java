@@ -17,7 +17,7 @@ public class SaleCondition implements Serializable {
    @Column(
       name = "condition_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "condition_name",

@@ -29,7 +29,7 @@ public class Customer implements Serializable, Comparable<Customer> {
    @Column(
       name = "customer_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Temporal(TemporalType.TIMESTAMP)
    @Column(

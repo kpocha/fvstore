@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class OrderLineByCategoryComparator implements Comparator<OrderLine> {
    public OrderLineByCategoryComparator() {
    }
-
+   @Override
    public int compare(OrderLine o1, OrderLine o2) {
       String cat1 = "";
       if (o1.getProduct() != null) {

@@ -4,6 +4,9 @@ import com.facilvirtual.fvstoresdesk.model.ProductCategory;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -46,19 +49,43 @@ public class ProductCategoriesManager extends AbstractFVDialog {
       //TODO: arrelgar
       
      //btnAgregar.addSelectionListener(new 1(this));
+     btnAgregar.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+         addNewProductCategory();
+      }
+     });
       btnAgregar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnAgregar.setText("Nuevo rubro");
       Button btnModificar = new Button(composite, 0);
       //btnModificar.addSelectionListener(new 2(this));
+      btnModificar.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+         editCategory();
+      }
+     });
       btnModificar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnModificar.setText("Modificar");
       Button btnActivar = new Button(composite, 0);
       //btnActivar.addSelectionListener(new 3(this));
+      btnActivar.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+         changeCategoryStatus(true);
+      }
+     });
       btnActivar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnActivar.setBounds(0, 0, 68, 23);
       btnActivar.setText("Activar");
       Button btnDesactivar = new Button(composite, 0);
       //btnDesactivar.addSelectionListener(new 4(this));
+      btnDesactivar.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+         changeCategoryStatus(false);
+      }
+     });
       btnDesactivar.setLayoutData(new GridData(4, 16777216, false, false, 1, 1));
       btnDesactivar.setText("Desactivar");
       this.initCategories();

@@ -22,7 +22,7 @@ public class OrderLine implements Serializable, Comparable<OrderLine> {
    @Column(
       name = "order_line_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "line_number",

@@ -23,7 +23,7 @@ public class AppConfig implements Serializable {
    @Column(
       name = "app_config_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "company_name"

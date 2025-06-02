@@ -17,7 +17,7 @@ public class ReceiptType implements Serializable {
    @Column(
       name = "receipt_type_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "type_name",

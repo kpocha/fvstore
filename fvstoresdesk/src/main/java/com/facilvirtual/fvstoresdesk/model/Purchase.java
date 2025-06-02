@@ -32,7 +32,7 @@ public class Purchase implements Serializable {
    @Column(
       name = "purchase_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Temporal(TemporalType.TIMESTAMP)
    @Column(

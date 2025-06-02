@@ -21,7 +21,7 @@ public class BudgetLine implements Serializable {
    @Column(
       name = "budget_line_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "line_number",

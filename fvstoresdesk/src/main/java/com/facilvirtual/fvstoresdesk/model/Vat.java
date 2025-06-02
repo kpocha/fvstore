@@ -17,7 +17,7 @@ public class Vat implements Serializable {
    @Column(
       name = "vat_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "vat_name",

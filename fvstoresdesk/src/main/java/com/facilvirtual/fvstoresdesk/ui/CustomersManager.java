@@ -3,6 +3,8 @@ package com.facilvirtual.fvstoresdesk.ui;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
@@ -96,6 +98,12 @@ public class CustomersManager extends AbstractFVApplicationWindow {
       this.txtQuery.setFont(SWTResourceManager.getFont("Tahoma", 12, 0));
       this.txtQuery.setText("");
       //this.txtQuery.addTraverseListener(new 5(this));
+      this.txtQuery.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+         searchCustomers();
+      }
+     });
       Button btnBuscar = new Button(menuContainer, 0);
       //btnBuscar.addSelectionListener(new 6(this));
       btnBuscar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
@@ -106,6 +114,12 @@ public class CustomersManager extends AbstractFVApplicationWindow {
       lblNewLabel_1.setLayoutData(gd_lblNewLabel_1);
       this.btnCheckButton = new Button(menuContainer, 32);
       //this.btnCheckButton.addSelectionListener(new 7(this));
+      this.btnCheckButton.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+         
+      }
+     });
       this.btnCheckButton.setBounds(664, 41, 118, 16);
       this.btnCheckButton.setText("Ocultar clientes eliminados");
    }

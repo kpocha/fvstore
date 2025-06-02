@@ -26,7 +26,7 @@ public class Supplier implements Serializable, Comparable<Supplier> {
    @Column(
       name = "supplier_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Temporal(TemporalType.TIMESTAMP)
    @Column(

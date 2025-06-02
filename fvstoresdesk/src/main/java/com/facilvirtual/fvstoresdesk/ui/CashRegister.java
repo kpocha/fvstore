@@ -273,8 +273,10 @@ public class CashRegister extends AbstractFVApplicationWindow {
          // Colores del tema
          this.themeBack = SWTResourceManager.getColor(233, 237, 234);  //Verde grisáceo muy claro
          this.themeBack02 = SWTResourceManager.getColor(246, 248, 247); //Blanco verdoso muy claro	
-         this.themeText = SWTResourceManager.getColor(62, 133, 37); //Verde medio
-         this.themeHeaderBack = SWTResourceManager.getColor(62, 133, 37); //Verde medio
+        // this.themeText = SWTResourceManager.getColor(62, 133, 37); //Verde medio
+         //this.themeHeaderBack = SWTResourceManager.getColor(62, 133, 37); //Verde medio   
+         this.themeText = SWTResourceManager.getColor(193, 63, 15); //Naranja fuerte CARPER
+         this.themeHeaderBack = SWTResourceManager.getColor(193, 63, 15); //Naranja fuerte CARPER   
          this.themeTableBack = SWTResourceManager.getColor(255, 255, 255); //Blanco
          this.themeTableText = SWTResourceManager.getColor(21, 25, 36); //Azul oscuro casi negro
          this.themeRowOdd = SWTResourceManager.getColor(255, 255, 255); //Blanco

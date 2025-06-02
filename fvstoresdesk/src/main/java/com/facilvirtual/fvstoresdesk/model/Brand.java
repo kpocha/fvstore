@@ -20,7 +20,7 @@ public class Brand implements Serializable {
    @Column(
       name = "brand_id"
    )
-   @GeneratedValue
+   @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
    private Long id;
    @Column(
       name = "brand_name",
