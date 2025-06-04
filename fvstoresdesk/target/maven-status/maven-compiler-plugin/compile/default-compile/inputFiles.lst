@@ -2,7 +2,6 @@ C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvs
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\CashRegister.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\ListOfPricesGenerator.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\OrderDetails.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\persistence\HyperSqlDbServer.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategory.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\PurchaseService.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\DebitCard.java
@@ -18,6 +17,7 @@ C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvs
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\PaymentPrompt.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\SummaryGenerator.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateLabelsGeneratorInner.java
+C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\DatabaseMigrationUtil.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\ListOfPricesXLS.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\SearchProduct.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\VatDao.java
@@ -172,7 +172,6 @@ C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvs
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\AppConfig.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\BudgetLineDao.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\AddProductToPurchase.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\persistence\HyperSqlDbWebServer.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\NotaDeCreditoDao.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\AppConfigDao.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\CashOperationDialog.java
@@ -204,5 +203,6 @@ C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvs
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\Discount.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\AddNewDebitCard.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\SupplierOnAccountOperationDao.java
+C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\MigrationRunner.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategoryGenerator.java
 C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Employee.java

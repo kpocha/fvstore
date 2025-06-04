@@ -1,8 +1,10 @@
 package com.facilvirtual.fvstoresdesk.dao;
 
-import com.facilvirtual.fvstoresdesk.model.AppConfig;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.springframework.stereotype.Repository;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+import com.facilvirtual.fvstoresdesk.model.AppConfig;
 
 @Repository
 public class AppConfigDao extends AbstractFVDao {
@@ -27,9 +29,31 @@ public class AppConfigDao extends AbstractFVDao {
       boolean ok = true;
 
       try {
-         String sql = "BACKUP DATABASE TO '" + filename + "' BLOCKING";
-         this.getSession().createSQLQuery(sql).executeUpdate();
-      } catch (Exception var4) {
+         // Usando pg_dump para crear el backup
+         ProcessBuilder pb = new ProcessBuilder(
+            "pg_dump",
+            "-h", "localhost",
+            "-p", "5432",
+            "-U", "postgrest",
+            "-F", "c",
+            "-b",
+            "-v",
+            "-f", filename,
+            "fvstore"
+         );
+         
+         // Configurar la contraseña de PostgreSQL
+         pb.environment().put("PGPASSWORD", "danilo");
+         
+         Process process = pb.start();
+         int exitCode = process.waitFor();
+         
+         if (exitCode != 0) {
+            logger.error("Error al crear el backup. Código de salida: " + exitCode);
+            ok = false;
+         }
+      } catch (Exception e) {
+         logger.error("Error al crear el backup: " + e.getMessage(), e);
          ok = false;
       }
 

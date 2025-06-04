@@ -8,23 +8,7 @@
 			http://www.springframework.org/schema/tx 
 			http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context-3.2.xsd
-	   		">
-
-	<bean class="com.facilvirtual.fvstoresdesk.persistence.HyperSqlDb${dataSource.serverType}"
-		id="hsqldb" init-method="start">
-		<constructor-arg>
-			<value>
-				server.database.0=file:C:/facilvirtual/data/fvposdb
-				server.dbname.0=fvposdb
-				server.username.0=adminFvPos
-				server.password.0=fvPos2014
-				server.remote_open=true
-				hsqldb.reconfig_logging=false
-				server.port=${dataSource.serverPort}
-			</value>
-		</constructor-arg>
-	</bean>
+			http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -32,37 +16,34 @@
 		<property name="packagesToScan" value="com.facilvirtual.fvstoresdesk" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				
+				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
+				<prop key="hibernate.connection.useUnicode">true</prop>
+				<prop key="hibernate.connection.charSet">UTF-8</prop>
+				<prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
 			</props>
 		</property>
 	</bean>
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
-		<property name="driverClass" value="org.hsqldb.jdbcDriver" />
-		<!-- Configuracion para el server
-		<property name="jdbcUrl" value="jdbc:hsqldb:file:C:/facilvirtual/data/facilvirtualDb" />
-		-->
-		<!-- Configuracion para las terminales 
-		<property name="jdbcUrl" value="jdbc:hsqldb:hsql://localhost:9001/facilvirtualDb" />
-		-->
-		<property name="jdbcUrl" value="${dataSource.jdbcUrl}" />
-		<property name="user" value="adminFvPos" />
-		<property name="password" value="fvPos2014" />
+		<property name="driverClass" value="org.postgresql.Driver" />
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/fvstore" />
+		<property name="user" value="postgres" />
+		<property name="password" value="danilo" />
 		<property name="acquireRetryAttempts" value="3" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="30" />
+		<property name="idleConnectionTestPeriod" value="300" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory" />
-</bean>
-	<!-- <bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean> -->
+	</bean>
 
 </beans>
 

@@ -22,7 +22,6 @@ import com.facilvirtual.fvstoresdesk.model.SaleCondition;
 import com.facilvirtual.fvstoresdesk.model.Vat;
 import com.facilvirtual.fvstoresdesk.model.VatCondition;
 import com.facilvirtual.fvstoresdesk.model.WorkstationConfig;
-import com.facilvirtual.fvstoresdesk.persistence.HyperSqlDbServer;
 import com.facilvirtual.fvstoresdesk.util.AfipUtils;
 import com.facilvirtual.fvstoresdesk.util.DiskUtils;
 import com.facilvirtual.fvstoresdesk.util.FVFileUtils;
@@ -698,11 +697,6 @@ public class AppConfigService {
          logger.error(var2.toString());
       }
 
-   }
-
-   private HyperSqlDbServer getHsqlServer() {
-      ApplicationContext context = ApplicationContextProvider.getApplicationContext();
-      return (HyperSqlDbServer)context.getBean("hsqldb");
    }
 
    private DataSource getDataSource() {

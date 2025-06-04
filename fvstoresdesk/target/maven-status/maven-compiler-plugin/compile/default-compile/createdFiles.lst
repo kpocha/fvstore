@@ -38,6 +38,7 @@ com\facilvirtual\fvstoresdesk\model\CustomerOnAccountOperation.class
 com\facilvirtual\fvstoresdesk\print\TicketBCCreator.class
 com\facilvirtual\fvstoresdesk\service\OrderService.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$18.class
+com\facilvirtual\fvstoresdesk\ui\SuppliersManager$3.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$54.class
 com\facilvirtual\fvstoresdesk\ui\OpenCash$1.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$1.class
@@ -46,6 +47,7 @@ com\facilvirtual\fvstoresdesk\ui\ProductsManager$4.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$14.class
 com\facilvirtual\fvstoresdesk\ui\ChangeCustomer.class
 com\facilvirtual\fvstoresdesk\ui\EditEmployee.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$7.class
 com\facilvirtual\fvstoresdesk\test\HelloWorldApp.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$20.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$3.class
@@ -53,6 +55,8 @@ com\facilvirtual\fvstoresdesk\util\CryptUtils.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDate.class
 com\facilvirtual\fvstoresdesk\ui\EditSupplier.class
 com\facilvirtual\fvstoresdesk\ui\EditProductPhoto.class
+com\facilvirtual\fvstoresdesk\ui\ProductCategoriesManager$4.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$5.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$22.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$57.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$6.class
@@ -73,6 +77,7 @@ com\facilvirtual\fvstoresdesk\model\CashOperation$Type.class
 com\facilvirtual\fvstoresdesk\ui\AddNewSupplier.class
 com\facilvirtual\fvstoresdesk\ui\AddProductToBudget$2.class
 com\facilvirtual\fvstoresdesk\model\Employee.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$2.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$25.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$41.class
 com\facilvirtual\fvstoresdesk\print\NotaDeCreditoBCPdfCreator.class
@@ -86,6 +91,7 @@ com\facilvirtual\fvstoresdesk\util\FVFileUtils.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$12.class
 com\facilvirtual\fvstoresdesk\ui\list\CustomerOnAccountSummaryExcelGenerator.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByPaymentMethodsGenerator.class
+com\facilvirtual\fvstoresdesk\util\DatabaseMigrationUtil.class
 com\facilvirtual\fvstoresdesk\ui\FacturaElectronicaPrompt.class
 com\facilvirtual\fvstoresdesk\ui\AddNewCustomerOnAccountCredit$1.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$35.class
@@ -95,7 +101,6 @@ com\facilvirtual\fvstoresdesk\ui\list\StockValuationExcelGenerator.class
 com\facilvirtual\fvstoresdesk\ui\CashOperationsManager$1.class
 com\facilvirtual\fvstoresdesk\ui\PurchasesManager$1.class
 com\facilvirtual\fvstoresdesk\dao\ProductDao.class
-com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateGeneratorInner.class
 com\facilvirtual\fvstoresdesk\ui\CashCategoryPrompt.class
 com\facilvirtual\fvstoresdesk\ui\BackupAlert.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$62.class
@@ -111,6 +116,7 @@ com\facilvirtual\fvstoresdesk\ui\CheckPriceDialog.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateGenerator.class
 com\facilvirtual\fvstoresdesk\ui\PurchasesManager.class
 com\facilvirtual\fvstoresdesk\print\TicketACreator.class
+com\facilvirtual\fvstoresdesk\ui\ProductCategoriesManager$1.class
 com\facilvirtual\fvstoresdesk\ui\SalesManager$3.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$10.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$63.class
@@ -120,6 +126,7 @@ com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateRange.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesWithDetailByDateGenerator.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$70.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$30.class
+com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateRangeGeneratorInner.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$16.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$16.class
 com\facilvirtual\fvstoresdesk\model\AfipConfig.class
@@ -136,6 +143,7 @@ com\facilvirtual\fvstoresdesk\ui\AddNewProduct$10.class
 com\facilvirtual\fvstoresdesk\ui\ChangePassword.class
 com\facilvirtual\fvstoresdesk\dao\CashOperationDao.class
 com\facilvirtual\fvstoresdesk\ui\QuickReposition.class
+com\facilvirtual\fvstoresdesk\ui\SuppliersManager$5.class
 com\facilvirtual\fvstoresdesk\ui\Surcharge$1.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$22.class
 com\facilvirtual\fvstoresdesk\ui\Settings$1.class
@@ -147,7 +155,6 @@ com\facilvirtual\fvstoresdesk\model\Order.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$15.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$4.class
 com\facilvirtual\fvstoresdesk\service\ProductService.class
-com\facilvirtual\fvstoresdesk\persistence\HyperSqlDbServer.class
 com\facilvirtual\fvstoresdesk\ui\SalesManager$2.class
 com\facilvirtual\fvstoresdesk\model\CashOperation.class
 com\facilvirtual\fvstoresdesk\ui\AddProductToBudget$3.class
@@ -161,6 +168,7 @@ com\facilvirtual\fvstoresdesk\ui\AddNewProduct$15.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$31.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$23.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategoryGeneratorInner.class
+com\facilvirtual\fvstoresdesk\ui\SuppliersManager$4.class
 com\facilvirtual\fvstoresdesk\ui\tool\CreateBarcodes.class
 com\facilvirtual\fvstoresdesk\ui\AddNewBudget$1.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$12.class
@@ -182,6 +190,7 @@ com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$21.class
 com\facilvirtual\fvstoresdesk\ui\CloseCash.class
 com\facilvirtual\fvstoresdesk\model\OrderLine.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$72.class
+com\facilvirtual\fvstoresdesk\ui\ProductCategoriesManager$2.class
 com\facilvirtual\fvstoresdesk\ui\SalesManager$4.class
 com\facilvirtual\fvstoresdesk\ui\ImportProductsFromExcel$1.class
 com\facilvirtual\fvstoresdesk\ui\AddNewFacturaElectronicaAfip$1.class
@@ -230,6 +239,7 @@ com\facilvirtual\fvstoresdesk\ui\tool\CreateLabelsGeneratorInner.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$6.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$13.class
 com\facilvirtual\fvstoresdesk\ui\ChangeSupplier.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$1.class
 com\facilvirtual\fvstoresdesk\ui\ImportProductsFromExcel$2.class
 com\facilvirtual\fvstoresdesk\ui\AddProductToBudget$1.class
 com\facilvirtual\fvstoresdesk\util\DiskUtils.class
@@ -249,6 +259,7 @@ com\facilvirtual\fvstoresdesk\util\AfipUtils.class
 com\facilvirtual\fvstoresdesk\ui\Surcharge.class
 com\facilvirtual\fvstoresdesk\util\FVImageUtils.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByProductGeneratorInner.class
+com\facilvirtual\fvstoresdesk\ui\SuppliersManager$2.class
 com\facilvirtual\fvstoresdesk\ui\PurchasesManager$2.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByProduct.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$39.class
@@ -262,8 +273,10 @@ com\facilvirtual\fvstoresdesk\ui\AddNewCreditCard.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$19.class
 com\facilvirtual\fvstoresdesk\model\VatCondition.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$32.class
+com\facilvirtual\fvstoresdesk\ui\ProductCategoriesManager$3.class
 com\facilvirtual\fvstoresdesk\ui\ProductsManager$3.class
 com\facilvirtual\fvstoresdesk\ui\AddProductToPurchase.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$6.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$26.class
 com\facilvirtual\fvstoresdesk\service\ApplicationContextProvider.class
 com\facilvirtual\fvstoresdesk\dao\OrderDao.class
@@ -272,6 +285,7 @@ com\facilvirtual\fvstoresdesk\ui\CashRegister$66.class
 com\facilvirtual\fvstoresdesk\print\InvoiceAPdfCreatorOLD.class
 org\eclipse\wb\swt\ResourceManager.class
 com\facilvirtual\fvstoresdesk\service\HelloWorldService.class
+com\facilvirtual\fvstoresdesk\ui\SupplierOnAccountOpsManager$3.class
 com\facilvirtual\fvstoresdesk\ui\BudgetsManager.class
 com\facilvirtual\fvstoresdesk\print\BudgetPdfCreator.class
 com\facilvirtual\fvstoresdesk\ui\Settings.class
@@ -302,12 +316,14 @@ com\facilvirtual\fvstoresdesk\ui\PurchaseDetails$2.class
 com\facilvirtual\fvstoresdesk\ui\CashOperationsManager$2.class
 com\facilvirtual\fvstoresdesk\ui\EditProductPrice$6.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategory.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$3.class
 com\facilvirtual\fvstoresdesk\model\Purchase.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$25.class
 com\facilvirtual\fvstoresdesk\ui\AddNewBudget.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$28.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$58.class
 com\facilvirtual\fvstoresdesk\ui\SuppliersManager.class
+com\facilvirtual\fvstoresdesk\util\MigrationRunner.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$24.class
 com\facilvirtual\fvstoresdesk\ui\Settings$5.class
 com\facilvirtual\fvstoresdesk\ui\AddNewCashIncome.class
@@ -318,6 +334,7 @@ com\facilvirtual\fvstoresdesk\ui\EditProductPrice$7.class
 com\facilvirtual\fvstoresdesk\ui\ProductsManager.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$1.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt$7.class
+com\facilvirtual\fvstoresdesk\ui\CustomersManager$4.class
 com\facilvirtual\fvstoresdesk\model\BudgetLine.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$29.class
 com\facilvirtual\fvstoresdesk\ui\AddNewProduct$23.class
@@ -336,12 +353,12 @@ com\facilvirtual\fvstoresdesk\ui\CashRegister$50.class
 com\facilvirtual\fvstoresdesk\model\CreditCard.class
 com\facilvirtual\fvstoresdesk\dao\PriceListDao.class
 com\facilvirtual\fvstoresdesk\model\DebitCard.class
+com\facilvirtual\fvstoresdesk\ui\SupplierOnAccountOpsManager$1.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$36.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$56.class
 com\facilvirtual\fvstoresdesk\model\Product.class
 com\facilvirtual\fvstoresdesk\ui\ProductsManager$6.class
 com\facilvirtual\fvstoresdesk\ui\AddNewFacturaElectronicaAfip.class
-com\facilvirtual\fvstoresdesk\persistence\HyperSqlDbWebServer.class
 com\facilvirtual\fvstoresdesk\ui\PaymentPrompt.class
 com\facilvirtual\fvstoresdesk\ui\Settings$10.class
 com\facilvirtual\fvstoresdesk\ui\report\ReportGenerator.class
@@ -362,6 +379,7 @@ com\facilvirtual\fvstoresdesk\model\OrderLineByProductComparator.class
 com\facilvirtual\fvstoresdesk\util\FVMediaUtils.class
 com\facilvirtual\fvstoresdesk\ui\CashRegister$48.class
 com\facilvirtual\fvstoresdesk\ui\Login.class
+com\facilvirtual\fvstoresdesk\ui\SupplierOnAccountOpsManager$2.class
 org\eclipse\wb\swt\ResourceManager$1.class
 com\facilvirtual\fvstoresdesk\model\ProductCategory.class
 com\facilvirtual\fvstoresdesk\ui\Installer.class
