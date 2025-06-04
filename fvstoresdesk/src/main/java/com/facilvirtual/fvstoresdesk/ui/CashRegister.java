@@ -1268,7 +1268,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnBuscar.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            //todo:buscar metodo para que haga lo que tenga q hacer
+            searchProduct();
          }
       });
       btnBuscar.setFont(SWTResourceManager.getFont("Arial", 10, 0));
@@ -1308,7 +1308,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnQuitar.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            //quitarArticulo();
+            removeProduct();
          }
       });
       btnQuitar.setFont(SWTResourceManager.getFont("Arial", 10, 0));
@@ -1323,7 +1323,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
       btnDescuento.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
-            CashRegister.this.applyDiscount();
+            applyDiscount();
          }
       });
       btnDescuento.setFont(SWTResourceManager.getFont("Arial", 10, 0));
