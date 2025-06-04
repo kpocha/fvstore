@@ -19,7 +19,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import com.facilvirtual.fvstoresdesk.model.ProductCategory;
 import com.facilvirtual.fvstoresdesk.model.Vat;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class AddNewProductCategory extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("AddNewProductCategory");
    protected String action = "";

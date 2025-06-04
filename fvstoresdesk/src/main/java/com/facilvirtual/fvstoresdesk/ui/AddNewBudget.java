@@ -34,6 +34,7 @@ import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.model.Product;
 import com.facilvirtual.fvstoresdesk.model.SaleCondition;
 import com.facilvirtual.fvstoresdesk.model.VatCondition;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 public class AddNewBudget extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("AddNewBudget");

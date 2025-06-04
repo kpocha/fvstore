@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
 public class DbServer extends AbstractFVApplicationWindow {
    public DbServer() {
       super((Shell)null);

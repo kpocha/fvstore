@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class FacturaElectronicaPrompt extends AbstractFVDialog {
    private String action = "";
    private Product product;

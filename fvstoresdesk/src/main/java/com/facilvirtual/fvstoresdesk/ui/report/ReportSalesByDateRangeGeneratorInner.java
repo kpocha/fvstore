@@ -5,7 +5,7 @@ import com.facilvirtual.fvstoresdesk.model.Order;
 import com.facilvirtual.fvstoresdesk.service.AppConfigService;
 import com.facilvirtual.fvstoresdesk.service.ApplicationContextProvider;
 import com.facilvirtual.fvstoresdesk.service.OrderService;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 import java.awt.Color;
 import java.io.FileOutputStream;

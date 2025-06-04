@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.facilvirtual.fvstoresdesk.model.PriceList;
 import com.facilvirtual.fvstoresdesk.model.Product;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 public class ListOfPricesExcelGenerator extends AbstractFVDialog {
    private String action = "";

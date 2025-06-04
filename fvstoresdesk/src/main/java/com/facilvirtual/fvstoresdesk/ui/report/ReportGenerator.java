@@ -30,7 +30,7 @@ import com.facilvirtual.fvstoresdesk.model.CreditCard;
 import com.facilvirtual.fvstoresdesk.model.DebitCard;
 import com.facilvirtual.fvstoresdesk.model.Order;
 import com.facilvirtual.fvstoresdesk.service.OrderService;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 class ReportGenerator extends Thread {
    private Display display;

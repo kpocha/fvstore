@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 
 import com.facilvirtual.fvstoresdesk.model.Customer;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 public class CustomerOnAccountSummaryExcelGenerator extends AbstractFVDialog {
    private String action = "";

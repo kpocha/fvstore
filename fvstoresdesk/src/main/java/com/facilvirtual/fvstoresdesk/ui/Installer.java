@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
 public class Installer extends AbstractFVApplicationWindow {
    private static Logger logger = LoggerFactory.getLogger("Installer");
 

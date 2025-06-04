@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import com.facilvirtual.fvstoresdesk.model.Customer;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class ChangeCustomer extends AbstractFVDialog {
    private Text txtQuery;
    private String action = "";

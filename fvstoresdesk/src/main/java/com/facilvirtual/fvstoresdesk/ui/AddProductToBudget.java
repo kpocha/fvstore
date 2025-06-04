@@ -25,7 +25,7 @@ import com.facilvirtual.fvstoresdesk.model.PriceList;
 import com.facilvirtual.fvstoresdesk.model.Product;
 import com.facilvirtual.fvstoresdesk.model.ProductPrice;
 import com.facilvirtual.fvstoresdesk.model.Vat;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class AddProductToBudget extends AbstractFVDialog {
    private static final Logger  logger = LoggerFactory.getLogger(AddProductToBudget.class);
    private String action = "";

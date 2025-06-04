@@ -22,7 +22,7 @@ import com.facilvirtual.fvstoresdesk.model.PriceList;
 import com.facilvirtual.fvstoresdesk.model.Product;
 import com.facilvirtual.fvstoresdesk.model.ProductPrice;
 import com.facilvirtual.fvstoresdesk.util.FVImageUtils;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class CheckPrice extends AbstractFVDialog {
    private static final Logger logger = LoggerFactory.getLogger("CheckPrice");
    private String action = "";

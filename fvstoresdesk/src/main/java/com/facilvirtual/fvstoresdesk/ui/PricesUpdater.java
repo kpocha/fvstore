@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class PricesUpdater extends AbstractFVDialog {
    private String action = "";
    private Combo comboPriceLists;

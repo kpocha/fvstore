@@ -15,7 +15,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class CashCategoryPrompt extends AbstractFVDialog {
    private Text txtCategoryNumber;
    private String action = "";

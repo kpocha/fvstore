@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.facilvirtual.fvstoresdesk.model.Order;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 
 public class ReportSalesWithDetailByDate extends AbstractFVDialog {

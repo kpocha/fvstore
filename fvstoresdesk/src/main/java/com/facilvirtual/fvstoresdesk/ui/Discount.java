@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class Discount extends AbstractFVDialog {
    private Text txtDiscountPercent;
    private String discountPercent = "0.00";

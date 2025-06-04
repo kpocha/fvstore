@@ -34,7 +34,7 @@ import com.facilvirtual.fvstoresdesk.model.Order;
 import com.facilvirtual.fvstoresdesk.model.OrderLine;
 import com.facilvirtual.fvstoresdesk.model.OrderLineByCategoryComparator;
 import com.facilvirtual.fvstoresdesk.service.OrderService;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 class ReportSalesByCategoryGeneratorInner extends Thread {
    private Display display;

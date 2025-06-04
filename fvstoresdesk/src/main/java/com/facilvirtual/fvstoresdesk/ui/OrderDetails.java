@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class OrderDetails extends AbstractFVDialog {
    protected static Logger logger = LoggerFactory.getLogger("OrderDetails");
    private String action = "";

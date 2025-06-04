@@ -24,7 +24,7 @@ import com.facilvirtual.fvstoresdesk.model.Product;
 import com.facilvirtual.fvstoresdesk.model.Purchase;
 import com.facilvirtual.fvstoresdesk.model.PurchaseLine;
 import com.facilvirtual.fvstoresdesk.model.Vat;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class AddProductToPurchase extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("AddProductToPurchase");
    private String action = "";

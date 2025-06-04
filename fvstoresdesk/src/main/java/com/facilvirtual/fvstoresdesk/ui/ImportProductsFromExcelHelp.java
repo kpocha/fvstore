@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 public class ImportProductsFromExcelHelp extends AbstractFVDialog {
    private String action = "";
    private String filename = "";

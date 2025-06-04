@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
 
 public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("AddNewCustomerOnAccountCredit");
