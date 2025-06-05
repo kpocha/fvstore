@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.products;
 
 import java.util.Iterator;
 import java.util.List;

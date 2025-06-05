@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister;
 
 import com.facilvirtual.fvstoresdesk.model.Order;
 import org.eclipse.swt.graphics.Point;

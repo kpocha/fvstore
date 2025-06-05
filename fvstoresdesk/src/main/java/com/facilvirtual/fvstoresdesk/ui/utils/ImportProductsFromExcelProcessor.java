@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +13,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
+
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.ImportProductsFromExcel;
 
 public class ImportProductsFromExcelProcessor extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("ImportProductsFromExcelProcessor");

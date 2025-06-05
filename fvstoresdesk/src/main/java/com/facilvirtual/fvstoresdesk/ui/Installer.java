@@ -12,6 +12,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.ImportProductsFromExcel;
+import com.facilvirtual.fvstoresdesk.ui.utils.ImportProductsFromExcelProcessor;
 public class Installer extends AbstractFVApplicationWindow {
    private static Logger logger = LoggerFactory.getLogger("Installer");
 
@@ -85,7 +87,7 @@ public class Installer extends AbstractFVApplicationWindow {
          try {
             ImportProductsFromExcelProcessor processor = new ImportProductsFromExcelProcessor(this.getShell());
             processor.setBlockOnOpen(true);
-            processor.setSettings(dialog);
+            //processor.setSettings(dialog);
             processor.open();
          } catch (Exception var3) {
             var3.printStackTrace();

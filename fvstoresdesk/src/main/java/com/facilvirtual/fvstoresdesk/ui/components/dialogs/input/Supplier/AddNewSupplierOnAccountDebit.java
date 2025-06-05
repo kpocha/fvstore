@@ -1,8 +1,8 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Supplier;
 
-import com.facilvirtual.fvstoresdesk.model.Customer;
-import com.facilvirtual.fvstoresdesk.model.CustomerOnAccountOperation;
 import com.facilvirtual.fvstoresdesk.model.Employee;
+import com.facilvirtual.fvstoresdesk.model.Supplier;
+import com.facilvirtual.fvstoresdesk.model.SupplierOnAccountOperation;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;import org.eclipse.swt.SWT;
@@ -21,18 +21,18 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
 
-public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
-   private static Logger logger = LoggerFactory.getLogger("AddNewCustomerOnAccountCredit");
+public class AddNewSupplierOnAccountDebit extends AbstractFVDialog {
+   private static Logger logger = LoggerFactory.getLogger("AddNewSupplierOnAccountDebit");
    private String action = "";
    private Text txtAmount;
    private Employee employee;
-   private Customer customer;
+   private Supplier supplier;
    private CashRegister cashRegister;
 
-   public AddNewCustomerOnAccountCredit(Shell parentShell) {
+   public AddNewSupplierOnAccountDebit(Shell parentShell) {
       super(parentShell);
    }
-
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       FormLayout fl_container = new FormLayout();
@@ -45,29 +45,31 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
       fd_lblTitle.right = new FormAttachment(100, -26);
       fd_lblTitle.left = new FormAttachment(0, 25);
       lblTitle.setLayoutData(fd_lblTitle);
-      lblTitle.setText("Nuevo pago de cliente");
+      lblTitle.setText("Nuevo pago a proveedor");
       Label lblImporte = new Label(container, 0);
       FormData fd_lblImporte = new FormData();
       fd_lblImporte.top = new FormAttachment(lblTitle, 55);
-      fd_lblImporte.left = new FormAttachment(0, 55);
+      fd_lblImporte.left = new FormAttachment(0, 65);
       lblImporte.setLayoutData(fd_lblImporte);
       lblImporte.setText("Importe: $");
       this.txtAmount = new Text(container, 2048);
       fd_lblImporte.right = new FormAttachment(100, -340);
       this.txtAmount.setTextLimit(30);
       FormData fd_txtAmount = new FormData();
-      fd_txtAmount.right = new FormAttachment(100, -221);
-      fd_txtAmount.left = new FormAttachment(lblImporte, 6);
       fd_txtAmount.top = new FormAttachment(lblTitle, 52);
+      fd_txtAmount.right = new FormAttachment(lblImporte, 119, 131072);
+      fd_txtAmount.left = new FormAttachment(0, 122);
       this.txtAmount.setLayoutData(fd_txtAmount);
-       this.txtAmount.addTraverseListener(new TraverseListener() {
-      @Override
-      public void keyTraversed(TraverseEvent e) {
-         if (e.detail == SWT.TRAVERSE_RETURN) {
-            processDialog(); // Este método reemplaza access$0
-         }
+
+      this.txtAmount.addTraverseListener(new TraverseListener() {
+   @Override
+   public void keyTraversed(TraverseEvent event) {
+      if (event.detail == SWT.TRAVERSE_RETURN) {
+         processDialog();
       }
-   });
+   }
+});
+
       return container;
    }
 
@@ -77,28 +79,25 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
 
          try {
             Date creationDate = new Date();
-            CustomerOnAccountOperation operation = new CustomerOnAccountOperation();
+            SupplierOnAccountOperation operation = new SupplierOnAccountOperation();
             operation.setCreationDate(creationDate);
             operation.setOperationDate(creationDate);
             operation.setLastUpdatedDate(creationDate);
-            operation.setCreditType();
+            operation.setDebitType();
             operation.setDescription("Pago");
             operation.setAmount(this.getDoubleValueFromText(this.txtAmount));
             operation.setAuthor(this.getEmployee());
             operation.setCashNumber(this.getWorkstationConfig().getCashNumber());
             operation.setSystem(false);
-            operation.setCustomer(this.getCustomer());
-            this.getCustomerService().saveCustomerOnAccountOperation(operation);
-            Customer customer = operation.getCustomer();
-            customer.setOnAccountTotal(customer.getOnAccountTotal() + operation.getAmount());
-            this.getCustomerService().saveCustomer(customer);
-            this.getCashService().saveNewCashOperationForCustomerOperation(operation);
-            this.getAppConfigService().incCashAmount(this.getWorkstationConfig(), operation.getAmount());
+            operation.setSupplier(this.getSupplier());
+            this.getSupplierService().saveSupplierOnAccountOperation(operation);
+            this.getCashService().saveNewCashOperationForSupplierOperation(operation);
+            this.getAppConfigService().decCashAmount(this.getWorkstationConfig(), operation.getAmount());
             this.getCashRegister().updatedWorkstationConfig();
-         } catch (Exception var4) {
-            logger.error("Error al guardar pago de cliente");
-            logger.error(var4.getMessage());
-            //logger.error(var4);
+         } catch (Exception var3) {
+            logger.error("Error al guardar pago a proveedor");
+            logger.error(var3.getMessage());
+            //logger.error(var3);
          }
 
          this.close();
@@ -134,12 +133,11 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
       return valid;
    }
 
-   @Override 
-   protected void configureShell(Shell newShell) {
+   @Override protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
-      this.initTitle(newShell, "Nuevo pago de cliente");
+      this.initTitle(newShell, "Nuevo pago a proveedor");
    }
-   @Override
+
    protected void buttonPressed(int buttonId) {
       if (buttonId == 0) {
          this.processDialog();
@@ -148,20 +146,20 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
       }
 
    }
-   @Override
+
    protected void createButtonsForButtonBar(Composite parent) {
       this.createButton(parent, 0, "Guardar", false);
       this.createButton(parent, 1, "Cancelar", false);
    }
-   @Override
+
    protected Point getInitialSize() {
       return new Point(462, 332);
    }
-   @Override
+
    public String getAction() {
       return this.action;
    }
-   @Override
+
    public void setAction(String action) {
       this.action = action;
    }
@@ -174,12 +172,12 @@ public class AddNewCustomerOnAccountCredit extends AbstractFVDialog {
       this.employee = employee;
    }
 
-   public Customer getCustomer() {
-      return this.customer;
+   public Supplier getSupplier() {
+      return this.supplier;
    }
 
-   public void setCustomer(Customer customer) {
-      this.customer = customer;
+   public void setSupplier(Supplier supplier) {
+      this.supplier = supplier;
    }
 
    public CashRegister getCashRegister() {

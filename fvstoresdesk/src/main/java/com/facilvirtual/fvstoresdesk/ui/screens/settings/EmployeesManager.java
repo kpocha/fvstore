@@ -21,6 +21,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.FVConfirmDialog;
+import com.facilvirtual.fvstoresdesk.ui.screens.suppliers.AddNewSupplier;
+import com.facilvirtual.fvstoresdesk.ui.screens.suppliers.EditSupplier;
 
 public class EmployeesManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("SalesManager");

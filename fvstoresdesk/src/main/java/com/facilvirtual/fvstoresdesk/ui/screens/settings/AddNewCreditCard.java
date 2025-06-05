@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.settings;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;

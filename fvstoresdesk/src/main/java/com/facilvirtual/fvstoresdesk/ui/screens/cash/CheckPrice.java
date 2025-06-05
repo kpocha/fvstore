@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.cash;
 
 import java.net.MalformedURLException;
 import java.net.URL;

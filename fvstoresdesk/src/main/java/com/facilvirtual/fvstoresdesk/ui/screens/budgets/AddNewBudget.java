@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.budgets;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -35,9 +35,11 @@ import com.facilvirtual.fvstoresdesk.model.Product;
 import com.facilvirtual.fvstoresdesk.model.SaleCondition;
 import com.facilvirtual.fvstoresdesk.model.VatCondition;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.SearchProduct;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Customer.ChangeCustomer;
 
 public class AddNewBudget extends AbstractFVDialog {
-   private static Logger logger = LoggerFactory.getLogger("AddNewBudget");
+   private static final Logger logger = LoggerFactory.getLogger("AddNewBudget");
    private String action = "";
    private Employee cashier;
    private Budget currentBudget;
@@ -60,6 +62,7 @@ public class AddNewBudget extends AbstractFVDialog {
       super(parentShell);
    }
 
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       container.setLayout((Layout)null);
@@ -106,6 +109,7 @@ public class AddNewBudget extends AbstractFVDialog {
 
      Button btnChangeCustomer = new Button(grpDatosDelProveedor, 0);
       btnChangeCustomer.addSelectionListener(new SelectionAdapter() {
+         @Override
          public void widgetSelected(SelectionEvent e) {
             changeCustomer();
          }

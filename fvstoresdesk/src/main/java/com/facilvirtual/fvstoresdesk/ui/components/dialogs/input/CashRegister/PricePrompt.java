@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui.components.dialogs.input;
+package com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister;
 
 import com.facilvirtual.fvstoresdesk.model.Order;
 import com.facilvirtual.fvstoresdesk.model.OrderLine;

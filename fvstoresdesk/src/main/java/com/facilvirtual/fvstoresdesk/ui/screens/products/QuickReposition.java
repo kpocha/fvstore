@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui.screens.inventory;
+package com.facilvirtual.fvstoresdesk.ui.screens.products;
 
 import com.facilvirtual.fvstoresdesk.model.Product;
 import org.slf4j.Logger;

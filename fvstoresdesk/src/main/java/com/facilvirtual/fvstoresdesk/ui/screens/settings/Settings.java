@@ -1956,7 +1956,7 @@ public class Settings extends AbstractFVDialog {
       return this.cashRegister;
    }
 
-   protected void setCashRegister(CashRegister cashRegister) {
+   public void setCashRegister(CashRegister cashRegister) {
       this.cashRegister = cashRegister;
    }
    @Override

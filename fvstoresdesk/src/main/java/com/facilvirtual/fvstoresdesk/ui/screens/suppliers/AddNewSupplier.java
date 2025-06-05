@@ -1,11 +1,12 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.suppliers;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
+import org.slf4j.LoggerFactory;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -18,6 +19,7 @@ import org.eclipse.swt.widgets.Text;
 
 import com.facilvirtual.fvstoresdesk.model.Supplier;
 import com.facilvirtual.fvstoresdesk.model.VatCondition;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 public class AddNewSupplier extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("AddNewSupplier");

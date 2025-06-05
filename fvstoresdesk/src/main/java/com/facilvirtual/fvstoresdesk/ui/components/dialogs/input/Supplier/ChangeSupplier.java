@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Supplier;
 
 import com.facilvirtual.fvstoresdesk.model.Supplier;
 import java.util.Iterator;

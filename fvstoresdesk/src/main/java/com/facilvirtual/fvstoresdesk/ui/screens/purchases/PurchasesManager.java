@@ -27,6 +27,9 @@ import org.slf4j.LoggerFactory;
 
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.model.Purchase;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.FVConfirmDialog;
 
 public class PurchasesManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("PurchasesManager");

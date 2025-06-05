@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.suppliers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.facilvirtual.fvstoresdesk.model.Supplier;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.FVConfirmDialog;
 
 public class SuppliersManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("SalesManager");

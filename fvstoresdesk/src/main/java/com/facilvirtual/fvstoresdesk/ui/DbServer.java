@@ -2,6 +2,8 @@ package com.facilvirtual.fvstoresdesk.ui;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -10,6 +12,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.ImportProductsFromExcel;
+import com.facilvirtual.fvstoresdesk.ui.utils.ImportProductsFromExcelProcessor;
 public class DbServer extends AbstractFVApplicationWindow {
    public DbServer() {
       super((Shell)null);
@@ -23,20 +27,48 @@ public class DbServer extends AbstractFVApplicationWindow {
       Composite container = new Composite(parent, 0);
       Button btnAltaCategorias = new Button(container, 0);
       //btnAltaCategorias.addSelectionListener(new 1(this));
+      btnAltaCategorias.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'widgetSelected'");
+         }
+      });
       btnAltaCategorias.setText("Alta Rubros Supermercados");
       btnAltaCategorias.setBounds(254, 252, 165, 41);
       Button btnNewButton = new Button(container, 0);
       //btnNewButton.addSelectionListener(new 2(this));
+      btnNewButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'widgetSelected'");
+         }
+      });
       btnNewButton.setBounds(254, 299, 165, 41);
       btnNewButton.setText("Cargar artículos Supermercados");
       Button btnAltaTarjetas = new Button(container, 0);
       btnAltaTarjetas.setText("Alta Tarjetas");
       btnAltaTarjetas.setBounds(30, 64, 165, 41);
       //btnAltaTarjetas.addSelectionListener(new 3(this));
+      btnAltaTarjetas.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'widgetSelected'");
+         }
+      });
       Button btnAltaCondicionesIva = new Button(container, 0);
       btnAltaCondicionesIva.setText("Alta Condiciones IVA");
       btnAltaCondicionesIva.setBounds(30, 111, 165, 41);
       //btnAltaCondicionesIva.addSelectionListener(new 4(this));
+      btnAltaCondicionesIva.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'widgetSelected'");
+         }
+      });
       Button btnAltaIva = new Button(container, 0);
       btnAltaIva.setText("Alta IVA");
       btnAltaIva.setBounds(254, 205, 165, 41);
@@ -62,6 +94,13 @@ public class DbServer extends AbstractFVApplicationWindow {
       btnAltaTiposDe.setBounds(30, 10, 179, 41);
       btnAltaTiposDe.setText("Alta Tipos de Comprobantes");
       //btnNewButton_1.addSelectionListener(new 10(this));
+      btnAltaTiposDe.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'widgetSelected'");
+         }
+      });
       return container;
    }//TODO:Arreglar
 
@@ -72,7 +111,7 @@ public class DbServer extends AbstractFVApplicationWindow {
          try {
             ImportProductsFromExcelProcessor processor = new ImportProductsFromExcelProcessor(this.getShell());
             processor.setBlockOnOpen(true);
-            processor.setSettings(dialog);
+            //processor.setSettings(dialog);
             processor.open();
          } catch (Exception var3) {
             var3.printStackTrace();

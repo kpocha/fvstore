@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Customer.ChangeCustomer;
 
 public class AddNewNotaDeCredito extends AbstractFVDialog {
    protected static Logger logger = LoggerFactory.getLogger("AddNewNotaDeCredito");

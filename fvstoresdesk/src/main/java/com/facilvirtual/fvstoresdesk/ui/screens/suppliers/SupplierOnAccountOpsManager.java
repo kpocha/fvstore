@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.suppliers;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -27,6 +27,10 @@ import org.slf4j.LoggerFactory;
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.model.Supplier;
 import com.facilvirtual.fvstoresdesk.model.SupplierOnAccountOperation;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Supplier.AddNewSupplierOnAccountDebit;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Supplier.ChangeSupplier;
 
 public class SupplierOnAccountOpsManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("SupplierOnAccountOpsManager");

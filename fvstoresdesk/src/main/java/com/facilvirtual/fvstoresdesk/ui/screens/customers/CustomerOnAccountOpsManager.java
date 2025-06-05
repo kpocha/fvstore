@@ -26,6 +26,9 @@ import com.facilvirtual.fvstoresdesk.model.Customer;
 import com.facilvirtual.fvstoresdesk.model.CustomerOnAccountOperation;
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Customer.AddNewCustomerOnAccountCredit;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Customer.ChangeCustomer; 
 
 public class CustomerOnAccountOpsManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("CustomerOnAccountOpsManager");

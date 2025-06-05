@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.utils;
 
 import com.facilvirtual.fvstoresdesk.model.Product;
 

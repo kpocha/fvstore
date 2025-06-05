@@ -2,6 +2,8 @@ package com.facilvirtual.fvstoresdesk.ui.components.forms;
 
 import com.facilvirtual.fvstoresdesk.model.ProductCategory;
 import com.facilvirtual.fvstoresdesk.model.Vat;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.AddNewProductCategory;
+
 import java.util.Iterator;
 import java.util.List;
 import org.slf4j.Logger;
@@ -9,7 +11,6 @@ import org.slf4j.LoggerFactory;import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import com.facilvirtual.fvstoresdesk.ui.AddNewProductCategory;
 
 public class EditProductCategory extends AddNewProductCategory {
    private static Logger logger = LoggerFactory.getLogger("EditProductCategory");

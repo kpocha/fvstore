@@ -2,7 +2,7 @@ package com.facilvirtual.fvstoresdesk.ui.tool;
 
 import com.facilvirtual.fvstoresdesk.model.PriceList;
 import com.facilvirtual.fvstoresdesk.model.Product;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

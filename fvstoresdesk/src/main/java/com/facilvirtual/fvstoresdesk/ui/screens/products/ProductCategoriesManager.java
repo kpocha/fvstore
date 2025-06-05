@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui.screens.inventory;
+package com.facilvirtual.fvstoresdesk.ui.screens.products;
 
 import com.facilvirtual.fvstoresdesk.model.ProductCategory;
 import java.util.Collections;
@@ -17,7 +17,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.components.forms.EditProductCategory;
 
 public class ProductCategoriesManager extends AbstractFVDialog {
    private String action = "";

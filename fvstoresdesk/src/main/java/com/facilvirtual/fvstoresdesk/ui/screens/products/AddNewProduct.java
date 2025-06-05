@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui.screens.inventory;
+package com.facilvirtual.fvstoresdesk.ui.screens.products;
 
 import com.facilvirtual.fvstoresdesk.model.PriceList;
 import com.facilvirtual.fvstoresdesk.model.Product;
@@ -46,7 +46,10 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Supplier.ChangeSupplier;
+import com.facilvirtual.fvstoresdesk.ui.components.forms.EditProductPrice;
 
 public class AddNewProduct extends AbstractFVDialog {
    private static final Logger logger = LoggerFactory.getLogger(AddNewProduct.class);

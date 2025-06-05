@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.settings;
 
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import java.util.Date;

@@ -30,10 +30,29 @@ import com.facilvirtual.fvstoresdesk.ui.tool.CreateBarcodesGenerator;
 import com.facilvirtual.fvstoresdesk.ui.tool.CreateLabelsByCode;
 import com.facilvirtual.fvstoresdesk.ui.tool.CreateLabelsByDate;
 import com.facilvirtual.fvstoresdesk.ui.tool.CreateLabelsGenerator;
+import com.facilvirtual.fvstoresdesk.ui.utils.FacturaElectronicaPrompt;
+import com.facilvirtual.fvstoresdesk.ui.utils.ImportProductsFromExcelProcessor;
+import com.facilvirtual.fvstoresdesk.ui.utils.PrintReceiptPrompt;
 import com.facilvirtual.fvstoresdesk.util.FVDateUtils;
 import com.facilvirtual.fvstoresdesk.util.FVMathUtils;
 import com.facilvirtual.fvstoresdesk.util.FVMediaUtils;
-import com.facilvirtual.fvstoresdesk.ui.screens.inventory.ProductsManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.auth.Login;
+import com.facilvirtual.fvstoresdesk.ui.screens.budgets.BudgetsManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.customers.CustomerOnAccountOpsManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.customers.CustomersManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.ImportProductsFromExcel;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.ProductCategoriesManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.ProductsManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.products.QuickReposition;
+import com.facilvirtual.fvstoresdesk.ui.screens.purchases.PurchasesManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.sales.AddNewFacturaElectronicaAfip;
+import com.facilvirtual.fvstoresdesk.ui.screens.sales.NotasDeCreditoManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.sales.PricesUpdater;
+import com.facilvirtual.fvstoresdesk.ui.screens.sales.SalesManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.settings.PrintSettings;
+import com.facilvirtual.fvstoresdesk.ui.screens.settings.Settings;
+import com.facilvirtual.fvstoresdesk.ui.screens.suppliers.SupplierOnAccountOpsManager;
+import com.facilvirtual.fvstoresdesk.ui.screens.suppliers.SuppliersManager;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -83,8 +102,24 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 
-import com.facilvirtual.fvstoresdesk.ui.SuppliersManager;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.AboutFacilVirtual;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.ReactivateLicense;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.EditNetworkSettingsAlert;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.FVConfirmDialog;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.PriceListPrompt;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.Discount;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.PaymentPrompt;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.PricePrompt;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.QtyPrompt;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.SearchProduct;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.Surcharge;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Customer.ChangeCustomer;
+
+
+
+
+
 
 public class CashRegister extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("CashRegister");
@@ -766,7 +801,7 @@ public class CashRegister extends AbstractFVApplicationWindow {
    }
 
    private void importProductsFromExcel() {
-      ImportProductsFromExcel dialog = new ImportProductsFromExcel(this.getShell());
+        ImportProductsFromExcel dialog = new ImportProductsFromExcel(this.getShell());
       dialog.open();
       if ("OK".equalsIgnoreCase(dialog.getAction())) {
          try {

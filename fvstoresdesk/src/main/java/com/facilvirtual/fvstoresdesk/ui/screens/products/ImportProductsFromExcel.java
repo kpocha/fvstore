@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui.screens.inventory;
+package com.facilvirtual.fvstoresdesk.ui.screens.products;
 
 import com.facilvirtual.fvstoresdesk.model.PriceList;
 
@@ -24,7 +24,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.utils.ImportProductsFromExcelHelp;
 
 public class ImportProductsFromExcel extends AbstractFVDialog {
    private String action = "";

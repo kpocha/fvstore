@@ -24,6 +24,7 @@ import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.model.Purchase;
 import com.facilvirtual.fvstoresdesk.model.PurchaseLine;
 import com.facilvirtual.fvstoresdesk.model.Supplier;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 
 public class PurchaseDetails extends AbstractFVDialog {
    private static final Logger logger = LoggerFactory.getLogger(PurchaseDetails.class);

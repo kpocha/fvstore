@@ -1,7 +1,7 @@
 package com.facilvirtual.fvstoresdesk.ui.tool;
 
 import com.facilvirtual.fvstoresdesk.model.Product;
-import com.facilvirtual.fvstoresdesk.ui.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.swt.graphics.Point;

@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.suppliers;
 
 import com.facilvirtual.fvstoresdesk.model.Supplier;
 import com.facilvirtual.fvstoresdesk.model.VatCondition;

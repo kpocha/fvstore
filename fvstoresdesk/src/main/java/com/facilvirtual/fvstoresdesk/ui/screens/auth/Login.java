@@ -7,8 +7,8 @@ import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
 import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.FVConfirmDialog;
 import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
 import com.facilvirtual.fvstoresdesk.ui.screens.settings.EditNetworkSettings;
-import com.facilvirtual.fvstoresdesk.ui.screens.AboutFacilVirtual;
-import com.facilvirtual.fvstoresdesk.ui.screens.ReactivateLicense;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.AboutFacilVirtual;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.ReactivateLicense;
 
 import com.facilvirtual.fvstoresdesk.util.FVMediaUtils;
 
@@ -50,7 +50,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.springframework.beans.BeansException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.facilvirtual.fvstoresdesk.ui.EditNetworkSettings;
 
 public class Login extends AbstractFVApplicationWindow {
    private static final Logger logger = LoggerFactory.getLogger(Login.class);

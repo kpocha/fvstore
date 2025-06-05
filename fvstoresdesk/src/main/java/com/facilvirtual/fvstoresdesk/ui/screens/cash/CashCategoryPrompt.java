@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.cash;
 
 import com.facilvirtual.fvstoresdesk.model.Order;
 import com.facilvirtual.fvstoresdesk.model.OrderLine;

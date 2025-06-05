@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui.screens.sales;
+package com.facilvirtual.fvstoresdesk.ui.screens.budgets;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -27,7 +29,6 @@ import com.facilvirtual.fvstoresdesk.model.Budget;
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.model.Purchase;
 import com.facilvirtual.fvstoresdesk.print.BudgetPdfCreator;
-import com.facilvirtual.fvstoresdesk.ui.AddNewBudget;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
 import com.facilvirtual.fvstoresdesk.ui.components.dialogs.confirmation.FVConfirmDialog;
 import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
@@ -61,7 +62,7 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
       createInstance();
       return INSTANCE;
    }
-
+   @Override
    protected Control createContents(Composite parent) {
       Composite layoutContainer = new Composite(parent, 0);
       layoutContainer.setLayout(new GridLayout(1, false));
@@ -76,61 +77,15 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
       return layoutContainer;
    }
 
-   private void viewPurchaseDetails() {
-      int idx = this.table.getSelectionIndex();
-      if (idx < 0) {
-         this.alert("Selecciona una compra");
-      } else {
-         try {
-            Long purchaseId = Long.parseLong(this.table.getItem(idx).getText(1).trim());
-            Purchase purchase = this.getPurchaseService().getPurchase(purchaseId);
-            PurchaseDetails dialog = new PurchaseDetails(this.getShell());
-            dialog.setPurchase(purchase);
-            dialog.open();
-            if ("OK".equalsIgnoreCase(dialog.getAction())) {
-               this.searchBudgets();
-               this.getCashRegister().updatedWorkstationConfig();
-            }
-         } catch (Exception var5) {
-         }
-      }
-
-   }
-
-   private void cancelPurchase() {
-      int idx = this.table.getSelectionIndex();
-      if (idx < 0) {
-         this.alert("Selecciona una compra");
-      } else if (FVConfirmDialog.openQuestion(this.getShell(), "Anular presupuesto", "¿Quieres anular el presupuesto?")) {
-         try {
-            Long purchaseId = Long.parseLong(this.table.getItem(idx).getText(1).trim());
-            this.getPurchaseService().cancelPurchase(purchaseId);
-            this.searchBudgets();
-            this.getCashRegister().updatedWorkstationConfig();
-         } catch (Exception var3) {
-         }
-      }
-
-   }
-
-   private void addNewBudget() {
-      AddNewBudget dialog = new AddNewBudget(this.getShell());
-      dialog.setCashier(this.getCashier());
-      dialog.open();
-      if ("OK".equalsIgnoreCase(dialog.getAction())) {
-         this.searchBudgets();
-      }
-
-   }
-
-   private void searchBudgets() {
-      this.table.removeAll();
-      this.initBudgets();
-      this.initTable();
-   }
-
+  
    private void createHeaderContents() {
       Button btnNewBudget = new Button(this.headerContainer, 0);
+      btnNewBudget.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            addNewBudget();
+         }
+      });
       //btnNewBudget.addSelectionListener(new 1(this));
       btnNewBudget.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnNewBudget.setText("Nuevo presupuesto");
@@ -138,12 +93,24 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
       Button btnViewSale = new Button(this.headerContainer, 0);
       btnViewSale.setVisible(false);
      // btnViewSale.addSelectionListener(new 2(this));
+      btnViewSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            viewPurchaseDetails();
+         }
+      });
       btnViewSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnViewSale.setText("Ver detalle");
       btnViewSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_view_detail.gif"));
       Button btnCancelSale = new Button(this.headerContainer, 0);
       btnCancelSale.setVisible(false);
       //btnCancelSale.addSelectionListener(new 3(this));
+      btnCancelSale.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            cancelPurchase();
+         }
+      });
       btnCancelSale.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnCancelSale.setText("Anular");
       btnCancelSale.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_delete.gif"));
@@ -164,6 +131,12 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
       this.endDatepicker.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       Button btnSearch = new Button(this.headerContainer, 0);
      // btnSearch.addSelectionListener(new 4(this));
+      btnSearch.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            searchBudgets();
+         }
+      });
       btnSearch.setFont(SWTResourceManager.getFont("Tahoma", 10, 0));
       btnSearch.setText("Buscar");
       btnSearch.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_search.gif"));
@@ -176,6 +149,13 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
       btnActualizar.setText("Actualizar");
       btnActualizar.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_update.gif"));
       //btnActualizar.addSelectionListener(new 5(this));
+      btnActualizar.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            //updateBudgets();
+            //TODO: Implementar la actualización de los presupuestos
+         }
+      });
       Label lblSep2 = new Label(this.headerContainer, 0);
       GridData gd_lblSep2 = new GridData(16384, 16777216, false, false, 1, 1);
       gd_lblSep2.widthHint = 10;
@@ -185,26 +165,15 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
       btnImprimir.setImage(SWTResourceManager.getImage("C:\\facilvirtual\\images\\icon_print.gif"));
       btnImprimir.setText("Imprimir");
       //btnImprimir.addSelectionListener(new 6(this));
-   }
-
-   private void printBudget() {
-      int idx = this.table.getSelectionIndex();
-      if (idx >= 0) {
-         try {
-            Long budgetId = Long.parseLong(this.table.getItem(idx).getText(1).trim());
-            Budget budget = this.getBudgetService().getBudget(budgetId);
-            BudgetPdfCreator budgetPdfCreator = new BudgetPdfCreator(budget, this.getShell());
-            budgetPdfCreator.createPdf();
-         } catch (Exception var5) {
-            logger.error("Error imprimiendo presupuesto");
-            logger.error(var5.getMessage());
-            //logger.error(var5);
+      btnImprimir.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            printBudget();
          }
-      } else {
-         this.alert("Selecciona un presupuesto");
-      }
-
+      });
    }
+
+  
 
    private void createBodyContents() {
       this.table = new Table(this.mainContainer, 67584);
@@ -305,5 +274,75 @@ public class BudgetsManager extends AbstractFVApplicationWindow {
 
    public void setCashRegister(CashRegister cashRegister) {
       this.cashRegister = cashRegister;
+   }
+   private void viewPurchaseDetails() {
+      int idx = this.table.getSelectionIndex();
+      if (idx < 0) {
+         this.alert("Selecciona una compra");
+      } else {
+         try {
+            Long purchaseId = Long.parseLong(this.table.getItem(idx).getText(1).trim());
+            Purchase purchase = this.getPurchaseService().getPurchase(purchaseId);
+            PurchaseDetails dialog = new PurchaseDetails(this.getShell());
+            dialog.setPurchase(purchase);
+            dialog.open();
+            if ("OK".equalsIgnoreCase(dialog.getAction())) {
+               this.searchBudgets();
+               this.getCashRegister().updatedWorkstationConfig();
+            }
+         } catch (Exception var5) {
+         }
+      }
+
+   }
+
+   private void cancelPurchase() {
+      int idx = this.table.getSelectionIndex();
+      if (idx < 0) {
+         this.alert("Selecciona una compra");
+      } else if (FVConfirmDialog.openQuestion(this.getShell(), "Anular presupuesto", "¿Quieres anular el presupuesto?")) {
+         try {
+            Long purchaseId = Long.parseLong(this.table.getItem(idx).getText(1).trim());
+            this.getPurchaseService().cancelPurchase(purchaseId);
+            this.searchBudgets();
+            this.getCashRegister().updatedWorkstationConfig();
+         } catch (Exception var3) {
+         }
+      }
+
+   }
+
+   private void addNewBudget() {
+      AddNewBudget dialog = new AddNewBudget(this.getShell());
+      dialog.setCashier(this.getCashier());
+      dialog.open();
+      if ("OK".equalsIgnoreCase(dialog.getAction())) {
+         this.searchBudgets();
+      }
+
+   }
+
+   private void searchBudgets() {
+      this.table.removeAll();
+      this.initBudgets();
+      this.initTable();
+   }
+   private void printBudget() {
+      int idx = this.table.getSelectionIndex();
+      if (idx >= 0) {
+         try {
+            Long budgetId = Long.parseLong(this.table.getItem(idx).getText(1).trim());
+            Budget budget = this.getBudgetService().getBudget(budgetId);
+            BudgetPdfCreator budgetPdfCreator = new BudgetPdfCreator(budget, this.getShell());
+            budgetPdfCreator.createPdf();
+         } catch (Exception var5) {
+            logger.error("Error imprimiendo presupuesto");
+            logger.error(var5.getMessage());
+            //logger.error(var5);
+         }
+      } else {
+         this.alert("Selecciona un presupuesto");
+      }
+
    }
 }

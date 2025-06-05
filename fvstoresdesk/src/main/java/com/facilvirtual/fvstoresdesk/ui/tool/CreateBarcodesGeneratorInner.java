@@ -39,6 +39,7 @@ class CreateBarcodesGeneratorInner extends Thread {
       this.dialog = dialog;
    }
 
+   @Override
    public void run() {
       try {
          Document document = new Document(PageSize.A4, 0.0F, 0.0F, 0.0F, 0.0F);

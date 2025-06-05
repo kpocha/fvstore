@@ -1,7 +1,6 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.budgets;
 
 import java.text.DecimalFormat;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.events.KeyAdapter;
@@ -20,15 +19,17 @@ import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.facilvirtual.fvstoresdesk.model.Budget;
+import com.facilvirtual.fvstoresdesk.model.BudgetLine;
+import com.facilvirtual.fvstoresdesk.model.PriceList;
 import com.facilvirtual.fvstoresdesk.model.Product;
-import com.facilvirtual.fvstoresdesk.model.Purchase;
-import com.facilvirtual.fvstoresdesk.model.PurchaseLine;
+import com.facilvirtual.fvstoresdesk.model.ProductPrice;
 import com.facilvirtual.fvstoresdesk.model.Vat;
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
-public class AddProductToPurchase extends AbstractFVDialog {
-   private static Logger logger = LoggerFactory.getLogger("AddProductToPurchase");
+public class AddProductToBudget extends AbstractFVDialog {
+   private static final Logger  logger = LoggerFactory.getLogger(AddProductToBudget.class);
    private String action = "";
-   private Purchase purchase;
+   private Budget budget;
    private Text txtDescription;
    private Text txtQty;
    private Text txtNetPrice;
@@ -36,10 +37,10 @@ public class AddProductToPurchase extends AbstractFVDialog {
    private Combo comboVat;
    private Product product;
 
-   public AddProductToPurchase(Shell parentShell) {
+   public AddProductToBudget(Shell parentShell) {
       super(parentShell);
    }
-
+   @Override
    protected Control createDialogArea(Composite parent) {
       Composite container = (Composite)super.createDialogArea(parent);
       container.setLayout(new GridLayout(2, false));
@@ -64,10 +65,10 @@ public class AddProductToPurchase extends AbstractFVDialog {
       GridData gd_txtNetPrice = new GridData(16384, 16777216, true, false, 1, 1);
       gd_txtNetPrice.widthHint = 50;
       this.txtNetPrice.setLayoutData(gd_txtNetPrice);
-      this.txtNetPrice.addKeyListener(new KeyAdapter() {
+     this.txtNetPrice.addKeyListener(new KeyAdapter() {
          @Override
          public void keyReleased(KeyEvent e) {
-           updatePrice(); 
+           updatePrice(); // Reemplazá esto por el método real que se esté llamando
          }
       });
       Label lblIva = new Label(container, 0);
@@ -85,14 +86,28 @@ public class AddProductToPurchase extends AbstractFVDialog {
       });
       List<Vat> vats = this.getOrderService().getAllVats();
       int selectedIdx = 0;
-
-      for(Iterator var13 = vats.iterator(); var13.hasNext(); ++selectedIdx) {
-         Vat v = (Vat)var13.next();
+      //TODO: CAmbie las lineas comentadas por este nuevo metodo para ver q tal funciona y no tira warning porq esta mejor usado el for.
+      for (Vat v : vats) {
          this.comboVat.add(v.getName());
-         if ("21%".equalsIgnoreCase(v.getName())) {
-            this.comboVat.select(selectedIdx);
+         Vat selectedVat = this.getProduct() != null ? this.getProduct().getVat() : null;
+     
+         if (selectedVat != null && selectedVat.getName().equalsIgnoreCase(v.getName())) {
+             this.comboVat.select(selectedIdx);
+         } else if (selectedVat == null && "0%".equalsIgnoreCase(v.getName())) {
+             this.comboVat.select(selectedIdx);
          }
-      }
+     
+         selectedIdx++;
+     }
+      // for(Iterator var13 = vats.iterator(); var13.hasNext(); ++selectedIdx) {
+      //    Vat v = (Vat)var13.next();
+      //    this.comboVat.add(v.getName());
+      //    if (this.getProduct().getVat() != null && this.getProduct().getVat().getName().equalsIgnoreCase(v.getName())) {
+      //       this.comboVat.select(selectedIdx);
+      //    } else if (this.getProduct().getVat() == null && "0%".equalsIgnoreCase(v.getName())) {
+      //       this.comboVat.select(selectedIdx);
+      //    }
+      // }
 
       Label lblPrecioConIva = new Label(container, 0);
       lblPrecioConIva.setLayoutData(new GridData(131072, 16777216, false, false, 1, 1));
@@ -104,16 +119,14 @@ public class AddProductToPurchase extends AbstractFVDialog {
       this.txtPrice.addKeyListener(new KeyAdapter() {
          @Override
          public void keyReleased(KeyEvent e) {
-            updateNetPrice(); 
+           updatePrice(); // Reemplazá esto por el método real que se esté llamando
          }
       });
-      if (this.getProduct().isStockControlEnabled()) {
-         this.txtQty.setText(this.getProduct().getStockMaxToDisplay());
-         this.txtNetPrice.setFocus();
-      } else {
-         this.txtQty.setFocus();
-      }
-
+      this.txtQty.setText("1");
+      PriceList defaultPriceList = this.getDefaultPriceList();
+      ProductPrice productPrice = this.getProductService().getProductPriceForProduct(this.getProduct(), defaultPriceList);
+      this.txtPrice.setText(productPrice.getSellingPriceToDisplay());
+      this.updateNetPrice();
       return container;
    }
 
@@ -129,7 +142,9 @@ public class AddProductToPurchase extends AbstractFVDialog {
          this.txtPrice.setText(s);
       } catch (Exception var11) {
          this.txtPrice.setText("#Error");
-         var11.printStackTrace();
+         logger.error("Se produjo un error al actualizar el precio");
+         logger.error(var11.getMessage());
+         //logger.error(var11);
       }
 
    }
@@ -146,7 +161,9 @@ public class AddProductToPurchase extends AbstractFVDialog {
          this.txtNetPrice.setText(s);
       } catch (Exception var11) {
          this.txtNetPrice.setText("#Error");
-         var11.printStackTrace();
+         logger.error("Se produjo un error al actualizar el precio");
+         logger.error(var11.getMessage());
+         //logger.error(var11);
       }
 
    }
@@ -156,31 +173,31 @@ public class AddProductToPurchase extends AbstractFVDialog {
          this.setAction("OK");
 
          try {
-            PurchaseLine purchaseLine = this.getPurchase().getPurchaseLineByBarCode(this.product.getBarCode());
+            BudgetLine budgetLine = this.getBudget().getBudgetLineByBarCode(this.product.getBarCode());
             Vat vat;
             double vatValue;
-            if (purchaseLine == null) {
-               purchaseLine = new PurchaseLine();
-               purchaseLine.setPurchase(this.getPurchase());
-               purchaseLine.setLineNumber(this.getPurchase().getItemsQty() + 1);
-               purchaseLine.setQty(Double.parseDouble(this.txtQty.getText()));
-               purchaseLine.setPrice(Double.parseDouble(this.txtPrice.getText().trim().replaceAll(",", ".")));
+            if (budgetLine == null) {
+               budgetLine = new BudgetLine();
+               budgetLine.setBudget(this.getBudget());
+               budgetLine.setLineNumber(this.getBudget().getItemsQty() + 1);
+               budgetLine.setQty(Double.parseDouble(this.txtQty.getText()));
+               budgetLine.setPrice(Double.parseDouble(this.txtPrice.getText().trim().replaceAll(",", ".")));
                vat = this.getOrderService().getVatByName(this.comboVat.getText());
                vatValue = vat.getValue();
-               purchaseLine.setVatValue(vatValue);
-               purchaseLine.setProduct(this.getProduct());
-               this.getPurchase().addPurchaseLine(purchaseLine);
+               budgetLine.setVatValue(vatValue);
+               budgetLine.setProduct(this.getProduct());
+               this.getBudget().addBudgetLine(budgetLine);
             } else {
-               purchaseLine.incQty(Double.parseDouble(this.txtQty.getText()));
-               purchaseLine.setPrice(Double.parseDouble(this.txtPrice.getText().trim().replaceAll(",", ".")));
+               budgetLine.incQty(Double.parseDouble(this.txtQty.getText()));
+               budgetLine.setPrice(Double.parseDouble(this.txtPrice.getText().trim().replaceAll(",", ".")));
                vat = this.getOrderService().getVatByName(this.comboVat.getText());
                vatValue = vat.getValue();
-               purchaseLine.setVatValue(vatValue);
+               budgetLine.setVatValue(vatValue);
             }
 
-            this.getPurchase().updateTotal();
+            this.getBudget().updateTotal();
          } catch (Exception var5) {
-            logger.error("Error al agregar artículo a la compra");
+            logger.error("Error al agregar artículo a presupuesto");
             logger.error(var5.getMessage());
             //logger.error(var5);
          }
@@ -232,7 +249,7 @@ public class AddProductToPurchase extends AbstractFVDialog {
 
    @Override protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
-      this.initTitle(newShell, "Agregar artículo a la compra");
+      this.initTitle(newShell, "Agregar artículo al presupuesto");
    }
    @Override
    protected void buttonPressed(int buttonId) {
@@ -261,12 +278,12 @@ public class AddProductToPurchase extends AbstractFVDialog {
       this.action = action;
    }
 
-   public Purchase getPurchase() {
-      return this.purchase;
+   public Budget getBudget() {
+      return this.budget;
    }
 
-   public void setPurchase(Purchase purchase) {
-      this.purchase = purchase;
+   public void setBudget(Budget budget) {
+      this.budget = budget;
    }
 
    public Product getProduct() {

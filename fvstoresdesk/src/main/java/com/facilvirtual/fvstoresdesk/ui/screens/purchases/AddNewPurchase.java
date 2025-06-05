@@ -25,6 +25,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVDialog;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.Supplier.ChangeSupplier;
+import com.facilvirtual.fvstoresdesk.ui.components.dialogs.input.CashRegister.SearchProduct;
 
 public class AddNewPurchase extends AbstractFVDialog {
    private static Logger logger = LoggerFactory.getLogger("AddNewPurchase");

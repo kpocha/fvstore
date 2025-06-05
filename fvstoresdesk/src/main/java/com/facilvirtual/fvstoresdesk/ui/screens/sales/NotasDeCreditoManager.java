@@ -1,4 +1,4 @@
-package com.facilvirtual.fvstoresdesk.ui;
+package com.facilvirtual.fvstoresdesk.ui.screens.sales;
 
 import com.facilvirtual.fvstoresdesk.model.Employee;
 import com.facilvirtual.fvstoresdesk.model.NotaDeCredito;
@@ -25,8 +25,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import com.facilvirtual.fvstoresdesk.ui.base.AbstractFVApplicationWindow;
 import com.facilvirtual.fvstoresdesk.ui.screens.cash.CashRegister;
-import com.facilvirtual.fvstoresdesk.ui.components.dialogs.AddNewNotaDeCredito;
-import com.facilvirtual.fvstoresdesk.ui.components.dialogs.AddNewNotaDeCreditoAfip;
 
 public class NotasDeCreditoManager extends AbstractFVApplicationWindow {
    protected static Logger logger = LoggerFactory.getLogger("NotasDeCreditoManager");
