@@ -1,209 +1,127 @@
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\ApplicationContextProvider.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\PriceListPrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\ListOfPricesGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategory.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\PurchaseService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\DebitCard.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\StockValuationGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\persistence\DatabaseMysqlServer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\ImportProductsFromExcelHelp.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\PrintSettings.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateBarcodes.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\FacturaAPdfCreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\SummaryGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateLabelsGeneratorInner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\DatabaseMigrationUtil.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\ListOfPricesXLS.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\inventory\ProductCategoriesManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\VatDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\ProductCategory.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByProductGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\ReceiptTypeDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByProductGeneratorInner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\sales\AddNewNotaDeCredito.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\WorkstationConfigDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\suppliers\SuppliersManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\FVFileUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\org\eclipse\wb\swt\ResourceManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\forms\EditProductPrice.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\customers\CustomerOnAccountOpsManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\FVDateUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\SupplierService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateLabelsByCode.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\WorkstationConfig.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\ProductDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\NotaDeCredito.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\FVMathUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\Surcharge.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\forms\EditProductPhoto.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\inventory\ProductsManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\FVMediaUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\inventory\QuickReposition.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\cash\CashRegister.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateBarcodesGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\AfipService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\CreditCardDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\EditNetworkSettings.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\base\AbstractFVDialog.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\VatConditionDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\test\HelloWorldApp.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategoryGeneratorInner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Order.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesWithDetailByDateGeneratorInner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\Settings.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\CashCategoryPrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\DebitCardDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\utils\ImportProductsFromExcelProcessor.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\purchases\PurchasesManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\StockValuationExcelGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\suppliers\EditSupplier.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\CheckPrice.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\PriceList.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\confirmation\EditNetworkSettingsAlert.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\purchases\AddNewPurchase.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\test\AddProductTest.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\CashOperationDialog.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\AddNewCreditCard.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\AbstractFVDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\AfipConfig.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\OrderService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\AddNewDebitCard.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\confirmation\BackupAlert.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\SupplierDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\NotasDeCreditoManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\ReceiptType.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\base\AbstractFVApplicationWindow.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateRange.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\TicketBCCreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\NotaDeCreditoAPdfCreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\CashOperation.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\Discount.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\PrintReceiptPrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\customers\EditCustomer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\EmployeeDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\PurchaseLine.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\cash\CashOperationsManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\PricesUpdater.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\cash\AddNewCashOutflow.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\purchases\AddProductToPurchase.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Budget.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\cash\OpenCash.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\cash\CloseCash.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\App.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\OrderLineDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\ProductPriceDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\AddProductToBudget.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\auth\Login.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\CreditCard.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\EmployeesManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDateRangeGeneratorInner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\customers\AddNewCustomer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\CryptUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\ListOfRepositionExcelGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\ListOfPricesExcelGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\PricePrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\DbServer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\AppConfigService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\TicketACreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Customer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\SearchProduct.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\ListOfRepositionGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\PurchaseLineDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\PaymentPrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\sales\OrderDetails.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\EditEmployee.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\CashOperationDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\CustomerService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\forms\EditProductCategory.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByDate.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\FacturaBCPdfCreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\forms\EditPriceList.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\BudgetPdfCreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\AfipUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\BudgetDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\inventory\AddNewProduct.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\AccountService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\InvoiceAPdfCreatorOLD.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\suppliers\AddNewSupplier.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateLabelsGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\ProductService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\AddNewProductCategory.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\SupplierOnAccountOperation.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\ProductPhoto.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByPaymentMethodsGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\inventory\EditProduct.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\ProductCategoryDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\inventory\ImportProductsFromExcel.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\suppliers\SupplierOnAccountOpsManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByProduct.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\AddNewEmployee.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\customers\CustomersManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\auth\AboutFacilVirtual.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\sales\AddNewNotaDeCreditoAfip.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\CashRegister\QtyPrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\SaleConditionDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\AddNewBudget.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\BudgetService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Product.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\HelloWorldService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\persistence\DatabaseUpdater.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\service\CashService.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\Supplier\AddNewSupplierOnAccountDebit.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\Customer\AddNewCustomerOnAccountCredit.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\SupplierForProduct.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\AboutFacilVirtual.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\FVImageUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\CustomerOnAccountOperation.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\VatCondition.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Purchase.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\PurchaseDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\utils\ImportProductsFromFileProcessor.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\GeneralSettings.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Brand.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\SaleCondition.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\CustomerDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\sales\AddNewFacturaElectronicaAfip.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\OrderLine.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Vat.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesWithDetailByDate.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\Installer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\PriceListDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\OrderLineByProductComparator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\FacturaElectronicaPrompt.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\AdvancedSettings.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesWithDetailByDateGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\AppConfig.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\BudgetLineDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\ReactivateLicense.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\cash\AddNewCashIncome.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\sales\BudgetsManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\NotaDeCreditoDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\Supplier\ChangeSupplier.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\AppConfigDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\list\CustomerOnAccountSummaryExcelGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\AfipProp.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\DiskUtils.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\CheckPriceDialog.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\CustomerOnAccountOperationDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\OrderLineByCategoryComparator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\OrderDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Supplier.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\org\eclipse\wb\swt\SWTResourceManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateLabelsByDate.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\SupplierForProductDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\BudgetLine.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\print\NotaDeCreditoBCPdfCreator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\settings\ChangePassword.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\sales\SalesManager.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\screens\purchases\PurchaseDetails.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\input\Customer\ChangeCustomer.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\tool\CreateBarcodesGeneratorInner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByPaymentMethods.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\ProductPrice.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\dao\SupplierOnAccountOperationDao.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\util\MigrationRunner.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\report\ReportSalesByCategoryGenerator.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\model\Employee.java
-C:\desarrollos\cursor fv\fvstore\fvstoresdesk\src\main\java\com\facilvirtual\fvstoresdesk\ui\components\dialogs\confirmation\FVConfirmDialog.java
+/app/fvstoresdesk/src/main/java/org/eclipse/wb/swt/ResourceManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/test/AddProductTest.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/purchases/PurchasesManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateLabelsGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateBarcodesGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/OrderDetails.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/NotaDeCreditoAPdfCreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/DbServer.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/CheckPriceDialog.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/TicketBCCreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/confirmation/BackupAlert.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesWithDetailByDate.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/customers/EditCustomer.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/confirmation/FVConfirmDialog.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/utils/ImportProductsFromFileProcessor.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateLabelsByCode.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByCategoryGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/NotasDeCreditoManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/ListOfPricesGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/AddNewFacturaElectronicaAfip.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/base/AbstractFVApplicationWindow.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/Supplier/AddNewSupplierOnAccountDebit.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/GeneralSettings.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/TicketACreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/CashOperationDialog.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/AddNewCashIncome.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/forms/EditProductPrice.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/ChangePassword.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/QtyPrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/OpenCash.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/forms/EditProductCategory.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/PrintSettings.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/PriceListPrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/Settings.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByDate.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/EditNetworkSettings.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/util/FVImageUtils.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/CheckPrice.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateBarcodes.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/auth/Login.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/budgets/AddNewBudget.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/utils/PrintReceiptPrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByDateRange.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/EmployeesManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/budgets/BudgetsManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/confirmation/EditNetworkSettingsAlert.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/PricePrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/purchases/AddNewPurchase.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/ListOfRepositionExcelGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/purchases/PurchaseDetails.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByProductGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/customers/AddNewCustomer.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByPaymentMethodsGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/budgets/AddProductToBudget.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/InvoiceAPdfCreatorOLD.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/test/HelloWorldApp.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/Customer/AddNewCustomerOnAccountCredit.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/AddNewProduct.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/ProductsManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/AddNewEmployee.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByProductGeneratorInner.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/utils/ImportProductsFromExcelHelp.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesWithDetailByDateGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/NotaDeCreditoBCPdfCreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateLabelsByDate.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/ReactivateLicense.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/AddNewNotaDeCreditoAfip.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/AddNewDebitCard.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/Surcharge.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByCategory.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/PaymentPrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/ImportProductsFromExcel.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/SearchProduct.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/AdvancedSettings.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/forms/EditProductPhoto.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/AddNewCreditCard.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/utils/ImportProductsFromExcelProcessor.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/CustomerOnAccountSummaryExcelGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/AddNewNotaDeCredito.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/AboutFacilVirtual.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateLabelsGeneratorInner.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/CashRegister/Discount.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/suppliers/AddNewSupplier.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/SalesManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/forms/EditPriceList.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/Supplier/ChangeSupplier.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/auth/AboutFacilVirtual.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/AddNewCashOutflow.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/tool/CreateBarcodesGeneratorInner.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/StockValuationGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/suppliers/SupplierOnAccountOpsManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/util/FVMediaUtils.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/SummaryGenerator.java
+/app/fvstoresdesk/src/main/java/org/eclipse/wb/swt/SWTResourceManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/ProductCategoriesManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/EditProduct.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByCategoryGeneratorInner.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/CloseCash.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/customers/CustomersManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/Installer.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/CashCategoryPrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/FacturaAPdfCreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/CashOperationsManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/App.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/base/AbstractFVDialog.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/ListOfPricesExcelGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByPaymentMethods.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/suppliers/EditSupplier.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/utils/FacturaElectronicaPrompt.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesWithDetailByDateGeneratorInner.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/settings/EditEmployee.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/AddNewProductCategory.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/components/dialogs/input/Customer/ChangeCustomer.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByDateGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/StockValuationExcelGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/BudgetPdfCreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByDateRangeGeneratorInner.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/cash/CashRegister.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/products/QuickReposition.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/sales/PricesUpdater.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/customers/CustomerOnAccountOpsManager.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/print/FacturaBCPdfCreator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/report/ReportSalesByProduct.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/purchases/AddProductToPurchase.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/list/ListOfRepositionGenerator.java
+/app/fvstoresdesk/src/main/java/com/facilvirtual/fvstoresdesk/ui/screens/suppliers/SuppliersManager.java

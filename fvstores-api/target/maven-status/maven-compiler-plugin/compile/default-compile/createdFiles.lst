@@ -1,0 +1,5 @@
+com/facilvirtual/fvstores/api/config/SecurityConfig.class
+com/facilvirtual/fvstores/api/controller/CustomerController.class
+com/facilvirtual/fvstores/api/controller/ProductController.class
+com/facilvirtual/fvstores/api/controller/OrderController.class
+com/facilvirtual/fvstores/api/FvStoresApiApplication.class

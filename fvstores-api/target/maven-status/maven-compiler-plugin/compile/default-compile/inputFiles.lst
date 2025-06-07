@@ -1,0 +1,5 @@
+/app/fvstores-api/src/main/java/com/facilvirtual/fvstores/api/FvStoresApiApplication.java
+/app/fvstores-api/src/main/java/com/facilvirtual/fvstores/api/controller/ProductController.java
+/app/fvstores-api/src/main/java/com/facilvirtual/fvstores/api/config/SecurityConfig.java
+/app/fvstores-api/src/main/java/com/facilvirtual/fvstores/api/controller/CustomerController.java
+/app/fvstores-api/src/main/java/com/facilvirtual/fvstores/api/controller/OrderController.java

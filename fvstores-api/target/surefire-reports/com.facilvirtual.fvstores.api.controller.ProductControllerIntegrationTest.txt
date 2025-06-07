@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: com.facilvirtual.fvstores.api.controller.ProductControllerIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.877 s <<< FAILURE! - in com.facilvirtual.fvstores.api.controller.ProductControllerIntegrationTest
+testGetProductById_NotFound  Time elapsed: 0.013 s  <<< ERROR!
+java.lang.NoClassDefFoundError: org/slf4j/impl/StaticLoggerBinder
+Caused by: java.lang.ClassNotFoundException: org.slf4j.impl.StaticLoggerBinder
+
+testGetProductById_Found  Time elapsed: 0 s  <<< ERROR!
+java.lang.NoClassDefFoundError: org/slf4j/impl/StaticLoggerBinder
+Caused by: java.lang.ClassNotFoundException: org.slf4j.impl.StaticLoggerBinder
+
+testGetAllProducts  Time elapsed: 0 s  <<< ERROR!
+java.lang.NoClassDefFoundError: org/slf4j/impl/StaticLoggerBinder
+Caused by: java.lang.ClassNotFoundException: org.slf4j.impl.StaticLoggerBinder

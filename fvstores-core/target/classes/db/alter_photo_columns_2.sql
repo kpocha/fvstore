@@ -1,0 +1,9 @@
+-- Modificar columnas de tipo BYTEA a VARCHAR(255)
+ALTER TABLE fvpos_brand ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_employee ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_customer ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_supplier ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_product ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_product_category ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_product_photo ALTER COLUMN photo TYPE VARCHAR(255);
+ALTER TABLE fvpos_app_config ALTER COLUMN company_logo TYPE VARCHAR(255);
