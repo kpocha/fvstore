@@ -1,0 +1,21 @@
+# General ignores
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment ignores
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE and editor ignores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific ignores
+.DS_Store
+Thumbs.db
